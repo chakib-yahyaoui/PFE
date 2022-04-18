@@ -1,0 +1,14 @@
+<apex:page controller="mySecondController" tabStyle="Account">
+    <apex:sectionHeader title="New Account Edit Page" />
+    <apex:form >
+        <apex:pageBlock title="Create a New Account">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!save}" value="Save"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="Account Information">
+                <apex:inputField id="accountName" value="{!account.name}"/>
+                <apex:inputField id="accountSite" value="{!account.site}"/>
+            </apex:pageBlockSection>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page controller="sendSMSCTRL">
+    <apex:form >
+        <apex:commandButton value="Sign Up" action="{!sendSMS}" />
+    </apex:form>
+</apex:page>

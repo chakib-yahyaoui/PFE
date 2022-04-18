@@ -1,0 +1,49 @@
+<apex:page controller="CalendarChart">
+     <apex:form >
+        
+        <html>
+            <head>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages':['calendar']});
+                google.charts.setOnLoadCallback(drawChart);
+         
+                var ClosedDate = '{!CDate}';
+                ClosedDate = ClosedDate.replace("[","");
+                ClosedDate = ClosedDate.replace("]","");
+                var ClosedDateArr=ClosedDate.split(',');
+               
+                var CaseNumber = '{!CValue}';
+                CaseNumber = CaseNumber.replace("[","");
+                CaseNumber = CaseNumber.replace("]","");
+                var CaseNumberArr=CaseNumber.split(',');
+                
+                function drawChart() {
+                    
+                    var dataTable = new google.visualization.DataTable();
+                    dataTable.addColumn({ type: 'date', id: 'Date' });
+                    dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+                    for (var i = 0; i < CaseNumberArr.length; i++) {
+                        var j=i+1;
+                        var cd=ClosedDateArr[i].replace('-',',');
+                        cd=cd.replace('-',',');
+                        dataTable.addRow([new Date(cd), Number(CaseNumberArr[i])]);
+                    } 
+                    
+                    var options = {
+                        title: "My Chart",
+                        height: 350,
+                    };
+                    
+                    var chart = new google.visualization.Calendar(document.getElementById('chart_div'));
+                    chart.draw(dataTable, options);
+                }
+                </script>
+            </head>
+            <body>
+                
+                <div id="chart_div"></div>
+            </body>
+         </html>
+    </apex:form>
+</apex:page>

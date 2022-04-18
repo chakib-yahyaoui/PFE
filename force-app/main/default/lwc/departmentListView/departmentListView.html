@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Department List View" icon-name="custom:custom10">
+        <div slot="actions">
+            <lightning-button label="Create Department" onclick={navigateToNewRecordPage}></lightning-button>
+            <lightning-button label="Delete Selected Departments" onclick={deleteSelectedDepartments}></lightning-button>
+
+        </div>
+        <div class="slds-card__body_inner">
+            <p style="margin-left: 25px">Selected Departments: {selectedDepartmentsLen}</p>
+
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
+                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px"></lightning-input>
+            </div>
+            <lightning-datatable
+            key-field="id"
+            data={departments}
+            columns={cols}
+            onrowselection={handleRowSelection}
+            onrowaction={handleRowAction}
+            > 
+            </lightning-datatable>
+        </div>
+
+    </lightning-card>
+</template>

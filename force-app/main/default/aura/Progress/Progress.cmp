@@ -1,0 +1,18 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="ringValue" type="Double" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}" />
+    <div style="background-color:white; padding:10px;">
+        <aura:if isTrue='{!lessthan(v.ringValue, 10)}'>
+            <lightning:progressRing value="{!v.ringValue}" size="large" variant="warning" />
+            <aura:set attribute="else">
+                <aura:if isTrue='{!v.ringValue == 100}'>
+                    <lightning:progressRing value="{!v.ringValue}" size="large" variant="base-autocomplete" />
+                    <aura:set attribute="else">
+                        <lightning:progressRing value="{!v.ringValue}" size="large" />
+                    </aura:set>
+                </aura:if>
+            </aura:set>
+            
+        </aura:if>
+    </div>
+</aura:component>
