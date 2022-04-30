@@ -1,0 +1,14 @@
+<apex:page standardController="Account">
+    <apex:pageBlock title="Related with Tabs">
+        <apex:tabPanel switchType="ajax" >
+            <apex:tab label="{!Account.Name}">
+                <apex:detail relatedList="false" title="false"/>
+            </apex:tab>
+            <apex:tab label="Related List">
+                <apex:relatedList list="contacts"/>
+                <apex:relatedList list="Opportunities"/>
+                <apex:relatedList list="Cases"/>
+            </apex:tab>
+        </apex:tabPanel>
+    </apex:pageBlock>
+</apex:page>

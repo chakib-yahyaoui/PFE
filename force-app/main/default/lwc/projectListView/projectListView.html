@@ -1,0 +1,29 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-card title="Project List View" icon-name="custom:custom10">
+        <div slot="actions">
+            <lightning-button variant="brand"
+            label="Create new project"
+
+                onclick={navigateToNewRecordPage}
+            ></lightning-button>
+            <lightning-button   variant="destructive" label="Delete Selected Projects" onclick={deleteSelectedProjects}></lightning-button>
+
+        </div>
+        <div class="slds-card__body_inner">
+            <p style="margin-left: 25px">Selected Projects: {selectedProjectsLen}</p>
+
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
+                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px"></lightning-input>
+            </div>
+            <lightning-datatable
+            key-field="id"
+            data={projects}
+            columns={cols}
+            onrowselection={handleRowSelection}
+            onrowaction={handleRowAction}> 
+            </lightning-datatable>
+        </div>
+
+    </lightning-card>
+</template>

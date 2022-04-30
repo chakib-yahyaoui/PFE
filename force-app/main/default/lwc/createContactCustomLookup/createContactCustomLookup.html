@@ -1,0 +1,53 @@
+<template>
+    <lightning-card title="Create custom lookup on contact object" icon-name="standard:contact">
+        <div class="slds-p-horizontal_small">
+            <lightning-input label="First Name" value={firstname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+            <lightning-input label="Last Name" value={lastname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>                        
+            <lightning-input label="Phone" value={phone} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+            <lightning-input label="Email" value={email} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>            
+            
+            <c-account-custom-lookup onselected={myLookupHandle}></c-account-custom-lookup><br/>
+            <lightning-button label="Submit" variant="brand" onclick={createLookupContactAction} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-button>                     
+        </div>
+ 
+<br/> <br/>
+   <!--Start RelatedTopics Section-->
+<div style="border:1px #ddd solid; padding:10px; background:#eee; margin:40px 0;">
+            
+            <p data-aura-rendered-by="435:0"><img src="https://www.w3web.net/wp-content/uploads/2021/05/thumbsUpLike.png" width="25" height="25" style="vertical-align:top; margin-right:10px;" data-aura-rendered-by="436:0"><strong data-aura-rendered-by="437:0"><span style="font-size:16px; font-style:italic; display:inline-block; margin-right:5px;">Don't forget to check out:-</span><a href="https://www.w3web.net/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;" data-aura-rendered-by="440:0">An easy way to learn step-by-step online free Salesforce tutorial, To know more Click  <span style="color:#ff8000; font-size:18px;" data-aura-rendered-by="442:0">Here..</span></a></strong></p>
+ 
+            <br/><br/>
+            <p data-aura-rendered-by="435:0"><img src="https://www.w3web.net/wp-content/uploads/2021/07/tickMarkIcon.png" width="25" height="25" style="vertical-align:top; margin-right:10px;" data-aura-rendered-by="436:0"><strong data-aura-rendered-by="437:0"><span style="font-size:17px; font-style:italic; display:inline-block; margin-right:5px; color:rgb(255 128 0);">You May Also Like →</span> </strong></p>
+            <div style="display:block; overflow:hidden;"> 
+                <div style="width: 50%; float:left; display:inline-block">
+                    <ul style="list-style-type: square; font-size: 16px; margin: 0 0 0 54px; padding: 0;"> 
+                        <li><a href="https://www.w3web.net/lwc-get-set-lightning-checkbox-value/" target="_blank" rel="noopener noreferrer">How to get selected checkbox value in lwc</a></li>
+                        <li><a href="https://www.w3web.net/display-account-related-contacts-in-lwc/" target="_blank" rel="noopener noreferrer">how to display account related contacts based on AccountId in lwc</a></li>
+                        <li><a href="https://www.w3web.net/create-lightning-datatable-row-actions-in-lwc/" target="_blank" rel="noopener noreferrer">how to create lightning datatable row actions in lwc</a></li>
+                        <li><a href="https://www.w3web.net/if-and-else-condition-in-lwc/" target="_blank" rel="noopener noreferrer">how to use if and else condition in lwc</a></li>
+                        <li><a href="https://www.w3web.net/get-selected-radio-button-value-and-checked-default-in-lwc/" target="_blank" rel="noopener noreferrer">how to display selected radio button value in lwc</a></li>
+                    </ul>
+            </div>
+ 
+            <div style="width: 50%; float:left; display:inline-block">
+                    <ul style="list-style-type: square; font-size: 16px; margin: 0 0 0 54px; padding: 0;"> 
+                        <li><a href="https://www.w3web.net/display-account-related-contacts-lwc/" target="_blank" rel="noopener noreferrer">display account related contacts based on account name in lwc</a></li>
+                        <li><a href="https://www.w3web.net/create-lightning-datatable-row-actions-in-lwc/" target="_blank" rel="noopener noreferrer">how to insert a record of account Using apex class in LWC</a></li>
+                        <li><a href="https://www.w3web.net/fetch-picklist-values-dynamic-in-lwc/" target="_blank" rel="noopener noreferrer">how to get picklist values dynamically in lwc</a></li>
+                        <li><a href="https://www.w3web.net/edit-save-and-remove-rows-dynamically-in-lightning-component/" target="_blank" rel="noopener noreferrer">how to edit/save row dynamically in lightning component</a></li>
+                        <li><a href="https://www.w3web.net/update-parent-object-from-child/" target="_blank" rel="noopener noreferrer">update parent field from child using apex trigger</a></li>
+                    </ul>
+                </div>
+               <div style="clear:both;"></div> 
+               <br/>
+                <div class="youtubeIcon">
+                    <a href="https://www.youtube.com/channel/UCW62gTen2zniILj9xE6LmOg" target="_blank" rel="noopener noreferrer"><img src="https://www.w3web.net/wp-content/uploads/2021/11/youtubeIcon.png" width="25" height="25" style="vertical-align:top; margin-right:10px;"/> <strong>TechW3web:-</strong> To know more, Use this <span style="color: #ff8000; font-weight: bold;">Link</span> </a>
+                </div>
+    </div>
+ 
+</div>
+ 
+  <!--End RelatedTopics Section-->
+ 
+</lightning-card>
+</template>

@@ -1,0 +1,143 @@
+<template>
+    <template if:true={hello}>
+        
+   
+    <lightning-card title="Tickets">
+        <template if:true={loading}> <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <div class="slds-m-around_medium">
+            <lightning-button-group>
+                <lightning-button label="New ticket" onclick={openModal}></lightning-button>
+                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Search by ticket name">
+                </lightning-input>
+            </lightning-button-group>
+        </div>
+        
+        <template if:true={allticketsData}>  
+            <lightning-card>
+                <div class="slds-m-around_medium">
+            <lightning-datatable 
+              
+                key-field="Id" 
+                data={allticketsData} 
+                columns={columns} 
+                onrowaction={handleclick} hide-checkbox-column
+                default-sort-direction={defaultSortDirection}
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={onHandleSort}>
+
+           </lightning-datatable>
+           </div>
+           </br>
+
+            <lightning-layout horizontal-align="space">
+                <lightning-layout-item flexibility="auto">
+                    <lightning-button 
+                        label="Previous" 
+                        icon-name="utility:chevronleft" 
+                        onclick={previousHandler}>
+                    </lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    Page {page} of {totalPage}
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="auto">
+                    <lightning-button 
+                        label="Next" 
+                        icon-name="utility:chevronright" 
+                        icon-position="right"
+                        onclick={nextHandler}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+     </lightning-card>
+    </template>
+    </lightning-card>
+
+</template>
+      <!--***************Modal New***************-->
+      <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add a new Ticket </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <label class="slds-form-element__label" for=" Catégorie">
+                        <abbr class="slds-required" title="required">* </abbr>Ticket Name</label>
+                    <lightning-input  id="Nom" maxlength="40" field-name="Nom" size="40" type="int" onchange={handleNameChange} ></lightning-input>
+                    <label class="slds-form-element__label" for=" Catégorie">
+                        <abbr class="slds-required" title="required">* </abbr>N°Ticket</label>
+                    <lightning-input  id="NTicket" maxlength="40" field-name="NTicket" size="40" type="int" onchange={handleNumChange} ></lightning-input>
+                    <lightning-combobox name="progress" label="Type de ticket" value={value} id="type"
+                    options={typeValues.data.values} onchange={handletypeChange}>
+                </lightning-combobox>
+                      
+                <lightning-combobox name="progress" label="priority" value={value} id="priority" required
+                options={priorityValues.data.values} onchange={handlepriorityChange}>
+            </lightning-combobox>
+            <lightning-combobox name="progress" label="Status" value={value} id="statut"
+            options={statutValues.data.values} onchange={handlestatutChange} required>
+        </lightning-combobox>
+            <lightning-input type="datetime" name="input8" label="Begin Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handlebeginChange} id="begin"  ></lightning-input>
+            <lightning-input type="datetime" name="input9" label="End Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handleendChange} id="end" ></lightning-input>
+            <label class="slds-form-element__label" for=" projet">
+              <strong>Project </strong></label>
+        <select name="projet" onchange={handleendChange} id="projet">
+            <template for:each={projet.data} for:item="acc">
+            <option key={acc.Id} >{acc.Name}</option>
+            </template>
+            </select>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+
+<!-- ***************************************  EDIT  MODAL  ***************************************** -->
+    <template if:true={isModalOpenEdit}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2  class="slds-text-heading_medium slds-hyphenate"> Update Org </h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <label for="Name">Name</label>
+                    <lightning-input    maxlength="40" name="name" size="40" type="text" value={org.Name} onchange={handleNameEdit}></lightning-input>
+                    <label for="Login">Login</label>
+                    <lightning-input   maxlength="40" name="Login" size="40" type="text"  value={org.Login__c} onchange={handleLoginEdit}></lightning-input>
+      
+                    <label for="prop">Alias de propriétaire</label>
+                  <lightning-input   maxlength="40" name="prop" size="40" type="text"  value={org.Propritaire__c} onchange={handlePropEdit}></lightning-input>
+                   <!--  <label for="Url">Url</label>
+                    <lightning-input   maxlength="40" name="Url" size="40" type="url" value={org.Url__c} onchange={handleUrlEdit}></lightning-input>  --> 
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetailsEdit} title="OK">OK</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

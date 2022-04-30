@@ -1,8 +1,13 @@
+<!-- sldsValidatorIgnore -->
 <template>
     <lightning-card title="Contact List View" icon-name="custom:custom10">
         <div slot="actions">
-            <lightning-button label="Create Contact" onclick={navigateToNewRecordPage}></lightning-button>
-            <lightning-button label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
+            <lightning-button variant="brand"
+label="Create new account"
+title="Open Modal"
+onclick={customShowModalPopup}
+class="slds-m-left_x-small"></lightning-button>
+            <lightning-button   variant="destructive" label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
 
         </div>
         <div class="slds-card__body_inner">
@@ -16,10 +21,60 @@
             data={contacts}
             columns={cols}
             onrowselection={handleRowSelection}
-            onrowaction={handleRowAction}
-            > 
+            onrowaction={handleRowAction}> 
+            <lightning-button   label="Delete Selected Contacts" ></lightning-button>
             </lightning-datatable>
         </div>
 
     </lightning-card>
+    <template if:true={customFormModal}>
+ 
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <!-- modal header start -->
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={customHideModalPopup}>
+                    <lightning-icon icon-name="utility:close"
+                    alternative-text="close"
+                    variant="inverse"
+                    size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 class="slds-text-heading_medium slds-hyphenate">New Contact</h2>
+            </header>
+            <!-- modal body start -->
+            <div class="slds-modal__content slds-p-around_medium">
+         
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    <lightning-input label="First Name" value={firstname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+                </div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <lightning-input label="Last Name" value={lastname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input> 
+                </div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <lightning-input label="Phone" value={phone} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+                </div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <lightning-input label="Email" value={email} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input> 
+                </div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <c-lwc-account-custom-lookup  onselected={myLookupHandle}></c-lwc-account-custom-lookup><br/>
+                
+                </div>
+        </div>
+        <!-- modal footer start-->
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button--destructive" onclick={customHideModalPopup}>Cancel</button>
+                <button   class="slds-button slds-button_brand" onclick={createLookupContactAction} >Save</button>                     
+                
+            </footer>
+        </div>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open">
+        </div>
+        </template>
+
+        
 </template>

@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="Contacts" icon-name="custom:contact">
+      <div class="slds-m-around_medium">
+        <template if:true={contact.data}>
+          <lightning-card icon-name="custom:contact"
+            key-field="Id"
+            data={contact.data}
+            columns={columns}
+            onsave={handleSave}
+            draft-values={draftValues}
+          >
+          </lightning-card>
+        </template>
+        <template if:true={contact.error}>
+          <!-- handle Apex error -->
+        </template>
+      </div>
+    </lightning-card>
+  </template>

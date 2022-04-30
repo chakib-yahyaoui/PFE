@@ -1,0 +1,21 @@
+<template >
+    
+        <lightning-card  title="Create custom lookup on contact object" icon-name="standard:contact">
+            <div class="slds-p-horizontal_small">
+                <lightning-input label="First Name" value={firstname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+                <lightning-input label="Last Name" value={lastname} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>                        
+                <lightning-input label="Phone" value={phone} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+                <lightning-input label="Email" value={email} onchange={contactHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>            
+                
+                <c-lwc-account-custom-lookup  onselected={myLookupHandle}></c-lwc-account-custom-lookup><br/>
+                <lightning-button style="margin-left: 225PX;" label="Save" variant="brand" onclick={createLookupContactAction} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-button>                     
+            </div>
+     
+    <br/> <br/>
+       <!--Start RelatedTopics Section-->
+     
+      <!--End RelatedTopics Section-->
+     
+    </lightning-card>
+    
+</template>

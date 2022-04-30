@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Create custom lookup on contact object" icon-name="standard:contact">
+        <div class="slds-p-horizontal_small">
+            <lightning-input label="Department Name" value={departmentname} onchange={departmentHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>
+            <lightning-input label="Description" value={description} onchange={departmentHandleChange} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-input>                        
+            
+            
+            <c-lwc-users-costum-lookup onselected={myLookupHandle}></c-lwc-users-costum-lookup>
+            <c-lwc-users-costum-lookup onselected={myLookupHandle}></c-lwc-users-costum-lookup>
+            <c-lwc-users-costum-lookup onselected={myLookupHandle}></c-lwc-users-costum-lookup></br>
+            <lightning-button label="Submit" variant="brand" onclick={createLookupDepartmentAction} class="slds-m-bottom_x-small slds-p-horizontal_small slds-form-element"></lightning-button>                     
+        </div>
+ 
+<br/> <br/>
+   <!--Start RelatedTopics Section-->
+ 
+  <!--End RelatedTopics Section-->
+ 
+</lightning-card>
+</template>

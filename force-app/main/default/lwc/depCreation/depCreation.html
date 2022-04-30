@@ -1,0 +1,20 @@
+<template>
+    <lightning-card title="Using multiple parameter in apex  controller">
+ 
+        <div class="slds-wrap slds-grid">
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--small slds-m-bottom--medium"><p><lightning-input label="Name" type="text" value={departmentObName} name="departmentName" onchange={departmentHandleChange}></lightning-input></p></div>         
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--small slds-m-bottom--medium"><p><lightning-input label="Description" type="text" value={departmentObjDescription} name="departmentDescription" onchange={departmentHandleChange}></lightning-input></p></div>               
+             <br/>  <br/>
+            
+            
+            
+                <lightning-button   style="margin-left: 225PX;" label="Save" variant="brand" onclick={submitAction} >Save</lightning-button>                     
+                
+       </div>
+ 
+        <br/><br/>
+   <!--Start RelatedTopics Section-->
+ 
+  <!--End RelatedTopics Section-->
+    </lightning-card>
+</template>

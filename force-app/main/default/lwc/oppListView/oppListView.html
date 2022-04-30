@@ -1,0 +1,40 @@
+<template>
+    <lightning-card>
+        <h3 slot="title">
+            <lightning-icon icon-name="standard:opportunity" size="small"></lightning-icon> Retrieve opportunity records uses of  <span style="color: #ff8000;">@wire Decorators</span> in Lightning web components (LWC)  
+        </h3>
+        <br/>
+       
+    <template if:true={records}>
+ 
+      <table class="tblColPad" border="1" cellpadding="5" cellspacing="5" bordercolor="#ccc" style="border-collapse:collapse;">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Account Name</th>
+                <th>CloseDate</th>               
+                <th>StageName</th>              
+            </tr>
+        </thead>
+         <tbody>
+             
+       <template for:each={records.data} for:item="oppItem">
+                <tr key={oppItem.Id}>
+                    <td>{oppItem.Name}</td>
+                    <td>{oppItem.Amount}</td>
+                    <td>{oppItem.Account.Name}</td>
+                    <td>{oppItem.CloseDate}</td>                    
+                    <td>{oppItem.StageName}</td>
+                </tr>
+            </template>                 
+         </tbody>
+     </table>
+    </template>  
+ 
+    <br/><br/>
+   <!--Start RelatedTopics Section-->
+ 
+  <!--End RelatedTopics Section-->
+</lightning-card>
+</template>

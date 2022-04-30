@@ -1,0 +1,79 @@
+<template>
+    
+    <template if:true={allActivitiesData}>
+        <lightning-card title="Opportunities" icon-name="standard:opportunity">
+            
+            <template if:true={loading}>
+                <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+            </template>
+            
+            <div class="slds-m-top_medium slds-m-bottom_x-large">
+                
+                <!-- with border / by default -->
+                <div align="right">
+                <div class="slds-p-around_medium lgc-bg">
+                    <lightning-button-icon onclick={refrech}  icon-name="utility:refresh"  alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+                    <lightning-button-icon  onclick={downloadCSVFile} icon-name="utility:save"      alternative-text="Save"     class="slds-m-left_xx-small" title="Save"></lightning-button-icon>
+                    <lightning-button-icon onclick={New} icon-name="utility:record_create"   alternative-text="Zoom in"  class="slds-m-left_xx-small" title="New Opp"></lightning-button-icon>
+                    <lightning-button-icon onclick={upload} icon-name="utility:upload"   alternative-text="Zoom out" class="slds-m-left_xx-small" title="Upload Data"></lightning-button-icon>
+                    <!--<lightning-input type="search" onchange={handleKeyChange} class="slds-m-bottom_small" label="Search" value={searchKey}></lightning-input>-->
+                </div>
+                </div>
+           
+                <div class="slds-m-around_medium">
+                    <lightning-button-group>
+                        <lightning-button label="New" 
+                        onclick={New}
+                        
+                        ></lightning-button>
+                        <lightning-button onclick={report} label="Dashboard"></lightning-button>
+
+                        <lightning-button icon-name="utility:download" 
+                        label="Download as CSV" 
+                        title="Download CSV File"
+                        onclick={downloadCSVFile} variant="brand"></lightning-button>
+                       
+        
+                            <lightning-input type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey}
+                            placeholder="Search by name"
+                            >
+                    
+                            </lightning-input>
+        
+                            
+                      
+                    </lightning-button-group>
+           
+                   </div>
+               
+                
+                   <template if:true={allActivitiesData}>
+                    <lightning-card >
+                        <div class="slds-m-around_medium">
+                            <lightning-datatable key-field="Id" data={allActivitiesData} columns={columns}
+                                onrowaction={handleclick} hide-checkbox-column>
+                            </lightning-datatable>
+                        </div>
+                        <lightning-layout horizontal-align="space">
+                            <lightning-layout-item flexibility="auto">
+                                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}>
+                                </lightning-button>
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto">
+                                Page {page} of {totalPage}
+                            </lightning-layout-item>
+                            <lightning-layout-item flexibility="auto">
+                                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right"
+                                    onclick={nextHandler}></lightning-button>
+                            </lightning-layout-item>
+                        </lightning-layout>
+                    </lightning-card>
+                </template>
+                
+            </div>
+          
+           
+        </lightning-card>
+        
+    </template>
+</template>

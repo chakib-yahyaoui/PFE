@@ -1,0 +1,44 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-horizontal_small">
+            <div class="row">
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <div class="slds-combobox_container">
+                            <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click" aria-expanded="false"
+                                aria-haspopup="listbox" role="combobox">
+                                <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                                    role="none">
+                                    <lightning-input type="search" id="combobox-id-16" value={accountName}
+                                        onchange={searchHandleKeyChange} onkeydown={searchHandleClick} onclick={searchHandleClick}
+                                        onblur={searchHandleClick} aria-activedescendant="option1" label='Account'
+                                        aria-autocomplete="list" aria-controls="listbox-id-12" role="textbox"
+                                        placeholder="Search..."></lightning-input>   
+                                </div>
+                                <!-- Start : Parent Search Result -->
+                                <div if:true={messageResult}>
+                                    No Result Found!
+                                </div>
+                                <template if:true={showSearchedValues}>
+                                    <div class="slds-box" style="height: 130px; overflow-y: scroll;">
+                                        <ul class="" role="">
+                                            <template for:each={accountList} for:item="actObj">
+                                                <li class="slds-p-around_x-small" style="cursor: pointer;" key={actObj.Id}
+                                                    onclick={parentHandleAction} data-value={actObj.Id}
+                                                    data-label={actObj.Name}>
+                                                    {actObj.Name}
+                                                </li>
+                                            </template>
+                                        </ul>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        </lightning-card>  
+</template>

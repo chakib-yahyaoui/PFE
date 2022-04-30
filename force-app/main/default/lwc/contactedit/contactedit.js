@@ -1,8 +1,27 @@
-import { LightningElement,api } from 'lwc';
-import NAME_FIELD from '@salesforce/schema/Contact.Name'
-import EMAIL_FIELD from '@salesforce/schema/Contact.Email'
+import { LightningElement, api } from "lwc";
+
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import {CloseActionScreenEvent} from 'lightning/actions'
+
+
+
 export default class Contactedit extends LightningElement {
-    fields = [NAME_FIELD, EMAIL_FIELD];
-    @api recordId;
-    @api objectApiName
+  @api recordId
+  @api objectApiName
+  handleSuccess(e){
+      this.dispatchEvent(new CloseActionScreenEvent());
+      this.dispatchEvent(
+          new ShowToastEvent(
+              {
+                title: 'Sucess',
+                message : 'Contact Record Updated !! ',
+                variant : 'success'
+              }
+          )
+      );
+  }
+  closeAction(){
+      this.dispatchEvent(new CloseActionScreenEvent());
+  }
+  
 }

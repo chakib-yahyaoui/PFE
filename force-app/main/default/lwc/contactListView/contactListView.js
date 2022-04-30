@@ -1,10 +1,16 @@
-import { LightningElement, wire } from 'lwc';
-
-import getContacts from "@salesforce/apex/contactListViewHelper.getContacts"
-import searchContact from "@salesforce/apex/contactListViewHelper.searchContact"
-import deleteContacts from "@salesforce/apex/contactListViewHelper.deleteContacts"
-
+import { LightningElement, wire , track,api} from 'lwc';
+import { createRecord } from 'lightning/uiRecordApi';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
+import CONTACT_OBJECT from '@salesforce/schema/Contact';
+import contactFirstName from '@salesforce/schema/Contact.FirstName';
+import contactLastName from '@salesforce/schema/Contact.LastName';
+import contactPhone from '@salesforce/schema/Contact.Phone';
+import contactEmail from '@salesforce/schema/Contact.Email';
+import accountFieldId from '@salesforce/schema/Contact.AccountId';
+import getContacts from "@salesforce/apex/contactListViewHelper.getContacts";
+import searchContact from "@salesforce/apex/contactListViewHelper.searchContact";
+import deleteContacts from "@salesforce/apex/contactListViewHelper.deleteContacts";
 import { refreshApex } from '@salesforce/apex';
 
 const actions = [{label: 'Delete', name: 'delete'},
@@ -24,10 +30,99 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
     wiredContacts;
     selectedContacts;
     baseData;
+    @track selectedAccountId;
+    @track contactId;    
+    @track error; 
+    firstname = '';   
+    lastname = '';  
+    phoneNo = '';
+    emailId = '';
+    @api show() {
+        this.showModal = true;
+      }
+      handleDialogClose() {
+        this.showModal = false;
+      }
+    contactHandleChange(event) {
+        console.log(event.target.label);
+        console.log(event.target.value);        
+        if(event.target.label=='First Name'){
+            this.firstname = event.target.value;
+        }
+        if(event.target.label=='Last Name'){
+            this.lastname = event.target.value;
+        }   
+        
+        if(event.target.label=='Phone'){
+            this.phoneNo = event.target.value;
+        }
+
+        if(event.target.label=='Email'){
+            this.emailId = event.target.value;
+        }
+                   
+    }
+
+    createLookupContactAction(){
+        console.log(this.selectedAccountId);
+        const fields = {};
+        fields[contactFirstName.fieldApiName] = this.firstname;
+        fields[contactLastName.fieldApiName] = this.lastname;
+        fields[contactPhone.fieldApiName] = this.phoneNo;
+        fields[contactEmail.fieldApiName] = this.emailId;
+        
+        fields[accountFieldId.fieldApiName] = this.selectedAccountId;
+        const recordInput = { apiName: CONTACT_OBJECT.objectApiName, fields };
+        createRecord(recordInput)
+            .then(contactobj=> {
+                this.contactId = contactobj.id;
+                this.fields={};
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Contact created successfully..!',
+                        variant: 'success',
+                    }),
+                );
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: contactobj.id,
+                        objectApiName: 'Contact',
+                        actionName: 'view'
+                    },
+                });
+
+
+            })
+            .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error creating record',
+                        message: error.body.message,
+                        variant: 'error',
+                    }),
+                );
+            });
+    }
+    myLookupHandle(event){
+        console.log(event.detail);
+        this.selectedAccountId = event.detail;
+    }
 
     get selectedContactsLen() {
         if(this.selectedContacts == undefined) return 0;
         return this.selectedContacts.length
+    }
+    @track customFormModal = false; 
+    
+    customShowModalPopup() {            
+        this.customFormModal = true;
+    }
+ 
+    customHideModalPopup() {    
+        
+        this.customFormModal = false;
     }
 
     @wire(getContacts)
@@ -89,24 +184,13 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
     async handleSearch(event){
         if(event.target.value == ""){
             this.contacts = this.baseData
-        }else if(event.target.value.length > 1){
+        }else if(event.target.value.length > 0){
             const searchContacts = await searchContact({searchString: event.target.value})
 
             this.contacts = searchContacts.map(row => {
                 return this.mapContacts(row);
             })
         }
-    }
-
-    navigateToNewRecordPage() {
-
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Contact',
-                actionName: 'new'
-            }
-        });
     }
 
     handleRowAction(event) {
@@ -136,7 +220,25 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
             case 'delete' :
                 deleteContacts({contactIds : [event.detail.row.Id]}).then(() => {
                     refreshApex(this.wiredContacts);
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Success',
+                            message: 'Record deleted',
+                            variant: 'success'
+                        })
+                        
+                    );
+                    
                 })
+                .catch(error => {
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Error deleting record',
+                            message: error.body.message,
+                            variant: 'error'
+                        })
+                    );
+                });
         }
     }
 
@@ -144,8 +246,27 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
         const idList = this.selectedContacts.map( row => { return row.Id })
         deleteContacts({contactIds : idList}).then( () => {
             refreshApex(this.wiredContacts);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Records deleted',
+                    variant: 'success'
+                })
+                
+            );
+            
         })
+        .catch(error => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting records',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
         this.template.querySelector('lightning-datatable').selectedRows = [];
         this.selectedContacts = undefined;
+        
     }
 }

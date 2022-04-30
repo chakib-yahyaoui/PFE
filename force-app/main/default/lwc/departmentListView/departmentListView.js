@@ -1,17 +1,24 @@
-import { LightningElement,wire } from 'lwc';
-
+import { LightningElement, wire, api, track} from 'lwc';
+import { refreshApex } from '@salesforce/apex';
+import createDepartment from '@salesforce/apex/departmentListViewHelper.createDepartment';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { NavigationMixin } from 'lightning/navigation';
+import updateDepartment from '@salesforce/apex/departmentListViewHelper.updateDepartment';
+import departmentObject from '@salesforce/schema/Department__c';
+import getUserList from '@salesforce/apex/departmentListViewHelper.getUserList';
+import { getObjectInfo } from 'lightning/uiObjectInfoApi';
+import submitDepartmentAction from '@salesforce/apex/lwcAppExampleApex.submitDepartmentAction';
 import getDepartments from "@salesforce/apex/departmentListViewHelper.getDepartments"
-import searchDepartments from "@salesforce/apex/departmentListViewHelper.searchDepartments"
+import searchDepartment from "@salesforce/apex/departmentListViewHelper.searchDepartment"
 import deleteDepartments from "@salesforce/apex/departmentListViewHelper.deleteDepartments"
 
-import { NavigationMixin } from 'lightning/navigation';
-import { refreshApex } from '@salesforce/apex';
+
 
 const actions = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
 {label: 'Edit', name: 'edit'}]
 
-const COLS = [{label: 'Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
+const COLS = [{label: 'Department Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
             {label: 'Description', fieldName: 'Description'},
             { fieldName: "actions", type: 'action', typeAttributes: {rowActions: actions}}
 ]
@@ -22,6 +29,115 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
     wiredDepartments;
     selectedDepartments;
     baseData;
+    @track customFormModal = false; 
+    @track departmentRecoredId;
+    @wire(getUserList) User;
+    @track wiredgetUser;
+     @wire(getObjectInfo, { objectApiName: departmentObject })
+     departmentInfo;
+  
+     
+     @track isModalOpenEdit= false;
+     @api objectApiName; 
+     
+     @track error; 
+     @api NewDepartment ={};
+     @api department ={};
+     
+     @api departmentObject={};
+  
+   @track isModalOpen = false;
+  openModal() {
+     this.isModalOpen = true; 
+  }
+  closeModal() {
+     this.isModalOpen = false;
+  }
+  handleNameChange(event) {
+    this.departmentObject.Name = event.target.value;
+  }
+  
+  handleDescriptionChange(event) {
+    this.departmentObject.Description = event.target.value;
+  }
+  handleMemberChange(event) {
+   this.departmentObject.Member = event.target.value;
+  }
+  handleManagerChange(event) {
+   this.departmentObject.Manager = event.target.value;
+  }
+  handleProjectManagerChange(event) {
+   this.departmentObject.Project_Manager = event.target.value;
+  }
+  submitDetails() {
+     console.log('member',this.departmentObject.Member)
+     console.log('manager',this.departmentObject.Manager)
+     console.log('project manager',this.departmentObject.Project_Manager)
+     createDepartment({ DepartmentRecObj: this.departmentObject })
+              .then(result => {
+                this.departmentRecoredId = result.Id;
+                window.console.log('departmentRecoredId##Vijay2 ' + this.departmentRecoredId);  
+                  console.log('success' + result);
+                  this.isModalOpen = false;
+                  this.departmentObject = {};
+                  this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Department created successfully..!',
+                        variant: 'success',
+                    }),
+                );
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: result.Id,
+                        objectApiName: 'Department__c',
+                        actionName: 'view'
+                    },
+                });
+                  
+  
+               })
+               
+               
+               
+               .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error creating record',
+                        message: error.body.message,
+                        variant: 'error',
+                    }),
+                );
+            });
+              
+          }
+  
+     
+    
+  
+    @track departmentObjName;
+    @track departmentObjDescription;
+    
+    @track departmentRecoredId;
+    @track errorMsg;
+ 
+   departmentHandleChange(event){
+        if(event.target.name == 'departmentName'){
+        this.departmentObjName = event.target.value;  
+        //window.console.log('scoreObName ##' + this.scoreObName);
+        }
+      if(event.target.name == 'departmentDescription'){
+        this.departmentObjDescription = event.target.value;  
+      }
+ 
+      
+      
+ 
+ 
+ }
+ 
+ 
 
     get selectedDepartmentsLen() {
         if(this.selectedDepartments == undefined) return 0;
@@ -49,7 +165,8 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
         return {...row,
             Name: `${row.Name}`,
             link: `/${row.Id}`,
-            Description: `${row.Description__c}`
+            Description: `${row.Description__c}`,
+            
         };
     }
 
@@ -68,17 +185,8 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
             })
         }
     }
+    
 
-    navigateToNewRecordPage() {
-
-        this[NavigationMixin.Navigate]({
-            type: 'standard__objectPage',
-            attributes: {
-                objectApiName: 'Department__c',
-                actionName: 'new'
-            }
-        });
-    }
 
     handleRowAction(event) {
         const actionName = event.detail.action.name;
@@ -107,7 +215,24 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
             case 'delete' :
                 deleteDepartments({departmentIds : [event.detail.row.Id]}).then(() => {
                     refreshApex(this.wiredDepartments);
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Success',
+                            message: 'Record deleted',
+                            variant: 'success'
+                        })
+                        
+                    );
                 })
+                .catch(error => {
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Error deleting record',
+                            message: error.body.message,
+                            variant: 'error'
+                        })
+                    );
+                });
         }
     }
 
@@ -115,7 +240,24 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
         const idList = this.selectedDepartments.map( row => { return row.Id })
         deleteDepartments({departmentIds : idList}).then( () => {
             refreshApex(this.wiredDepartments);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Records deleted',
+                    variant: 'success'
+                })
+                
+            );
         })
+        .catch(error => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting records',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
         this.template.querySelector('lightning-datatable').selectedRows = [];
         this.selectedDepartments = undefined;
     }
