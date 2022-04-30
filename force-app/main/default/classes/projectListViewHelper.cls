@@ -37,6 +37,8 @@ public class projectListViewHelper {
        
         project.Name = String.valueOf(projectinfo.get('Name'));
         project.Specifications__c = String.valueOf(projectinfo.get('Specifications'));
+        project.Date_begin__c = Date.valueOf(projectinfo.get('Date_begin')) ; 
+        project.Date_end__c = Date.valueOf(projectinfo.get('Date_end')) ; 
         project.Members__c = String.valueOf(projectinfo.get('Members')) ; 
         project.Department__c = String.valueOf(projectinfo.get('Department')) ; 
 
