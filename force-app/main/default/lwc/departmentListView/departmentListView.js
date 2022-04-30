@@ -87,6 +87,7 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                         variant: 'success',
                     }),
                 );
+                refreshApex(this.wiredDepartments);
                 this[NavigationMixin.Navigate]({
                     type: 'standard__recordPage',
                     attributes: {
@@ -110,6 +111,7 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                     }),
                 );
             });
+        
               
           }
   
@@ -203,13 +205,13 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                 });
                 break;
             case 'edit':
-                this[NavigationMixin.Navigate]({
-                    type: 'standard__recordPage',
-                    attributes:{
-                        recordId: row.Id,
-                        objectApiName: 'Department__c',
-                        actionName: 'edit'
-                    }
+                getDepartments({ DepartmentId: row.Id })
+                  .then(result => {
+               console.log('test', result[0])
+                      this.dep = result[0];
+                      this.NewDepartment.Id = this.dep.Id;
+                      this.openModalEdit();
+                      console.log('test1', result[0])
                 });
                 break;
             case 'delete' :
@@ -234,6 +236,43 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                     );
                 });
         }
+    }
+    openModalEdit() {
+        console.log('hi')
+        this.isModalOpenEdit = true; 
+    }
+    closeModalEdit() {
+        this.isModalOpenEdit = false;
+    }
+    handleNameEdit(event) {
+      this.NewDepartment.Name = event.target.value;
+    }
+    
+    
+    handleDescriptionEdit(event) {
+    this.NewDepartment.Description__c = event.target.value;
+    }
+    handleMemberEdit(event) {
+    this.NewDepartment.Member__c = event.target.value;
+    }
+    handleManagerEdit(event) {
+      this.NewDepartment.Manager__c = event.target.value;
+      }
+      handleProjectManagerEdit(event) {
+        this.NewDepartment.Project_Managers__c = event.target.value;
+        }
+        
+      submitDetailsEdit() {
+     console.log('hi', this.NewDepartment.Member__c)
+     console.log('hi', this.NewDepartment.Manager__c)
+     console.log('hi', this.NewDepartment.Project_Managers__c)
+        updateDepartment({ dep: this.NewDepartment })
+            .then(() => {
+                console.log('tested',this.department);
+                this.NewDepartment = {}
+                console.log('teste',this.NewDepartment);
+                this.isModalOpenEdit = false;
+                refreshApex(this.wiredDataResult) });
     }
 
     deleteSelectedDepartments(){
