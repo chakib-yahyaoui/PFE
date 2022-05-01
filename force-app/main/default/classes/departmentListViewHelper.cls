@@ -50,6 +50,15 @@ public class departmentListViewHelper {
             insert department;
             return department ;
     }
+    @AuraEnabled(cacheable=true)
+    public static list <Department__c> getDepartment(Id DepartmentId){
+        return [ 
+            SELECT Name, Description__c,Member__c,	Manager__c,Project_Managers__c
+            FROM Department__c
+            WHERE Id=:DepartmentId 
+            WITH SECURITY_ENFORCED
+            ] ;
+    }
     
 
 }

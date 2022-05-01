@@ -11,6 +11,7 @@ import submitDepartmentAction from '@salesforce/apex/lwcAppExampleApex.submitDep
 import getDepartments from "@salesforce/apex/departmentListViewHelper.getDepartments"
 import searchDepartment from "@salesforce/apex/departmentListViewHelper.searchDepartment"
 import deleteDepartments from "@salesforce/apex/departmentListViewHelper.deleteDepartments"
+import getDepartment from '@salesforce/apex/departmentListViewHelper.getDepartment';
 
 
 
@@ -43,6 +44,7 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
      @track error; 
      @api NewDepartment ={};
      @api department ={};
+     @api dep ={};
      
      @api departmentObject={};
   
@@ -205,11 +207,11 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                 });
                 break;
             case 'edit':
-                getDepartments({ DepartmentId: row.Id })
+                getDepartment({ DepartmentId: row.Id })
                   .then(result => {
                console.log('test', result[0])
-                      this.dep = result[0];
-                      this.NewDepartment.Id = this.dep.Id;
+                      this.department = result[0];
+                      this.NewDepartment.Id = this.department.Id;
                       this.openModalEdit();
                       console.log('test1', result[0])
                 });
@@ -267,12 +269,38 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
      console.log('hi', this.NewDepartment.Manager__c)
      console.log('hi', this.NewDepartment.Project_Managers__c)
         updateDepartment({ dep: this.NewDepartment })
-            .then(() => {
+            .then(result  => {
+                this.departmentRecoredId = result.Id;
+                window.console.log('departmentRecoredId##Vijay2 ' + this.departmentRecoredId);  
+                console.log('success' + result);
+
                 console.log('tested',this.department);
                 this.NewDepartment = {}
                 console.log('teste',this.NewDepartment);
                 this.isModalOpenEdit = false;
-                refreshApex(this.wiredDataResult) });
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Department updated successfully..!',
+                        variant: 'success',
+                    }),
+                );
+                
+                refreshApex(this.wiredDepartments);
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes: {
+                        recordId: result.Id,
+                        objectApiName: 'Department__c',
+                        actionName: 'view'
+                    },
+                });
+                
+                
+                
+                
+            });
+            
     }
 
     deleteSelectedDepartments(){
