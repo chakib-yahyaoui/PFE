@@ -1,0 +1,62 @@
+<template>
+    <template if:true={showModal}>
+      <section
+        role="dialog"
+        tabindex="-1"
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        aria-describedby="modal-content-id-1"
+        class="slds-modal slds-fade-in-open"
+      >
+        <div class="slds-modal__container">
+          <!-- Header Start -->
+          <header class="slds-modal__header">
+            <lightning-button-icon
+              class="slds-modal__close"
+              title="Close"
+              icon-name="utility:close"
+              icon-class="slds-button_icon-inverse"
+              onclick={closeModal}
+            ></lightning-button-icon>
+  
+            <h2 id="id-of-modalheader-h2" class="slds-text-heading_large">
+              File Preview
+            </h2>
+          </header>
+          <!-- Header End -->
+          <div class="slds-modal__content" id="modal-content-id-1">
+            <lightning-layout>
+              <lightning-layout-item flexibility="auto">
+                <article class="slds-card">
+                  <div
+                    class="slds-card__body slds-card__body_inner"
+                    style="margin: 0"
+                  >
+                    <template if:false={showFrame}>
+                      <img src={url} />
+                    </template>
+                    <template if:true={showFrame}>
+                      <iframe
+                        src={url}
+                        style="width: 100%; height: 800px"
+                      ></iframe>
+                    </template>
+                  </div>
+                </article>
+              </lightning-layout-item>
+            </lightning-layout>
+          </div>
+          <footer class="slds-modal__footer slds-grid slds-grid_align-spread">
+            <lightning-button
+              variant="brand-outline"
+              label="Cancel"
+              onclick={closeModal}
+              title="Cancel"
+              class="slds-var-m-left_x-small"
+            ></lightning-button>
+          </footer>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+  </template>

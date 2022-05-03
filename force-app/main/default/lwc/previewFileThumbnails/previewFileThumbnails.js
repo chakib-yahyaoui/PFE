@@ -32,6 +32,9 @@ export default class PreviewFileThumbnails extends LightningElement {
             "/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=" +
             this.fileList[i].Id +
             "&operationContext=CHATTER&contentId=" +
+            this.fileList[i].ContentDocumentId,
+          downloadUrl:
+            "/sfc/servlet.shepherd/document/download/" +
             this.fileList[i].ContentDocumentId
         };
         this.files.push(file);
@@ -50,7 +53,6 @@ export default class PreviewFileThumbnails extends LightningElement {
   handleUploadFinished(event) {
     const uploadedFiles = event.detail.files;
     refreshApex(this.wiredActivities);
-    eval("$A.get('e.force:refreshView').fire();");
     this.dispatchEvent(
       new ShowToastEvent({
         title: "Success!",

@@ -46,4 +46,10 @@ export default class PreviewFileThumbnailCard extends LightningElement {
     }
     return "doctype:image";
   }
+
+  filePreview() {
+    console.log("###Click");
+    const showPreview = this.template.querySelector("c-preview-file-modal");
+    showPreview.show();
+  }
 }

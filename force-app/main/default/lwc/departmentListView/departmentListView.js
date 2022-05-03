@@ -285,7 +285,6 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                         variant: 'success',
                     }),
                 );
-                
                 refreshApex(this.wiredDepartments);
                 this[NavigationMixin.Navigate]({
                     type: 'standard__recordPage',
@@ -297,10 +296,7 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
                 });
                 
                 
-                
-                
             });
-            
     }
 
     deleteSelectedDepartments(){
