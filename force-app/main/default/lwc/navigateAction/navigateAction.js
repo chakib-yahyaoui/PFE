@@ -181,7 +181,7 @@ export default class NavigateAction extends NavigationMixin(LightningElement) {
         this[NavigationMixin.Navigate]({
             "type": "standard__webPage",
             "attributes": {
-                "url": "https://resilient-moose-khyr7z-dev-ed--c.visualforce.com/apex/OpportunityView"
+                "url": "/apex/OpportunityViewVfp"
             }
         });
     }

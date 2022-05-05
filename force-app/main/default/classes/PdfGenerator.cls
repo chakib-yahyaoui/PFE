@@ -1,8 +1,4 @@
-/**
- * Created by gerry on 2/23/2021.
- */
-
-public with sharing class PdfGenerator
+public class PdfGenerator
 {
 	@AuraEnabled
 	public static List<Opportunity> getOpportunitiesController(){
