@@ -1,0 +1,30 @@
+<template>       
+    <lightning-card title={titleWithCount} icon-name="standard:record">
+        <lightning-button label="New" slot="actions" onclick={createNew}></lightning-button>
+        <div slot="footer">
+            <div  if:true={countBool}>
+                <lightning-button label="View All" onclick={navigateToRelatedList}></lightning-button>
+            </div>
+        </div> 
+        <div class="slds-m-around_medium">   
+            <div if:true={listRecords}>   
+                <template for:each={listRecords} for:item="rec">    
+                    <div key={rec.Id} class="slds-box">                         
+                        <lightning-record-view-form record-id={rec.Id} object-api-name={objectName}>
+                            <div class="slds-grid">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-output-field field-name={field1}></lightning-output-field>
+                                    <lightning-output-field field-name={field2}></lightning-output-field>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-output-field field-name={field3}></lightning-output-field>
+                                    <lightning-output-field field-name={field4}></lightning-output-field>
+                                </div>
+                            </div>
+                        </lightning-record-view-form><br/><br/>
+                    </div>                       
+                </template>   
+            </div>   
+        </div>   
+    </lightning-card>       
+</template>

@@ -1,0 +1,153 @@
+<template>
+    <!-- Search Fields Card Start -->
+    <lightning-card title="Search by one of the following Account fields.">
+        <template if:true={isDesktop}>
+            <div class="slds-p-horizontal_small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <div style="font-weight:bold">
+                            <lightning-input type="text" label="Account Name" value="" placeholder="Enter Account Name"
+                                onchange={handleChange} name="Name" disabled={isNameDisabled} autocomplete="false" minlength="3" message-when-too-short="Minimum of 3 characters required to search" class="fieldvalidate"></lightning-input>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <div style="font-weight:bold">
+                            <lightning-input type="text" label="Account Phone" value="" placeholder="Enter Account Phone"
+                                onchange={handleChange} name="Phone" disabled={isPhoneDisabled} autocomplete="false" minlength="3" message-when-too-short="Minimum of 3 characters required to search" class="fieldvalidate"></lightning-input>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small">
+                        <div style="font-weight:bold">
+                            <lightning-input type="text" label="Account Number" value="" placeholder="Enter Account Number"
+                                onchange={handleChange} name="Number" disabled={isNumberDisabled} autocomplete="false" minlength="3" message-when-too-short="Minimum of 3 characters required to search" class="fieldvalidate"></lightning-input>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="3" padding="around-small" class="slds-m-top_large">
+                        <lightning-button variant="brand" label="Search" title="Search" icon-name="utility:search"
+                            class="slds-m-left_x-small" onclick={searchAccount}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+        <template if:true={isMobile}>
+            <div class="slds-p-horizontal_small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <div style="font-weight:bold">
+                            <lightning-combobox
+                                name="searchType"
+                                label="Search Type"
+                                value=''
+                                placeholder=""
+                                options={searchOptions}
+                                onchange={handleSearchTypeChange}>
+                            </lightning-combobox>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <div style="font-weight:bold">
+                            <lightning-input type="text" label="Search Text"
+                                             value={searchText} placeholder="Enter Search Text"
+                                             onchange={handleChange} name="SearchText"
+                                             disabled={isSearchTextDisabled} autocomplete="false"
+                                             minlength="3" message-when-too-short="Minimum of 3 characters required to search"
+                                             class="fieldvalidate">
+                            </lightning-input>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="around-small" class="slds-m-top_large">
+                        <lightning-button variant="brand" label="Search"
+                                          title="Search" icon-name="utility:search"
+                                          class="slds-m-left_x-small" onclick={searchAccount}>
+                        </lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+        </template>
+        <template if:true={data}>
+            <!-- Datatable with Pagination Start -->
+            <div class="slds-m-around_medium">
+                <div class="slds-page-header">
+                    <div class="slds-page-header__row">
+                        <div class="slds-page-header__col-title">
+                            <div class="slds-media">
+                                <div class="slds-media__body">
+                                    <div class="slds-page-header__name">
+                                        <div class="slds-page-header__name-title">
+                                            <h1>
+                                                <span class="slds-page-header__title slds-truncate" title="Accounts">Accounts</span>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 180px;">
+                    <lightning-datatable key-field="id"
+                                         data={data} 
+                                         columns={columns} 
+                                         hide-checkbox-column="true"
+                                         show-row-number-column="true"
+                                         sorted-direction={sortDirection}
+                                         sorted-by={sortedBy}
+                                         onsort={onHandleSort}
+                                         onrowaction={handleRowAction}>
+                    </lightning-datatable>
+                </div>
+            </div>
+ 
+            <!--  Pagination Buttons Start -->
+            <div class="slds-align_absolute-center">
+                <lightning-button label="Previous" icon-name="utility:chevronleft" onclick={previousHandler}
+                    disabled={isPreviousDisable}>
+                </lightning-button>
+ 
+                <span class="slds-badge slds-badge_lightest"
+                            style="margin-right: 10px;margin-left: 10px;">
+                            Page {page} out of {totalPage}
+                        </span>
+ 
+                <lightning-button label="Next" icon-name="utility:chevronright" icon-position="right" onclick={nextHandler}
+                    disabled={isNextDisable}>
+                </lightning-button>
+            </div>
+            <!--  Pagination Buttons End -->
+            <!-- Datatable with Pagination End -->
+        </template>
+    </lightning-card>
+    <!-- Search Fields Card End -->
+    <!-- Show Spinner when data load -->
+    <div if:true={isLoading}>
+        <lightning-spinner
+            alternative-text="Loading..." variant="brand">
+        </lightning-spinner>
+    </div>
+    <!-- End Spinner Loading -->
+ 
+    <!-- Modal Pop-up Mobile view -->
+    <template if:true={showModal}>
+        <section aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container ">
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_small">Account Details</h2>
+                    <lightning-icon class="slds-modal__close" icon-name="utility:close" size="small" onclick={closeModal}></lightning-icon>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>Account Name : {modalFieldInfo.Name}</p><br></br>
+                    <p>Account Owner : {modalFieldInfo.OwnerName}</p><br></br>
+                    <p>Account No : {modalFieldInfo.AccountNumber}</p><br></br>
+                    <p>Phone : {modalFieldInfo.Phone}</p><br></br>
+                    <p>Address : {modalFieldInfo.address}</p><br></br>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="Neutral" label="Close" onclick={closeModal} class="slds-p-around_x-small"></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- End Modal Pop-up Mobile view -->
+ 
+</template>

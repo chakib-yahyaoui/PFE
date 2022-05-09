@@ -21,7 +21,7 @@ export default class AccountContactTable extends LightningElement {
     //to add row
     addRow() {
         let randomId = Math.random() * 16;
-        let myNewElement = {Email: "", FirstName: "", Id: randomId, LastName: "", AccountId: this.recordId};
+        let myNewElement = {Email: "", FirstName: "", LastName: "", AccountId: this.recordId};
         this.records = [...this.records, myNewElement];
     }
  

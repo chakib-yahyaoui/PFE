@@ -1,0 +1,25 @@
+<template>
+
+    <lightning-quick-action-panel header='Edit Ticket'>
+
+        <lightning-record-form record-id={recordId}
+
+                                   
+
+                                    onsuccess={handleSuccess}
+
+                                    object-api-name="Org__c"
+                                    fields={myFields}
+                                    onsubmit ={handleload}
+                                    columns="2"
+                                    
+                                   mode="edit"
+                                    onload={handleload}
+                                    density = "auto"
+                                >
+                                
+        </lightning-record-form>
+
+    </lightning-quick-action-panel>
+
+</template>

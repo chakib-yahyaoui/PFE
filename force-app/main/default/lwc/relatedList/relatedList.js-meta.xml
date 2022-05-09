@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>54.0</apiVersion>
+    <isExposed>true</isExposed> 
+    <targets> 
+        <target>lightning__RecordPage</target> 
+    </targets> 
+    <targetConfigs> 
+        <targetConfig targets="lightning__RecordPage"> 
+            <property name="strTitle" type="String" label="Title" description="Enter the title"/> 
+            <property name="objectName" type="String" label="Object Name" description="Enter the object name"/> 
+            <property name="parentObjectName" type="String" label="Parent Object Name" description="Enter the parent object name"/> 
+            <property name="relationshipApiName" type="String" label="Relationship Name" description="Enter the relationship API name"/> 
+            <property name="parentFieldAPIName" type="String" label="Parent Field API Name" description="Enter the parent field API Name"/> 
+            <property name="fieldName" type="String" label="Field Name" description="Enter the field name"/> 
+            <property name="fieldValue" type="String" label="Field Value" description="Enter the field value"/> 
+            <property name="filterType" type="String" label="Filter Type" description="Enter the filter type"/> 
+            <property name="operator" type="String" label="Operator" description="Enter the operator"/> 
+            <property name="fieldsList" type="String" label="Fields List" description="Enter the field API names separated by coma. Do not enter more than 4 fields"/> 
+        </targetConfig> 
+    </targetConfigs> 
+</LightningComponentBundle>

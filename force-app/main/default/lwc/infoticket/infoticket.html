@@ -1,0 +1,17 @@
+<template>
+  <lightning-accordion onsectiontoggle={accordionToggleSectionW3web} active-section-name="information">
+    <lightning-accordion-section name="information" label="information"  style="background-color: white;">
+        <div style="background-color:white">	
+        
+          <lightning-record-form
+          object-api-name="Ticket__c"
+          fields={info}
+          onsuccess={handleSuccess} onsubmit ={handleload}
+          columns="2"
+          mode="view"
+          record-id={recordId}
+          onload={handleload}
+          density = "comfy"
+        >
+        </lightning-record-form></div></lightning-accordion-section></lightning-accordion>
+</template>

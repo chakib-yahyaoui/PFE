@@ -1,0 +1,138 @@
+<template>
+
+<lightning-accordion allow-multiple-sections-open
+onsectiontoggle={toggleSectionHandleW3web}
+active-section-name={activeSections}>
+
+<lightning-accordion-section name="Champs" label="Champs"  style="background-color: white; ">
+<lightning-accordion-section name="caractérisation" label="Caractérisation"  style="background-color: white; 
+">
+  <div style="background-color:white">	
+          
+  <lightning-record-form
+ object-api-name="Ticket__c"
+ fields={caractérisation}
+ onsuccess={handleSuccess} onsubmit ={handleload}
+ columns="2"
+ mode="view"
+ record-id={recordId}
+ onload={handleload}
+ density = "comfy" 
+>
+
+</lightning-record-form> </div>
+</lightning-accordion-section>
+
+
+ 
+       
+    <lightning-accordion-section name="prise" label="Prise en charge" style="background-color: white;">
+      <div style="background-color:white">	
+                    <lightning-record-form
+                   object-api-name="Ticket__c"
+                   fields={prise}
+                   onsuccess={handleSuccess} onsubmit ={handleload}
+                   columns="2"
+                   mode="view"
+                   record-id={recordId}
+                   onload={handleload}
+                   density = "comfy"
+                
+               >
+               
+         </lightning-record-form> </div>
+         </lightning-accordion-section> 
+               <lightning-accordion-section name="traitement" label="Traitement" style="background-color: white;">
+                  <div style="background-color:white">			
+                  <lightning-record-form
+                 object-api-name="Ticket__c"
+                 fields={traitement}
+                 onsuccess={handleSuccess} onsubmit ={handleload}
+                 columns="2"
+                 mode="view"
+                 record-id={recordId}
+                 onload={handleload}
+                 density = "comfy"  
+             >
+             
+             </lightning-record-form></div>
+             </lightning-accordion-section>
+           
+            <lightning-accordion-section name="charge" label="Charge" style="background-color: white;">
+               <div style="background-color:white">			
+               <lightning-record-form
+              object-api-name="Ticket__c"
+              fields={charge}
+              onsuccess={handleSuccess} onsubmit ={handleload}
+              columns="2"
+              mode="view"
+              record-id={recordId}
+              onload={handleload}
+              density = "comfy"  
+          >
+          
+          </lightning-record-form></div>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section name="attribution" label="Attribution" style="background-color: white;">
+            <div style="background-color:white">			
+            <lightning-record-form
+           object-api-name="Ticket__c"
+           fields={attribution}
+           onsuccess={handleSuccess} onsubmit ={handleload}
+           columns="2"
+           mode="view"
+           record-id={recordId}
+           onload={handleload}
+           density = "comfy"  
+       >
+       
+       </lightning-record-form></div>
+       </lightning-accordion-section>
+       <lightning-accordion-section name="suivi" label="Suivi/Etape de reproduction" style="background-color: white;">
+        <div style="background-color:white">			
+        <lightning-record-form
+       object-api-name="Ticket__c"
+       fields={suivi}
+       onsuccess={handleSuccess} onsubmit ={handleload}
+       columns="2"
+       mode="view"
+       record-id={recordId}
+       onload={handleload}
+       density = "comfy"  
+   >
+   
+   </lightning-record-form></div>
+   </lightning-accordion-section>
+   <lightning-accordion-section name="résulution" label="Résolution" style="background-color: white;">
+    <div style="background-color:white">			
+    <lightning-record-form
+   object-api-name="Ticket__c"
+   fields={resolution}
+   onsuccess={handleSuccess} onsubmit ={handleload}
+   columns="2"
+   mode="view"
+   record-id={recordId}
+   onload={handleload}
+   density = "comfy"  
+>
+
+</lightning-record-form></div></lightning-accordion-section>
+<lightning-accordion-section name="system" label="information Systém" style="background-color: white;">
+  <div style="background-color:white">			
+  <lightning-record-form
+ object-api-name="Ticket__c"
+ fields={system}
+ onsuccess={handleSuccess} onsubmit ={handleload}
+ columns="2"
+ mode="view"
+ record-id={recordId}
+ onload={handleload}
+ density = "comfy"  
+>
+
+</lightning-record-form></div>
+</lightning-accordion-section>
+ </lightning-accordion-section>
+  </lightning-accordion>   
+</template>

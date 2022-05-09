@@ -1,0 +1,47 @@
+<template>  
+       
+    <lightning-card title={Title} icon-name={ObjectIcon}>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" padding="around-small"></lightning-layout-item>
+            <lightning-layout-item size="2" padding="around-small"></lightning-layout-item>
+            <lightning-layout-item size="3" padding="around-small">
+                <lightning-input type="search" onblur = {handleKeyChange} class="slds-m-bottom_small"
+                                variant="label-hidden" placeholder="Search.." label = "Search">
+                </lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="1" padding="around-small">    
+                <lightning-button-icon icon-name="utility:refresh"  variant="border-filled" alternative-text="Refresh" title="refresh" onclick={handleRefresh}></lightning-button-icon>
+            </lightning-layout-item>
+        </lightning-layout>
+ 
+        <template if:true = {listRecs}>
+            <div style="height: 300px;"> 
+                <lightning-datatable key-field="Id" 
+                                        data={listRecs}  
+                                        columns={columns}  
+                                        hide-checkbox-column="true" 
+                                        show-row-number-column="true"
+                                        default-sort-direction={defaultSortDirection}
+                                        sorted-direction={sortDirection}
+                                        sorted-by={sortedBy}
+                                        onsort={onHandleSort}
+                                        onrowaction={handleRowAction}>  
+                </lightning-datatable>
+            </div> 
+            <div class="slds-align_absolute-center">
+                <lightning-button label="Previous" icon-name="utility:back" onclick={previousHandler} variant="brand" disabled={showButtonPrevious}>
+                </lightning-button>
+                <span class="slds-badge slds-badge_lightest"
+                      style="margin-right: 10px;margin-left: 10px;">
+                    Page {page} out of {totalPage}
+                </span>
+                <lightning-button label="Next" icon-name="utility:forward" icon-position="right"
+                        onclick={nextHandler} variant="brand" disabled={showButtonNext}>
+                </lightning-button>
+            </div>
+        </template>
+        <template if:true = {error}> 
+            {error}
+        </template> 
+    </lightning-card> 
+</template>

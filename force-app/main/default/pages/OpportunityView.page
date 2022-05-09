@@ -76,6 +76,12 @@
                         </tr>
                     </apex:repeat>
                 </table>
+               
+                <footer style="margin-right:570px; padding-top:2500px; z-index:1; color:black; font-family:sans-serif;">
+
+    <p>Signature</p>
+
+</footer>
            
             </div>
         </body>

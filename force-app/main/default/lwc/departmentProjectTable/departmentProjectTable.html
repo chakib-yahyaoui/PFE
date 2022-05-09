@@ -1,5 +1,5 @@
 <template>
-    <lightning-quick-action-panel header="Manage Contacts">
+    <lightning-quick-action-panel header="Manage Projects">
         <div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none modalBodyy">
              <template if:true={isLoading}>
                 <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass"></lightning-spinner>
@@ -16,9 +16,7 @@
                                 <th class="" scope="col">
                                     <div class="slds-truncate" title="Specification">Specification</div>
                                 </th>
-                                <th class="" scope="col">
-                                    <div class="slds-truncate" title="Members">Members</div>
-                                </th>
+                            
                                 <th class="" scope="col">
                                     <div class="slds-truncate" title="Date begin">Date begin</div>
                                 </th>
@@ -39,16 +37,14 @@
                                         <lightning-input type="text" class="fields" variant="label-hidden" label="Name" name="Name" value={obj.Name} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                     </th>
                                     <td data-label="Account Name">
-                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Specification" name="Specification" value={obj.Specification} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Specification" name="Specifications__c" value={obj.Specifications__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                     </td>
-                                    <td data-label="Close Date">
-                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Members" name="Members" value={obj.Members} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                
+                                     <td data-label="Close Date">
+                                        <lightning-input type="date" class="fields" variant="label-hidden" label="Date begin" name="Date_begin__c" value={obj.Date_begin__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                      </td>
                                      <td data-label="Close Date">
-                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Date begin" name="Date_begin" value={obj.Date_begin} data-id={obj.Id} onchange={updateValues}></lightning-input>
-                                     </td>
-                                     <td data-label="Close Date">
-                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Date end" name="Date_end" value={obj.Date_end} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                        <lightning-input type="date" class="fields" variant="label-hidden" label="Date end" name="Date_end__c" value={obj.Date_end__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                      </td>
                                     <td data-label="Prospecting">
                                         <lightning-button-icon icon-name="action:delete"  alternative-text="Delete" title="Delete" data-id={obj.Id} onclick={handleDeleteAction}></lightning-button-icon>

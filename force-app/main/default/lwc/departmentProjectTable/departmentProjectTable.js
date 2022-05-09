@@ -21,7 +21,7 @@ export default class DepartmentProjectTable extends LightningElement {
     //to add row
     addRow() {
         let randomId = Math.random() * 16;
-        let myNewElement = { Name: "", Id: randomId, Specification: "", Members: "", Date_begin: "", Date_end: "", Department__c: this.recordId};
+        let myNewElement = {Name: "",Specifications__c: "",Date_begin__c:"",Date_end__c:"", Department__c: this.recordId};
         this.records = [...this.records, myNewElement];
     }
  
@@ -39,18 +39,16 @@ export default class DepartmentProjectTable extends LightningElement {
         var foundelement = this.records.find(ele => ele.Id == event.target.dataset.id);
         if(event.target.name === 'Name'){
             foundelement.Name = event.target.value;
-        } else if(event.target.name === 'Specification'){
-            foundelement.Specification = event.target.value;
+        } else if(event.target.name === 'Specifications__c'){
+            foundelement.Specifications__c = event.target.value;
         } 
-        else if(event.target.name === 'Members'){
-            foundelement.Members = event.target.value;
+        else if(event.target.name === 'Date_begin__c'){
+            foundelement.Date_begin__c = event.target.value;
         }
-        else if(event.target.date === 'Date_begin'){
-            foundelement.Date_begin = event.target.value;
+        else if(event.target.name === 'Date_end__c'){
+            foundelement.Date_end__c = event.target.value;
         }
-        else if(event.target.date === 'Date_end'){
-            foundelement.Date_end = event.target.value;
-        }  
+         
     }
  
     //handle save and process dml 
@@ -67,7 +65,7 @@ export default class DepartmentProjectTable extends LightningElement {
             }
         });
          
-        dmlOnProjects({data: this.records, removeContactIds : this.deleteProjectIds})
+        dmlOnProjects({data: this.records, removeProjectIds : this.deleteProjectIds})
         .then( result => {
             this.handleIsLoading(false);
             refreshApex(this.wiredRecords);
@@ -91,7 +89,7 @@ export default class DepartmentProjectTable extends LightningElement {
  
     //fetch account contact records
     @wire(fetchProjects, {recordId : '$recordId'})  
-    wiredContact(result) {
+    wiredProject(result) {
         this.wiredRecords = result; // track the provisioned value
         const { data, error } = result;
  

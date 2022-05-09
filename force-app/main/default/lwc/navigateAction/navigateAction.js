@@ -7,10 +7,8 @@ import updateDepartment from '@salesforce/apex/departmentListViewHelper.updateDe
 import departmentObject from '@salesforce/schema/Department__c';
 import getUserList from '@salesforce/apex/departmentListViewHelper.getUserList';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
-import getDepartments from "@salesforce/apex/departmentListViewHelper.getDepartments"
-import searchDepartment from "@salesforce/apex/departmentListViewHelper.searchDepartment"
-import deleteDepartments from "@salesforce/apex/departmentListViewHelper.deleteDepartments"
-import getDepartment from '@salesforce/apex/departmentListViewHelper.getDepartment';
+import { deleteRecord } from 'lightning/uiRecordApi';
+import { CloseActionScreenEvent } from 'lightning/actions';
 export default class NavigateAction extends NavigationMixin(LightningElement) {
     departments;
     wiredDepartments;
@@ -33,8 +31,42 @@ export default class NavigateAction extends NavigationMixin(LightningElement) {
      @api dep ={};
      
      @api departmentObject={};
+
   
    @track isModalOpen = false;
+    
+    @track error;
+    deleteRecord(event) {
+        deleteRecord(this.recordId)
+            .then(() => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'Record deleted',
+                        variant: 'success'
+                    })
+                );
+                // Navigate to a record home page after
+                // the record is deleted, such as to the
+                // contact home page
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__navItemPage',
+                    attributes: {
+                        apiName: 'Department_page'
+                 },
+             });
+            })
+            .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error deleting record',
+                        message: error.body.message,
+                        variant: 'error'
+                    })
+                );
+            });
+    }
+
   openModal() {
      this.isModalOpen = true; 
   }

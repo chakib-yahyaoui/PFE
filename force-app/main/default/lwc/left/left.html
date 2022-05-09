@@ -1,0 +1,19 @@
+<template>
+  <div style="background-color:white">
+    <lightning-accordion-section name="lightningComponent" label="information">
+      <template  if:true={hello}>
+    <lightning-record-form
+          object-api-name="Org__c"
+          fields={info}
+          onsuccess={handleSuccess} onsubmit ={handleload}
+          columns="2"
+          mode="view"
+          record-id={recordId}
+          onload={handleload}
+          density = "auto"
+      >
+    </lightning-record-form></template>
+  </lightning-accordion-section></div>
+
+  
+</template>

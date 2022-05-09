@@ -1,0 +1,71 @@
+<template>
+    <div style="background-color:white">	
+
+    <lightning-record-form
+    object-api-name="Org__c"
+    fields={info}
+    onsuccess={handleSuccess} onsubmit ={handleload}
+    columns="2"
+    mode="view"
+    record-id={recordId}
+    onload={handleload}
+    density = "comfy"
+>
+</lightning-record-form></div>
+<lightning-accordion allow-multiple-sections-open
+onsectiontoggle={toggleSectionHandleW3web}
+active-section-name={activeSections}>
+<lightning-accordion-section name="information" label="info sur l'org"  style="background-color: white; color:red;">
+    <div style="background-color:white">	
+  					
+    <lightning-record-form
+   object-api-name="Org__c"
+   fields={information}
+   onsuccess={handleSuccess} onsubmit ={handleload}
+   columns="2"
+   mode="view"
+   record-id={recordId}
+   onload={handleload}
+   density = "comfy" 
+>
+
+</lightning-record-form> </div>
+</lightning-accordion-section>
+
+
+   
+         
+      <lightning-accordion-section name="sso" label="SSO" style="background-color: white;">
+        <div style="background-color:white">	
+                      <lightning-record-form
+                     object-api-name="Org__c"
+                     fields={sso}
+                     onsuccess={handleSuccess} onsubmit ={handleload}
+                     columns="2"
+                     mode="view"
+                     record-id={recordId}
+                     onload={handleload}
+                     density = "comfy"
+                  
+                 >
+                 
+           </lightning-record-form> </div>
+           </lightning-accordion-section> 
+                 <lightning-accordion-section name="support" label="Support" style="background-color: white;">
+                    <div style="background-color:white">			
+                    <lightning-record-form
+                   object-api-name="Org__c"
+                   fields={support}
+                   onsuccess={handleSuccess} onsubmit ={handleload}
+                   columns="2"
+                   mode="view"
+                   record-id={recordId}
+                   onload={handleload}
+                   density = "comfy"  
+               >
+               
+               </lightning-record-form></div>
+               </lightning-accordion-section>
+       
+       </lightning-accordion>   
+ </template>

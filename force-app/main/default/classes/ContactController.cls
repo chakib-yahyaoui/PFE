@@ -2,7 +2,7 @@ public with sharing class ContactController {
    @AuraEnabled(cacheable=true)
     public static Contact getSingleContact() {
         return [
-            SELECT Id, FirstName, LastName, Title, Phone, Email
+            SELECT Id, firstName, lastName, phone, Email
             FROM Contact
             WITH SECURITY_ENFORCED
             LIMIT 1
@@ -11,7 +11,7 @@ public with sharing class ContactController {
     @AuraEnabled(cacheable=true)
     public static List<Contact> getContacts(String accId) {
         return [
-            SELECT AccountId, Id, FirstName, LastName, Title, Phone, Email
+            SELECT AccountId, Id, firstName, lastName, phone, Email
             FROM Contact
             WHERE AccountId = :accId
             WITH SECURITY_ENFORCED
