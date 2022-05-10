@@ -4,9 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { CloseActionScreenEvent } from 'lightning/actions';
 
-
-export default class Deletebutton extends NavigationMixin(LightningElement) {
-    // Flexipage provides recordId and objectApiName
+export default class DeleteDep extends LightningElement {
     @api recordId;
     @api objectApiName;
     
@@ -27,7 +25,7 @@ export default class Deletebutton extends NavigationMixin(LightningElement) {
                 this[NavigationMixin.Navigate]({
                     type: 'standard__navItemPage',
                     attributes: {
-                        apiName: 'Department_List_View'
+                        apiName: 'department'
                  },
              });
             })
