@@ -1,0 +1,21 @@
+<template>
+    <lightning-card title="Tickets Related To Project" icon-name="custom:custom54">
+      <div class="slds-m-around_medium">
+        <template if:true={ticket.data}>
+          <!-- sldsValidatorIgnoreNextLine -->
+          <!-- sldsValidatorIgnoreNextLine -->
+          <lightning-datatable
+            key-field="Id"
+            data={ticket.data}
+            columns={columns}
+            onsave={handleSave}
+            draft-values={draftValues}
+          >
+          </lightning-datatable>
+        </template>
+        <template if:true={ticket.error}>
+          <!-- handle Apex error -->
+        </template>
+      </div>
+    </lightning-card>
+  </template>

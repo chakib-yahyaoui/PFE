@@ -71,32 +71,90 @@
                     <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add a new Ticket </h2>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <label class="slds-form-element__label" for=" Catégorie">
-                        <abbr class="slds-required" title="required">* </abbr>Ticket Name</label>
-                    <lightning-input  id="Nom" maxlength="40" field-name="Nom" size="40" type="int" onchange={handleNameChange} ></lightning-input>
-                    <label class="slds-form-element__label" for=" Catégorie">
-                        <abbr class="slds-required" title="required">* </abbr>N°Ticket</label>
-                    <lightning-input  id="NTicket" maxlength="40" field-name="NTicket" size="40" type="int" onchange={handleNumChange} ></lightning-input>
-                    <lightning-combobox name="progress" label="Type de ticket" value={value} id="type"
-                    options={typeValues.data.values} onchange={handletypeChange}>
-                </lightning-combobox>
-                      
-                <lightning-combobox name="progress" label="priority" value={value} id="priority" required
-                options={priorityValues.data.values} onchange={handlepriorityChange}>
-            </lightning-combobox>
-            <lightning-combobox name="progress" label="Status" value={value} id="statut"
-            options={statutValues.data.values} onchange={handlestatutChange} required>
-        </lightning-combobox>
-            <lightning-input type="datetime" name="input8" label="Begin Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handlebeginChange} id="begin"  ></lightning-input>
-            <lightning-input type="datetime" name="input9" label="End Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handleendChange} id="end" ></lightning-input>
-            <label class="slds-form-element__label" for=" projet">
-              <strong>Project </strong></label>
-        <select name="projet" onchange={handleendChange} id="projet">
-            <template for:each={projet.data} for:item="acc">
-            <option key={acc.Id} >{acc.Name}</option>
-            </template>
-            </select>
+                    <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">    
+                    <lightning-input  id="Nom" maxlength="40" field-name="Nom" size="40" type="int" onchange={handleNameChange} label="Ticket Name" required></lightning-input>
                 </div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+  <lightning-input  id="NTicket" maxlength="40" field-name="NTicket" size="40" type="int" onchange={handleNumChange} label="N°Ticket" required></lightning-input>
+  </div>
+<div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+    <lightning-combobox name="progress" label="Type de ticket" value={value} id="type"
+                    options={typeValues.data.values} onchange={handletypeChange} >
+                </lightning-combobox></div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <lightning-combobox name="priority" label="priority" value={value} id="priority" 
+                options={priorityValues.data.values} onchange={handlepriorityChange}>
+            </lightning-combobox></div>
+            <div class="slds-col slds-size_12-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+            <lightning-combobox name="Statut" label="Status" value={value} id="statut"
+            options={statutValues.data.values} onchange={handlestatutChange} required>
+        </lightning-combobox></div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <lightning-input type="datetime" name="begin" label="Begin Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handlebeginChange} id="begin"  ></lightning-input>
+           </div> <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <lightning-input type="datetime" name="end" label="End Date" value="2017-09-07" min="2022-04-01" max="2029-12-31" onchange={handleendChange} id="end" ></lightning-input>
+          </div>  <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <label  for=" projet">
+              <strong>Project </strong></label>
+        <select class="slds-select" name="Projet" onchange={handleprojectChange} id="Project" for=" Project" >
+            <template for:each={projet.data} for:item="acc">
+            <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
+            </template>
+            </select></div>
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <strong>Manager </strong></label>
+            <select  class="slds-select" name="manager" onchange={handleManagerChange} id="Manager">
+                <template for:each={User.data} for:item="acc">
+                <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                </template>
+                </select>
+                </div>
+                <div class="slds-col slds-size_12-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <label class="slds-form-element__label" for=" member">
+                  <strong>Project Manager </strong></label>
+            <select  class="slds-select" name="project manager" onchange={handleProjectManagerChange} id="Project_Manager">
+                <template for:each={User.data} for:item="acc">
+                <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                </template>
+                </select>
+                </div>
+
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    <label class="slds-form-element__label" for=" member">
+                      <strong>Send from </strong></label>
+                <select  class="slds-select" name="send" onchange={handlesendChange} id="Envoye">
+                    <template for:each={User.data} for:item="acc">
+                    <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                    </template>
+                    </select>
+                    </div>
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                        <label class="slds-form-element__label" for=" member">
+                          <strong>Suivi par  </strong></label>
+                    <select  class="slds-select" name="suivi" onchange={handlesuiviChange} id="suivi">
+                        <template for:each={User.data} for:item="acc">
+                        <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                        </template>
+                        </select>
+                        </div> 
+                        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                            <lightning-combobox name="demande" label="type de la demande" value={value} id="demande"
+                            options={demandeValues.data.values} onchange={handledemandeChange} >
+                        </lightning-combobox></div>
+                            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                                <label class="slds-form-element__label" for=" member">
+                                  <strong>Transmis à  </strong></label>
+                            <select  class="slds-select" name="transmis" onchange={handletransmisChange} id="transmis">
+                                <template for:each={User.data} for:item="acc">
+                                <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                                </template>
+                                </select>
+                                </div>  
+                </div></div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
                     <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
@@ -108,36 +166,109 @@
 
 
 <!-- ***************************************  EDIT  MODAL  ***************************************** -->
-    <template if:true={isModalOpenEdit}>
-        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-            <div class="slds-modal__container">
-                <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
-                        <lightning-icon icon-name="utility:close"
-                            alternative-text="close"
-                            variant="inverse"
-                            size="small" ></lightning-icon>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2  class="slds-text-heading_medium slds-hyphenate"> Update Org </h2>
-                </header>
+    
+<template if:true={isModalOpenEdit}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
                 <div class="slds-modal__content slds-p-around_medium">
-                    <label for="Name">Name</label>
-                    <lightning-input    maxlength="40" name="name" size="40" type="text" value={org.Name} onchange={handleNameEdit}></lightning-input>
-                    <label for="Login">Login</label>
-                    <lightning-input   maxlength="40" name="Login" size="40" type="text"  value={org.Login__c} onchange={handleLoginEdit}></lightning-input>
-      
-                    <label for="prop">Alias de propriétaire</label>
-                  <lightning-input   maxlength="40" name="prop" size="40" type="text"  value={org.Propritaire__c} onchange={handlePropEdit}></lightning-input>
-                   <!--  <label for="Url">Url</label>
-                    <lightning-input   maxlength="40" name="Url" size="40" type="url" value={org.Url__c} onchange={handleUrlEdit}></lightning-input>  --> 
+                 <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium slds-hyphenate">Update Ticket</h2>
+
+            </header> 
+            <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    <lightning-input  label="Name"   name="name"  value={ticket.Name} onchange={handleNameEdit} required>
+                  </lightning-input>
+               </div>
+               <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+              <lightning-input  name="NTicket"  value={ticket.N_Ticket__c} onchange={handleNumEdit} label="N°Ticket" ></lightning-input>
                 </div>
-                <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={submitDetailsEdit} title="OK">OK</button>
-                </footer>
+                 <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    <template if:true={typeValues.data}>
+
+                 <lightning-combobox name="Type" label="Type de ticket" 
+                options={typeValues.data.values} onchange={handletypeEdit}  value={ticket.Type__c} >
+            </lightning-combobox>
+        </template></div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <template if:true={priorityValues.data}>
+
+            <lightning-combobox name="priority" label="Priority" value={ticket.Priority__c}  
+            options={priorityValues.data.values} onchange={handlepriorityEdit}>
+        </lightning-combobox></template></div>
+        <div class="slds-col slds-size_12-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+        <template if:true={statutValues.data}>
+            <lightning-combobox name="Statut" label="Status" value={ticket.Status__c}
+        options={statutValues.data.values} onchange={handlestatutEdit} required>
+    </lightning-combobox></template></div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+        <lightning-input type="datetime" name="begin" label="Begin Date" value="2022-04-01" min="2022-04-01" max="2029-12-31" onchange={handlebeginEdit}   ></lightning-input></div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <lightning-input type="datetime" name="end" label="End Date" value="2022-04-01" min="2022-04-01" max="2029-12-31" onchange={handleendEdit} ></lightning-input>
+        </div>
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+        <label>Project </label>
+        <select class="slds-select"  name="Projet" onchange={handleprojectEdit} for=" Project" >
+            <template for:each={projet.data} for:item="acc">
+            <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
+            </template>
+            </select>
+    </div>
+    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+        <label>Project Manager </label>
+    <select  class="slds-select" name="project manager" onchange={handleProjectManagerEdit} >
+        <template for:each={User.data} for:item="acc">
+        <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+        </template>
+        </select>
+        </div>
+
+        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            <label>Send from </label>
+        <select  class="slds-select" name="send" onchange={handlesendEdit} >
+            <template for:each={User.data} for:item="acc">
+            <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+            </template>
+            </select>
             </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-    </template>
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                <label> Suivi par  </label>
+            <select  class="slds-select" name="suivi" onchange={handlesuiviEdit} >
+                <template for:each={User.data} for:item="acc">
+                <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                </template>
+                </select>
+                </div> 
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                    <lightning-combobox name="demande" label="type de la demande" value={value} 
+                    options={demandeValues.data.values} onchange={handledemandeEdit} >
+                </lightning-combobox></div>
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                        <label for=" member">Transmis à  </label>
+                    <select  class="slds-select" name="transmis" onchange={handletransmisEdit} >
+                        <template for:each={User.data} for:item="acc">
+                        <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+                        </template>
+                        </select>
+                        </div>
+            </div></div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={submitDetailsEdit} title="OK">OK</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+<!--/////test-->
 </template>

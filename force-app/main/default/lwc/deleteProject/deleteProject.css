@@ -1,0 +1,5 @@
+.submit {
+    display: block;
+    display: inline-block;
+    margin: 4px auto 0; /* centrer le submit pour navigateur autre que ie8 */
+}

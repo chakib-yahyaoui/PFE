@@ -8,10 +8,11 @@ import ref  from '@salesforce/schema/Ticket__c.Ticket_ref__c';
 import test  from '@salesforce/schema/Ticket__c.Sc_nario_de_test__c';
 import parent  from '@salesforce/schema/Ticket__c.Ticket_parent__c';
 import TicketName from '@salesforce/schema/Ticket__c.Name';
+import Priority from '@salesforce/schema/Ticket__c.Priority__c';
 import { refreshApex } from '@salesforce/apex';
 export default class Infoticket extends LightningElement {
     @api ticket ={};
-    info=[TicketName,Nticket,parent,Client,ref,project,Contrat,Status,test]
+    info=[TicketName,Nticket,parent,Client,ref,project,Contrat,Status,test,Priority]
 
     @api recordId;
     @track recordId;

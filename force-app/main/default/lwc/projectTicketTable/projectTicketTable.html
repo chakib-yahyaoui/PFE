@@ -1,0 +1,74 @@
+<template>
+    <lightning-quick-action-panel header="Manage Ticket">
+        <div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none modalBodyy">
+             <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium" class="spinnerClass"></lightning-spinner>
+             </template>
+             <lightning-card>
+                 <lightning-button label="Add Row" slot="actions" icon-name="utility:add" onclick={addRow}></lightning-button>
+                <div class="slds-m-around_medium">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Name">Name</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="N°Ticket">N°Ticket</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Description">Description</div>
+                                </th>
+                            
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Date debut">Date debut</div>
+                                </th>
+                                <th class="" scope="col">
+                                    <div class="slds-truncate" title="Date fin">Date fin</div>
+                                </th>
+                                
+                                
+                                <th class="" scope="col">
+                                    
+                                    <div class="slds-truncate" title="Stage">Action</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={records} for:item="obj">
+                                <tr class="inputRows" key={obj.Id}>
+                                    <th data-label="Opportunity Name" scope="row">
+                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Name" name="Name" value={obj.Name} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                    </th>
+                                    
+                                    <td data-label="Close Date">
+                                        <lightning-input type="number" class="fields" variant="label-hidden" label="N° Ticket" name="N_Ticket__c" value={obj.N_Ticket__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                     </td>
+
+                                     <td data-label="Account Name">
+                                        <lightning-input type="text" class="fields" variant="label-hidden" label="Description" name="Description__c" value={obj.Description__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                    </td>
+                                
+                                     <td data-label="Close Date">
+                                        <lightning-input type="date" class="fields" variant="label-hidden" label="Date debut" name="date_debut__c" value={obj.date_debut__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                     </td>
+                                     <td data-label="Close Date">
+                                        <lightning-input type="date" class="fields" variant="label-hidden" label="Date fin" name="End_Date__c" value={obj.End_Date__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                     </td>
+                                     
+                                    <td data-label="Prospecting">
+                                        <lightning-button-icon icon-name="action:delete"  alternative-text="Delete" title="Delete" data-id={obj.Id} onclick={handleDeleteAction}></lightning-button-icon>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </lightning-card>
+        </div>
+        <div slot="footer">
+            <lightning-button variant="neutral" label="Cancel" onclick={closeAction}></lightning-button> &nbsp;
+            <lightning-button variant="brand" label="Save" onclick={handleSaveAction} disabled={isDisable}></lightning-button>
+        </div>
+    </lightning-quick-action-panel>
+</template>

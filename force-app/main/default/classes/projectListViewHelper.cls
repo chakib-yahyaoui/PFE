@@ -1,10 +1,20 @@
 public class projectListViewHelper {
 	@AuraEnabled(cacheable=True)
     public static List<Project__c> getProjects(){
-        return [SELECT Id, Name, Specifications__c, department__c ,
+        return [SELECT Id, Name, Specifications__c, Department__c ,
                 Date_begin__c, Date_end__c
                 FROM Project__c
                 WITH SECURITY_ENFORCED];
+    }
+    @AuraEnabled(cacheable=true)
+    public static list <Project__c> getProject(Id ProjectId){
+        return [ 
+            SELECT Name, Specifications__c, Department__c ,
+                Date_begin__c, Date_end__c
+            FROM Project__c
+            WHERE Id=:ProjectId 
+            WITH SECURITY_ENFORCED
+            ] ;
     }
 
     @AuraEnabled(cacheable=True)
@@ -53,5 +63,12 @@ public class projectListViewHelper {
             FROM Department__c
             WITH SECURITY_ENFORCED
             ] ;
+    }
+    @AuraEnabled
+    public static Project__c updateProject(Project__c prj){
+        Project__c project  = new Project__c() ;
+        project = prj;
+        update project ;
+        return project ;
     }
 }

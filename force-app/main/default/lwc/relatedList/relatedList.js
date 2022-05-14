@@ -98,4 +98,4 @@ export default class RelatedList extends NavigationMixin( LightningElement ) {
 
     }
  
-} 
+}

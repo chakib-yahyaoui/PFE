@@ -1,0 +1,18 @@
+<apex:page controller="MyOrgHistoryViewController" sidebar="true" id="page">
+  
+        <apex:pageBlock >
+                <apex:pageBlockTable value="{!histories}" var="item">
+                    <apex:column headerValue="{!$ObjectType.Org__History.Fields.Field.Label}">
+                        <apex:outputField value="{!item.Field}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Org__History.Fields.NewValue.Label}">
+                        <apex:outputField value="{!item.NewValue}" />
+                    </apex:column>
+                    <apex:column headerValue="{!$ObjectType.Org__History.Fields.OldValue.Label}">
+                        <apex:outputField value="{!item.OldValue}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+          
+        </apex:pageBlock>
+   
+</apex:page>

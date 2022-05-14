@@ -9,9 +9,10 @@ import updateTicket from '@salesforce/apex/ticketController.updateTicket';
 import getProjet from '@salesforce/apex/ticketController.getProjectList';
 import ticketObject from '@salesforce/schema/Ticket__c';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
-import Status__c from '@salesforce/schema/Ticket__c.Workflow__c';
-
-
+import Status__c from '@salesforce/schema/Ticket__c.Status__c';
+import getTicket from '@salesforce/apex/ticketController.getTicket';
+import getUser from '@salesforce/apex/ticketController.getUserList';
+import Type_de_la_demande__c from '@salesforce/schema/Ticket__c.Type_de_la_demande__c';
 import Type__c from '@salesforce/schema/Ticket__c.Type__c';
 import Priority__c from '@salesforce/schema/Ticket__c.Priority__c';
 
@@ -86,7 +87,14 @@ export default class Ticket
         }
     )
     priorityValues;
-    
+    @wire(getPicklistValues,
+        {
+            recordTypeId: '$ticketInfo.data.defaultRecordTypeId',
+            fieldApiName: 	Type_de_la_demande__c
+        }
+    )
+    demandeValues;
+    @wire(getUser) User ;
     @wire(getProjet) projet ;
     @api objectApiName; 
     @track page = 1;
@@ -198,6 +206,7 @@ export default class Ticket
     } 
     @track recordId ; 
     @track isModalOpen = false;
+    @track isModalOpenEdit = false;
      // ************************* CLICKS ON ACTION ICONS ************************************
      handleclick(event){
         const row = event.detail.row ;
@@ -239,18 +248,24 @@ export default class Ticket
                           })
                       );
                   });}
-                  else if ( actionName === 'edit')
+                  else if ( actionName === 'edit'){
+                    getTicket({ TicketId: row.Id })
+                    .then(result => {
+                 console.log('test', result[0])
+                        this.ticket = result[0];
+                        console.log('he')
+                        this.NewTicket.Id = this.ticket.Id;
+                        console.log('hee', this.NewTicket.Id)
+                        this.openModalEdit();
+                        console.log('test1', result[0])
         
-                   {
-                    this[NavigationMixin.Navigate]({
-                        type: 'standard__recordPage',
-                        attributes:{
-                            recordId: row.Id,
-                            objectApiName: 'Ticket_c',
-                            actionName: 'edit'
-                        }
-                    });}}
-
+                    })
+                    .catch(error => {
+                        this.errormessage = error.message;
+                    });}
+                  
+                   
+                      }
   renderedCallback(){
            refreshApex(this.wiredDataResult);
       }
@@ -286,14 +301,28 @@ refrech() {
   {
     console.log('hi',this.items)
       this.isModalOpen = true;
-      console.log('hi',this.projet.data)
+      console.log('eho',this.ticketObject )
+
+      console.log('hi1',this.projet.data)
       
   }
   closeModal() {
       this.isModalOpen = false;
   }
+  openModalEdit() 
+  {
+    console.log('hi',this.items)
+      this.isModalOpenEdit = true;
+      console.log('hi1',this.projet.data)
+     
+
+      
+  }
+  closeModalEdit() {
+      this.isModalOpenEdit = false;
+  }
   submitDetails() {
-     console.log('hiii')
+     console.log('hiii' , this.ticket)
       createTicket({ TicketRecObj: this.ticketObject })
               .then(result => {
                   console.log('success' + result);
@@ -320,11 +349,11 @@ refrech() {
               this.ticketObject.priority = event.target.value;
           }
       handletypeChange(event) {
-            this.ticketObject.type= event.target.value;
+            this.ticketObject.Type= event.target.value;
         }
     
     handleprojectChange(event) {
-          this.ticketObject.project= event.target.value;
+          this.ticketObject.Project= event.target.value;
       }
       handleendChange(event){
         this.ticketObject.end= event.target.value;
@@ -335,47 +364,90 @@ refrech() {
 
       }
       handlestatutChange(event) {
-        this.ticketObject.statut = event.target.value;
+        this.ticketObject.Statut = event.target.value;
     }
-  
-  
-  
+    handleprojectChange(event) {
+        this.ticketObject.Project = event.target.value;
+    }
+    handlesendChange(event) {
+        this.ticketObject.send = event.target.value;
+    }
+    handlesuiviChange(event) {
+        this.ticketObject.suivi = event.target.value;
+    }
+    handletypeChange(event) {
+        this.ticketObject.type = event.target.value;
+    }
+    handletransmisChange(event) {
+        this.ticketObject.transmis = event.target.value;
+    }
+    handledemandeChange(event) {
+        this.ticketObject.demande = event.target.value;
+    }
+    
+    @track accid;
+
+    setAccid(){
+        this.accid = recordId;
+    }
   
   /////////////////////
   
 
-handleNameEdit(event) {
-      this.NewTicket.Name = event.target.value;
-}
-  
-handleNumEdit(event) {
-    this.NewTicket.NTicket = event.target.value;
-}
-handlepriorityEdit(event) {
-    this.NewTicket.priority = event.target.value;
-}
-handletypeEdit(event) {
-  this.NewTicket.type= event.target.value;
-}
 
-handleprojectEdit(event) {
-this.NewTicket.project= event.target.value;
-}
+  
 handleendEdit(event){
-this.NewTicket.end= event.target.value;
+this.NewTicket.End_Date__c= event.target.value;
 
 }
 handlebeginEdit(event){
-this.NewTicket.begin= event.target.value;
+    this.NewTicket.Creation_Date__c= event.target.value;
+    
+    }
+handlestatutEdit(event){
+    this.NewTicket.Status__c= event.target.value;
+    
+    }
+    handlepriorityEdit(event){
+this.NewTicket.Priority__c= event.target.value;
 
 }
+handleProjectManagerEdit(event) {
+    this.NewTicket.Project_Manager__c = event.target.value;
+}
+
+handlesendEdit(event) {
+  this.NewTicket.Send_from__c = event.target.value;
+}
+handledemandeEdit(event) {
+  this.NewTicket.Type_de_la_demande__c = event.target.value;
+}
+handletransmisEdit(event) {
+this.NewTicket.transmis__c= event.target.value;
+}
+handleNameEdit(event) {
+    this.NewTicket.Name= event.target.value;
+    }
+    handleNumEdit(event) {
+        this.NewTicket.N_Ticket__c= event.target.value;
+        }
+        handletypeEdit(event) {
+            this.NewTicket.Type__c= event.target.value;
+            }
+
+handleprojectEdit(event){
+    this.NewTicket.Project__c= event.target.value;
+
+}
+
   
   submitDetailsEdit() {
-  
+    console.log('hi', this.NewTicket)
     updateTicket({ ticket: this.NewTicket })
           .then(() => {
-              console.log('test');
+              console.log('tester');
               this.NewTicket = {}
+              console.log('teste',this.NewTicket)
               this.isModalOpenEdit = false;
               refreshApex(this.wiredDataResult) });
           }

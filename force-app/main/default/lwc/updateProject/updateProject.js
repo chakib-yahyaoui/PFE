@@ -1,22 +1,24 @@
 import { LightningElement ,api ,track } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import Name  from '@salesforce/schema/Department__c.Name';
-import Description  from '@salesforce/schema/Department__c.Description__c';
-import Manager  from '@salesforce/schema/Department__c.Manager__c';
-import Member  from '@salesforce/schema/Department__c.Member__c';
-import Project_Managers  from '@salesforce/schema/Department__c.Project_Managers__c';
+import Name  from '@salesforce/schema/Project__c.Name';
+import Specifications  from '@salesforce/schema/Project__c.Specifications__c';
+import Members  from '@salesforce/schema/Project__c.Members__c';
+import Department  from '@salesforce/schema/Project__c.Department__c';
+import Date_end  from '@salesforce/schema/Project__c.Date_end__c';
+import Date_begin  from '@salesforce/schema/Project__c.Date_begin__c';
 
 
-import CreatedById from '@salesforce/schema/Department__c.CreatedById';
+import CreatedById from '@salesforce/schema/Project__c.CreatedById';
 
-import LastModifiedBy from '@salesforce/schema/Department__c.LastModifiedById';
+import LastModifiedBy from '@salesforce/schema/Project__c.LastModifiedById';
 
 
 import { CloseActionScreenEvent } from 'lightning/actions';
-export default class UpdateDepartment extends LightningElement {
+
+export default class UpdateProject extends LightningElement {
     @api department ={};
-    myFields = [Name ,Description,Manager,Member ,Project_Managers  ,LastModifiedBy,CreatedById];
+    myFields = [Name ,Specifications,Members,Member ,Department  ,Date_end,Date_begin,LastModifiedBy,CreatedById];
  result;
  @api recordId;
  @track recordId;
@@ -42,7 +44,7 @@ handleload(event){
 
                 title: 'Success',
 
-                message: 'Department Record Updated!',
+                message: 'Project Record Updated!',
 
                 variant: 'success'
 

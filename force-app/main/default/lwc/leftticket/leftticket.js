@@ -1,4 +1,3 @@
-
 import chargeprevdev  from '@salesforce/schema/Ticket__c.Charge_pr_visonnelle_de_d_v__c';
 import chargeprevsupp  from '@salesforce/schema/Ticket__c.Charge_pr_visonnelle_totale__c';
 import chargerellsupp  from '@salesforce/schema/Ticket__c.Charge_r_elle_support__c';
@@ -13,7 +12,6 @@ import Suivipar  from '@salesforce/schema/Ticket__c.Suivi_par__c';
 import demande  from '@salesforce/schema/Ticket__c.Type_de_la_demande__c';
 import transmis from '@salesforce/schema/Ticket__c.transmis__c';
 import reproduction from '@salesforce/schema/Ticket__c.Etape_de_reproduction__c';
-
 import resolution  from '@salesforce/schema/Ticket__c.Description_de_la_m_thode_de_r_solution__c';
 
 import Type from '@salesforce/schema/Ticket__c.Type__c';
