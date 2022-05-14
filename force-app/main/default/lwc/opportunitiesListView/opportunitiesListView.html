@@ -1,0 +1,27 @@
+<template >
+    <div style="background-color:aqua;">
+    <lightning-card title="Custom Opportunities List View" icon-name="custom:custom11" >
+        <div slot="actions" style="background-color:aqua;">
+            <lightning-button label="Create Opportunity" onclick={navigateToNewRecordPage}></lightning-button>
+            <lightning-button label="Delete Selected Opportunitiess" onclick={deleteSelectedContacts}></lightning-button>
+
+        </div>
+        <div class="slds-card__body_inner" >
+            <p style="margin-left: 25px">Selected Opportunities: {selectedOpportunitiesLen}</p>
+
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
+                <lightning-input style="margin-left: 30px" type="search" onchange={handleSearch}></lightning-input>
+            </div>
+            <lightning-datatable
+            key-field="id"
+            data={opportunities}
+            columns={cols}
+            onrowselection={handleRowSelection}
+            onrowaction={handleRowAction}
+            > 
+            </lightning-datatable>
+        </div>
+
+    </lightning-card>
+    </div>
+</template>
