@@ -1,89 +1,46 @@
 <apex:page extensions="OppController"   applyHtmlTag="false" showHeader="false" renderAs="PDF" standardController="Opportunity">
-    <html>
-        <head>
-            <style>
-                * {
-                box-sizing: border-box;
-                }
-                
-                .heading {
-                font-weight: bold;
-                }
-                
-                .heading--main {
-                font-size: 36px;
-                }
-                
-                .heading--sub {
-                font-size: 21px;
-                }
-                
-                .box--half {
-                float: left;
-                width: 50%;
-                }
-                
-                .box--full {
-                float: left;
-                width: 100%;
-                }
-                
-                table {
-                border-collapse: collapse;
-                margin-top: 25px;
-                width: 100%;
-                }
-                
-                th {
-                background-color: #92d5f0;
-                font-align: left;
-                font-size: 14px;
-                font-weight: bold;
-                padding: 5px;
-                }
-                
-                td {
-                font-size: 12px;
-                padding: 5px;
-                text-align: left;
-                width: 33%;
-                }                
-            </style>
-        </head>
-        <body>
-            <center>
-                <h1 class="heading heading--main">All opportunities</h1>
-                
-            </center>
-            <div class="box-full">
-                
-                <table >
-                    <tr>
-                        <th>Name</th>
-                        <th>Amount</th>
-                        <th>Close Date</th>
-                        <th>Status</th>
-                        <th>Account Name</th>
-                    </tr>
-                    <apex:repeat value="{!OppList}" var="item">
-                        <tr>
-                            <td>{!item.Name}</td>
-                            <td>{!item.Amount}</td>
-                            
-                            <td>{!MONTH(item.CloseDate)}-{!DAY(item.CloseDate)}-{!YEAR(item.CloseDate)}</td>
-                            <td>{!item.StageName}</td>
-                            
-                        </tr>
-                    </apex:repeat>
-                </table>
-               
-                <footer style="margin-right:570px; padding-top:2500px; z-index:1; color:black; font-family:sans-serif;">
 
-    <p>Signature</p>
+<table style="font-family:sans-serif; padding-bottom:30px;">
+<tr>
+    <td><apex:image id="logo2" value="{!$Resource.logo2}" width="60" height="60"/></td>
+    <td style="test-align:right; padding-right:550px;"></td> 
+    <td style="text-align:right;"><apex:outputText value="{!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}"/></td> 
+    <h1 style="text-align:center;">Liste des opportunités</h1>
+    
+</tr>
+</table>
 
-</footer>
-           
-            </div>
-        </body>
-    </html>
+<br></br>
+
+<br></br>
+<table style="font-family:sans-serif;">
+<tr style="color:#fff; background-color:#ff4500;">
+    <th style="padding-left:5px; padding-right:100px;">Name</th>
+    <th style="text-align:center; padding-left:5px; padding-right:50px;">Amount</th>
+    <th style="text-align:right; padding-left:15px; padding-right:80px;">Close Date</th>
+    <th style="text-align:right; padding-left:15px; padding-right:90px;">Status</th>
+</tr>
+
+
+<apex:repeat value="{!OppList}" var="item">
+    <tr style="background-color:#dcdcdc;" >
+        <td >{!item.Name}</td>
+    	<td >{!item.Amount}</td>
+    	<td >{!MONTH(item.CloseDate)}-{!DAY(item.CloseDate)}-{!YEAR(item.CloseDate)}</td>
+    	<td >{!item.StageName}</td>
+    </tr>
+</apex:repeat>
+
+</table>
+<br></br>
+
+
+
+
+
+<table style="margin-left:570px; padding-top:40px; z-index:1; color:#ff4500; font-family:sans-serif;">
+<tr>
+    <td>Thank you !</td>
+</tr>
+</table>
 </apex:page>

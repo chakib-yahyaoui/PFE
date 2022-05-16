@@ -1,24 +1,16 @@
-import { LightningElement, wire, api } from "lwc";
-import getContacts from "@salesforce/apex/ContactController.getContacts";
+import { LightningElement, wire, api,track } from "lwc";
+import getContactList from "@salesforce/apex/ContactController.getContactList";
 import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import updateContacts from "@salesforce/apex/ContactController.updateContacts";
 import { getRecordNotifyChange } from "lightning/uiRecordApi";
 
-const COLS = [
-  { label: "First Name", fieldName: "FirstName", editable: true },
-  { label: "Last Name", fieldName: "LastName", editable: true },
-  { label: "Title", fieldName: "Title", editable: true },
-  { label: "Phone", fieldName: "Phone", type: "phone",editable: true  },
-  { label: "Email", fieldName: "Email", type: "email",editable: true  }
-];
-export default class ContactsForAccount extends LightningElement {
-  @api recordId;
-  columns = COLS;
-  draftValues = [];
 
-  @wire(getContacts, { accId: "$recordId" })
-  contact;
+export default class ContactsForAccount extends LightningElement {
+
+  @wire(getContactList) Contact;
+  @track wiredgetcontact;
+  
 
   async handleSave(event) {
     const updatedFields = event.detail.draftValues;

@@ -1,0 +1,16 @@
+<aura:component controller="getContactWithAccountForChart">
+    
+    <!--attributes-->
+    <ltng:require scripts="{!$Resource.ChartJs}" afterScriptsLoaded="{!c.scriptsLoaded}"/> <!--include chart JS plugin from static resource-->
+    
+    <aura:handler name="init" value="{!this}" action="{!c.init}" /> <!--init method for getting contacts and accounts
+																				and set then into chart-->
+    
+    <!--markup-->
+    <div class="slds-grid">
+        <div class="slds-col slds-size_8-of-12 slds-p-around_xx-large">
+            <canvas aura:id="myChart"></canvas>
+        </div>
+    </div>
+	
+</aura:component>

@@ -27,7 +27,7 @@ export default class Deletebutton extends NavigationMixin(LightningElement) {
                 this[NavigationMixin.Navigate]({
                     type: 'standard__navItemPage',
                     attributes: {
-                        apiName: 'Department_List_View'
+                        apiName: 'Ticket_page'
                  },
              });
             })

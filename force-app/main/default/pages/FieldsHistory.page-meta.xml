@@ -5,11 +5,6 @@
     <confirmationTokenRequired>true</confirmationTokenRequired>
     <label>FieldsHistory</label>
     <packageVersions>
-        <majorNumber>4</majorNumber>
-        <minorNumber>1</minorNumber>
-        <namespace>dfsle</namespace>
-    </packageVersions>
-    <packageVersions>
         <majorNumber>1</majorNumber>
         <minorNumber>7</minorNumber>
         <namespace>sf_com_apps</namespace>

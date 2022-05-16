@@ -1,0 +1,11 @@
+<template>
+    <div class="slds-col">
+        <canvas class="pieChart" lwc:dom="manual" width="200" height="120"></canvas>
+        <div if:false= {isChartJsInittialized}>
+            <lightning-spinner alternative-text="Loading" size="medium" variant="base"></lightning-spinner>
+
+        </div>
+        <div if:false= {_chartvalue}></div>
+
+    </div>
+</template>

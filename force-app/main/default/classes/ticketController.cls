@@ -63,17 +63,22 @@ ticket.transmis__c=String.valueOf(ticketinfo.get('transmis'));
             insert ticket;
             return ticket ;
     }
-
+    @AuraEnabled
+    public static Ticket__c createrelatedTicket (Object TicketRecObj){
+        Map<String,Object> ticketinfo = (Map<String, Object>) JSON.deserializeUntyped(JSON.serialize(TicketRecObj));
+        Ticket__c ticket = new Ticket__c() ;
+        ticket.Name = String.valueOf(ticketinfo.get('Name'));
+        ticket.N_Ticket__c = String.valueOf(ticketinfo.get('N_Ticket__c'));
+        insert ticket;
+        return ticket ;}
     @AuraEnabled(cacheable=true)
     public static list <Ticket__c> getName(Id TicketId){
         return [ 
             SELECT Name  
             FROM Ticket__c
             WHERE Id=:TicketId 
-            WITH SECURITY_ENFORCED
-            ] ;
+            WITH SECURITY_ENFORCED] ;
     }
-
     @AuraEnabled(cacheable=true)
     public static List<Ticket__c> SearchResult(String ticketName){
         String keyString = '%'+ticketName+'%';
@@ -88,5 +93,40 @@ FROM Ticket__c WHERE Name like:keyString];
         String key = '%' + searchKey + '%';
         return [SELECT Name, N_Ticket__c,Type__c,Priority__c ,Status__c , Project__c FROM  Ticket__c where Name LIKE :key ];
     }
-
+ 
+     @AuraEnabled( cacheable = true )
+       public static List<Ticket__c> fetchTickets(String recordId) {
+           return [SELECT Id, Status__c, Name,N_Ticket__c, Priority__c FROM Ticket__c WHERE Id =:recordId LIMIT 100];
+       }
+    
+       @AuraEnabled
+       public static string dmlOnTickects(Object data, String removeTicketIds) {
+           List<Ticket__c> updateTickect = (List<Ticket__c>) JSON.deserialize(JSON.serialize(data), List<Project__c>.class);
+           List<Ticket__c> deleteTickect = new List<Ticket__c>();
+    
+           if(String.isNotBlank(removeTicketIds)){
+               List<Id> ticketIds = removeTicketIds.split(',');
+               deleteTickect = [SELECT Id FROM Ticket__c WHERE Id IN :ticketIds];
+           }
+    
+           try {
+               if(updateTickect != null && !updateTickect.isEmpty()){
+                   upsert updateTickect;
+               }
+    
+               if(deleteTickect != null && !deleteTickect.isEmpty()){    
+                   delete deleteTickect;
+               }
+               return 'Success: Ticket updeted successfully';
+           }
+           catch (Exception e) {
+               String errorMsg = 'The following exception has occurred: ' + e.getMessage();
+               throw new AuraHandledException(ErrorMsg);
+           }
+          // return '';
+       }
+    
+    
+    
+    
 }
