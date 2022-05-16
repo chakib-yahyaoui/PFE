@@ -1,17 +1,25 @@
 <!-- sldsValidatorIgnore -->
 <template>
     <lightning-card title="Contact List View" icon-name="custom:custom10">
+        <div class="slds-grid slds-einstein-header slds-card__header">
+            <header class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
+                <div class="slds-media__figure">
+                    <span class="slds-icon_container slds-icon-utility-salesforce1"></span>
+                </div>
+                <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
+            </header>
+        </div>
         <div slot="actions">
-            <lightning-button variant="brand"
+            <lightning-button 
 label="Create new account"
 title="Open Modal"
 onclick={customShowModalPopup}
 class="slds-m-left_x-small"></lightning-button>
-            <lightning-button   variant="destructive" label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
+            <lightning-button    label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
 
         </div>
         <div class="slds-card__body_inner">
-            <p style="margin-left: 25px">Selected Contacts: {selectedContactsLen}</p>
+            <p style="margin-left: 25px;font-size:medium">Selected Contacts: {selectedContactsLen}</p>
 
             <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
                 <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px"></lightning-input>
@@ -27,6 +35,7 @@ class="slds-m-left_x-small"></lightning-button>
         </div>
 
     </lightning-card>
+
     <template if:true={customFormModal}>
  
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">

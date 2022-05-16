@@ -8,11 +8,11 @@ public class opportinitiesListViewHelper {
     }
 
     @AuraEnabled(cacheable=True)
-    public static List<Contact> searchOpportunity(String searchString){
+    public static List<Opportunity> searchOpportunity(String searchString){
         List<List<SObject>> opportunities = [FIND :searchString IN ALL FIELDS RETURNING Opportunity(Name, 
                 account.name, Amount,CloseDate,StageName)];
 
-        return (List<Contact>) opportunities[0];
+        return (List<Opportunity>) opportunities[0];
     }
 
     @AuraEnabled
