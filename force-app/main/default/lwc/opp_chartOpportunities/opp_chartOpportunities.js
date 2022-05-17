@@ -1,5 +1,5 @@
 import { LightningElement, wire } from 'lwc';
-import getOpportunities from '@salesforce/apex/GEN_ChartController.getOpportunities';
+import getOpportunities from '@salesforce/apex/GEN_ChartController.getOpportunitiees';
  
 export default class Gen_opportunitychart extends LightningElement {
     chartConfiguration;
@@ -11,27 +11,20 @@ export default class Gen_opportunitychart extends LightningElement {
             this.chartConfiguration = undefined;
         } else if (data) {
             let chartAmtData = [];
-            let chartRevData = [];
             let chartLabel = [];
             data.forEach(opp => {
-                chartAmtData.push(opp.amount);
-                chartRevData.push(opp.expectRevenue);
                 chartLabel.push(opp.stage);
             });
  
             this.chartConfiguration = {
-                type: 'bar',
+                type: 'pie',
                 data: {
                     datasets: [{
-                            label: 'Amount',
+                            label: 'stage',
                             backgroundColor: "#1190CB",
                             data: chartAmtData,
                         },
-                        {
-                            label: 'Expected Revenue',
-                            backgroundColor: "pink",
-                            data: chartRevData,
-                        },
+                        
                     ],
                     labels: chartLabel,
                 },
