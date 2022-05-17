@@ -1,7 +1,7 @@
 <template>
-    <lightning-card title="Open Opportunities" icon-name="utility:chart">
-        <template if:true={chartConfiguration}>
-            <c-opp_piechart chart-config={chartConfiguration}></c-opp_piechart>
-        </template>
-</lightning-card>
+    
+    <template if:true={opportunityData}>
+      
+      <c-opportunity-pie-chart chart-data={opportunityData}></c-opportunity-pie-chart>
+    </template>
 </template>
