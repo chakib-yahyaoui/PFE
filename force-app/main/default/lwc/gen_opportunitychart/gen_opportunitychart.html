@@ -1,5 +1,6 @@
 <template>
-    <lightning-card style="text-align: center;" title="Open Opportunities" icon-name="utility:chart">
+    <lightning-card>
+        <h1 style="text-align: center;" title="Open Opportunities"></h1>
         <template if:true={chartConfiguration}>
             <c-gen_barchart chart-config={chartConfiguration}></c-gen_barchart>
         </template>

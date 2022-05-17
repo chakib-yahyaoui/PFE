@@ -45,7 +45,7 @@ export default class OpportunityPieChart extends LightningElement {
         type : 'donut'
       },
       donut : {
-        title : 'Opportunities',
+        
         label: {
           format: function(value, ratio, id) {
             return value;
