@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="Opportunities Closed Won" icon-name="utility:chart">
+        <template if:true={chartConfiguration}>
+            <c-opp-closed-won-bar-chart chart-config={chartConfiguration}></c-opp-closed-won-bar-chart>
+        </template>
+    </lightning-card>
+</template>
