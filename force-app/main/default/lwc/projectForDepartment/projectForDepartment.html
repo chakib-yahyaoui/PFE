@@ -1,5 +1,26 @@
 <template>
-    <lightning-card title="Project Related To Department" icon-name="custom:custom61">
+<article class="slds-card">
+  <div class="slds-card__header slds-grid">
+    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+      <div class="slds-media__figure">
+        <span class="slds-icon_container slds-icon-custom-custom61" title="Projects Related To Deaprtment" >
+          <svg class="slds-icon slds-icon_small" aria-hidden="true">
+            <use xlink:href="/assets/icons/standard-sprite/svg/symbols.svg#contact"></use>
+          </svg>
+          <span class="slds-assistive-text">contact</span>
+        </span>
+      </div>
+      <div class="slds-media__body">
+        <h2 class="slds-card__header-title">
+          <a class="slds-card__header-link slds-truncate" >
+            <span>Contacts ({number.data})</span>
+          </a>
+        </h2>
+      </div>
+      
+    </header>
+  </div>
+    
       <div class="slds-m-around_medium">
         <template if:true={project.data}>
           <!-- sldsValidatorIgnoreNextLine -->
@@ -17,5 +38,5 @@
           <!-- handle Apex error -->
         </template>
       </div>
-    </lightning-card>
-  </template>
+  </article>
+</template>

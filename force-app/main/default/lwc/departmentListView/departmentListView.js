@@ -7,7 +7,6 @@ import updateDepartment from '@salesforce/apex/departmentListViewHelper.updateDe
 import departmentObject from '@salesforce/schema/Department__c';
 import getUserList from '@salesforce/apex/departmentListViewHelper.getUserList';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
-import submitDepartmentAction from '@salesforce/apex/lwcAppExampleApex.submitDepartmentAction';
 import getDepartments from "@salesforce/apex/departmentListViewHelper.getDepartments"
 import searchDepartment from "@salesforce/apex/departmentListViewHelper.searchDepartment"
 import deleteDepartments from "@salesforce/apex/departmentListViewHelper.deleteDepartments"

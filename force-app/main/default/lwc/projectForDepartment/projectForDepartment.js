@@ -3,6 +3,7 @@ import getProjects from "@salesforce/apex/ProjectController.getProjects";
 import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import updateProjects from "@salesforce/apex/ProjectController.updateProjects";
+import getNumberProjects from "@salesforce/apex/ProjectController.getNumberProjects";
 import { getRecordNotifyChange } from "lightning/uiRecordApi";
 
 const COLS = [
@@ -12,10 +13,13 @@ const COLS = [
     { label: "Date End", fieldName: "Date_end__c",editable: true  },
   ];
 export default class ProjectForDepartment extends LightningElement {
-    @api recordId;
+    
+  
+  @api recordId;
     columns = COLS;
     draftValues = [];
-  
+    
+    @wire(getNumberProjects)wiredNumbers;
     @wire(getProjects, { depId: "$recordId" })
     project;
   
