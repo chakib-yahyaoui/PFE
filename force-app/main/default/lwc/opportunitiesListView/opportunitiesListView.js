@@ -10,7 +10,9 @@ import {loadScript} from "lightning/platformResourceLoader";
 import JSPDF from '@salesforce/resourceUrl/jspdf';
 import getopportunities from '@salesforce/apex/PdfGenerator.getOpportunitiesController';
 
-const ACTIONS = [{label: 'Delete', name: 'delete'}]
+const ACTIONS = [{label: 'Delete', name: 'delete'},
+{label: 'View', name: 'view'},
+{label: 'Edit', name: 'edit'}]
 
 const COLS = [{label: 'Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
             {label: 'Amount', fieldName: 'Amount'},
@@ -150,17 +152,79 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
     }
 
     handleRowAction(event) {
-        deleteOpportunities({opportunityIds : [event.detail.row.Id]}).then(() => {
-            refreshApex(this.wiredOpportunities);
-        })
+        const actionName = event.detail.action.name;
+        const row = event.detail.row;
+        this.recordId =  row.Id;
+        switch(actionName){
+            case 'view':
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes:{
+                        recordId: row.Id,
+                        actionName: 'view'
+                    }
+                });
+                break;
+            case 'edit':
+                this[NavigationMixin.Navigate]({
+                    type: 'standard__recordPage',
+                    attributes:{
+                        recordId: row.Id,
+                        objectApiName: 'opportunity',
+                        actionName: 'edit'
+                    }
+                });
+                break;
+            case 'delete' :
+                deleteOpportunities({opportunityIds : [event.detail.row.Id]}).then(() => {
+                    refreshApex(this.wiredOpportunities);
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Success',
+                            message: 'Record deleted',
+                            variant: 'success'
+                        })
+                        
+                    );
+                    
+                })
+                .catch(error => {
+                    this.dispatchEvent(
+                        new ShowToastEvent({
+                            title: 'Error deleting record',
+                            message: error.body.message,
+                            variant: 'error'
+                        })
+                    );
+                });
+        }
     }
 
     deleteSelectedOpportunities(){
         const idList = this.selectedOpportunities.map( row => { return row.Id })
         deleteOpportunities({opportunityIds : idList}).then( () => {
             refreshApex(this.wiredOpportunities);
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Records deleted',
+                    variant: 'success'
+                })
+                
+            );
+            
         })
+        .catch(error => {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error deleting records',
+                    message: error.body.message,
+                    variant: 'error'
+                })
+            );
+        });
         this.template.querySelector('lightning-datatable').selectedRows = [];
-        this.selectedOpportunities = undefined;
+        this.selectedContacts = undefined;
+        
     }
 }
