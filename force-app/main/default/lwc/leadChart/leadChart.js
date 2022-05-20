@@ -1,6 +1,6 @@
 import {LightningElement,api,wire,track} from 'lwc';
 import {loadScript} from 'lightning/platformResourceLoader';
-import ChartJS from '@salesforce/resourceUrl/ChartJS';
+import ChartJS from '@salesforce/resourceUrl/ChartJs';
 import {ShowToastEvent} from 'lightning/platformShowToastEvent';
 import getLeadByStatus from '@salesforce/apex/LeadChartController.getLeadByStatus';
 export default class LeadChart extends LightningElement {

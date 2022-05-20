@@ -1,7 +1,7 @@
 public class DepartmentController {
 	 @AuraEnabled( cacheable = true )
     public static List<Project__c> fetchProjects(String recordId) {
-        return [SELECT Id, Department__c, Name,Specifications__c, Date_begin__c, Date_end__c FROM Project__c WHERE Department__c =:recordId LIMIT 100];
+        return [SELECT Id, Department__c, Name,Specifications__c, Date_begin__c, Date_end__c FROM Project__c WHERE Department__c =:recordId WITH SECURITY_ENFORCED];
     }
  
     @AuraEnabled

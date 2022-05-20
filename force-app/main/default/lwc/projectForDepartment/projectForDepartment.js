@@ -19,7 +19,8 @@ export default class ProjectForDepartment extends LightningElement {
     columns = COLS;
     draftValues = [];
     
-    @wire(getNumberProjects)wiredNumbers;
+    @wire(getNumberProjects, { depId: "$recordId" })
+    number;
     @wire(getProjects, { depId: "$recordId" })
     project;
   

@@ -7,7 +7,10 @@ export default class TicketChart extends LightningElement {
   @wire(ticketAggregation,{}) ticketData({error, data}){
     if(data){
       let ticData = Object.assign({},data);
-     
+      /*
+        this.opportunityData will in the below format
+        [['Closed Won',2],['Closed Lost',4],['Negotiation',5]];
+      */
       for(let key in ticData){
         if(ticData.hasOwnProperty(key)){
           let tempData=[key, ticData[key]];

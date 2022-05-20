@@ -85,5 +85,15 @@ public class ProjectController {
         }
        // return '';
     }
+    @AuraEnabled( cacheable = true )
+    public static Integer getNumberProjects(String depId) {
+        return [
+            SELECT COUNT()   
+            FROM Project__c
+            WHERE Department__c = :depId];
+   
+
+            }
+   
 
 }
