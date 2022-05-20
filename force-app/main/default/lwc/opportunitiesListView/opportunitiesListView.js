@@ -3,7 +3,7 @@ import { LightningElement, wire } from 'lwc';
 import getOpportunities from "@salesforce/apex/opportinitiesListViewHelper.getOpportunities"
 import searchOpportunity from "@salesforce/apex/opportinitiesListViewHelper.searchOpportunity"
 import deleteOpportunities from "@salesforce/apex/opportinitiesListViewHelper.deleteOpportunities"
-
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import {loadScript} from "lightning/platformResourceLoader";
