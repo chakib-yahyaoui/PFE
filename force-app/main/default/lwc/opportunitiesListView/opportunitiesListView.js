@@ -44,7 +44,14 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
 		]);
 	}
 
-	
+	navigateToVisualForcePage(event){
+        this[NavigationMixin.Navigate]({
+            "type": "standard__webPage",
+            "attributes": {
+                "url": "https://resilient-moose-khyr7z-dev-ed.lightning.force.com/one/one.app#eyJjb21wb25lbnREZWYiOiJvbmU6YWxvaGFQYWdlIiwiYXR0cmlidXRlcyI6eyJhZGRyZXNzIjoiaHR0cHM6Ly9yZXNpbGllbnQtbW9vc2Uta2h5cjd6LWRldi1lZC0tYy52aXN1YWxmb3JjZS5jb20vYXBleC9PcHBvcnR1bml0eVZpZXc%2FaWQ9MDA2OGQwMDAwMDRtSjBHQUFVIn0sInN0YXRlIjp7fX0%3D"
+            }
+        });
+    }
 
 	
 
