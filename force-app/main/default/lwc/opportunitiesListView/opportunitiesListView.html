@@ -17,11 +17,12 @@
                                         <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Opportunities</span>
                                     </h1>
                                 </div>
-                                <div slot="actions" style="margin-left:1000px ;">
+                                <div slot="actions" style="margin-left:970px ;">
                                     <lightning-button style="margin:2px;" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
                                     <lightning-button style="margin:2px;" label="Create Opportunity" onclick={navigateToNewRecordPage}></lightning-button>
                                     <lightning-button style="margin:2px;" label="Delete Selected Opportunitiess" onclick={deleteSelectedOpportunities}></lightning-button>
                                     <lightning-button style="margin:2px;" onclick={navigateToVisualForcePage} label ="Generate PDF"></lightning-button>
+                                    
                         
                                 </div>
                             </div>
@@ -30,20 +31,14 @@
                 </div>
             </div>
         </div>
-    </div>
-    <lightning-card title="Custom Opportunities List View" icon-name="custom:custom11" >
-        <div slot="actions" >
-            <lightning-button style="margin:2px;" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
-            <lightning-button style="margin:2px;" label="Create Opportunity" onclick={navigateToNewRecordPage}></lightning-button>
-            <lightning-button style="margin:2px;" label="Delete Selected Opportunitiess" onclick={deleteSelectedOpportunities}></lightning-button>
-            <lightning-button style="margin:2px;" onclick={navigateToVisualForcePage} label ="Generate PDF"></lightning-button>
-
-        </div>
+    </div><br><br>
+    <lightning-card>
+        
         <div class="slds-card__body_inner" >
             <p style="margin-left: 25px">Selected Opportunities: {selectedOpportunitiesLen}</p>
 
             <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
-                <lightning-input style="margin-left: 30px" type="search" onchange={handleSearch}></lightning-input>
+                <lightning-input style="margin-left: 30px" type="search" onchange={handleSearch} placeholder="Search opportunity"></lightning-input>
             </div>
             <lightning-datatable
             key-field="id"
