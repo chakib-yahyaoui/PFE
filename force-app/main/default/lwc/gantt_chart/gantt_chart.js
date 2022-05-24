@@ -40,6 +40,10 @@ export default class GanttChart extends LightningElement {
       {
         label: "View by Week",
         value: "7/10"
+      },
+      {
+        label: "View by Month",
+        value: "1/12"
       }
     ],
     slotSize: 1,
