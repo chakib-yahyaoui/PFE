@@ -1,28 +1,49 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <lightning-card >
-        <div>
-            <header class="slds-grid slds-grid_vertical-align-center slds-size_3-of-4 slds-medium-size_2-of-3">
-                <div class="slds-media__figure">
-                    <span class="slds-icon_container slds-icon-utility-salesforce1"></span>
+    <div class="slds-tabs_card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity">
+                                 <lightning-icon icon-name="standard:contact"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Contact List View</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Contacts</span>
+                                    </h1>
+                                </div>
+                                <div style="margin-left:1200px ;" slot="actions">
+                                    <lightning-button style="margin:5px;"
+                        label="Create new account"
+                        title="Open Modal"
+                        onclick={customShowModalPopup}
+                        class="slds-m-left_x-small"></lightning-button>
+                                    <lightning-button    label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="slds-einstein-header__figure slds-size_1-of-4 slds-medium-size_1-of-3"></div>
-            </header>
+            </div>
         </div>
-        <div slot="actions">
-            <lightning-button 
-label="Create new account"
-title="Open Modal"
-onclick={customShowModalPopup}
-class="slds-m-left_x-small"></lightning-button>
-            <lightning-button    label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
-
-        </div>
+    </div>
+    <lightning-card >
+        
         <div class="slds-card__body_inner">
-            <p style="margin-left: 25px;font-size:medium">Selected Contacts: {selectedContactsLen}</p>
-
-            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
-                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px"></lightning-input>
+            
+            <p style="margin-left: 25px;">Selected Contacts: {selectedContactsLen}</p>
+            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small" slot="actions">
+                
+                
+                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px" placeholder="Search by contact name"></lightning-input>
+            
             </div>
             <lightning-datatable
             key-field="id"

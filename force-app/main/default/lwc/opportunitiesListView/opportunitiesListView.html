@@ -1,5 +1,36 @@
 <template >
-    <div style="background-color:aqua;">
+    <div class="slds-tabs_card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-opportunity">
+                                 <lightning-icon icon-name="standard:opportunity"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Opportunities List View</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Opportunities</span>
+                                    </h1>
+                                </div>
+                                <div slot="actions" >
+                                    <lightning-button style="margin:2px;" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
+                                    <lightning-button style="margin:2px;" label="Create Opportunity" onclick={navigateToNewRecordPage}></lightning-button>
+                                    <lightning-button style="margin:2px;" label="Delete Selected Opportunitiess" onclick={deleteSelectedOpportunities}></lightning-button>
+                                    <lightning-button style="margin:2px;" onclick={navigateToVisualForcePage} label ="Generate PDF"></lightning-button>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <lightning-card title="Custom Opportunities List View" icon-name="custom:custom11" >
         <div slot="actions" >
             <lightning-button style="margin:2px;" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
@@ -25,5 +56,4 @@
         </div>
 
     </lightning-card>
-    </div>
 </template>
