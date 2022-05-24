@@ -7,7 +7,6 @@ import updateDepartment from '@salesforce/apex/departmentListViewHelper.updateDe
 import departmentObject from '@salesforce/schema/Department__c';
 import getUserList from '@salesforce/apex/departmentListViewHelper.getUserList';
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
-import submitDepartmentAction from '@salesforce/apex/lwcAppExampleApex.submitDepartmentAction';
 import getDepartments from "@salesforce/apex/departmentListViewHelper.getDepartments"
 import searchDepartment from "@salesforce/apex/departmentListViewHelper.searchDepartment"
 import deleteDepartments from "@salesforce/apex/departmentListViewHelper.deleteDepartments"
@@ -21,6 +20,8 @@ const actions = [{label: 'Delete', name: 'delete'},
 
 const COLS = [{label: 'Department Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
             {label: 'Description', fieldName: 'Description'},
+            {label: 'Date de création', fieldName: 'Date_de_création' },
+            {label: 'Date de modification', fieldName: 'Date_de_modification'},
             { fieldName: "actions", type: 'action', typeAttributes: {rowActions: actions}}
 ]
 
@@ -170,6 +171,8 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
             Name: `${row.Name}`,
             link: `/${row.Id}`,
             Description: `${row.Description__c}`,
+            Date_de_création: `${row.Date_de_cr_ation__c}`,
+            Date_de_modification: `${row.Date_de_modification__c}`,
             
         };
     }
