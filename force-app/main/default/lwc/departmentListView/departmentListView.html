@@ -1,6 +1,6 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <div class="slds-tabs_card">
+    <div class="slds-card">
         <div class="slds-page-header">
             <div class="slds-page-header__row">
                 <div class="slds-page-header__col-title">
@@ -15,35 +15,27 @@
                                 <div class="slds-page-header__name-title">
                                     <h1>
                                         <span>Departments List</span>
-                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Departments</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Departments</span><br>
+                                        <span>Selected Departments: {selectedDepartmentsLen}</span>
                                     </h1>
                                 </div>
-                                <div slot="actions" style="margin-left:1200px ;">
-                                    <lightning-button label="Create Department" 
-                                    style="margin:5px;"
-                                    title="Open Modal"
-                                    onclick={openModal}
-                                    class="slds-m-left_x-small"></lightning-button>
-                                    <lightning-button label="Delete Selected Departments"  onclick={deleteSelectedDepartments}></lightning-button>
-                        
-                                </div>
                             </div>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-button label="Create Department" style="margin:5px;" title="Open Modal" onclick={openModal} class="slds-m-left_x-small"></lightning-button>
+                            <lightning-button label="Delete Selected Departments"  onclick={deleteSelectedDepartments}></lightning-button>
+                            <lightning-input type="search" onchange={handleSearch} style="margin-left:300px ;" class=" slds-size_small "  placeholder="Search department"></lightning-input>
+                
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <lightning-card>
         
         <div class="slds-card__body_inner">
-            <p  style="margin-left: 35px">Selected Departments: {selectedDepartmentsLen}</p>
+            
 
-            <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
-                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px" placeholder="Search department"></lightning-input>
-            <!-- sldsValidatorIgnoreNextLine -->
-            <!-- sldsValidatorIgnoreNextLine -->
-            </div>
             <lightning-datatable
             key-field="id"
             data={departments}
@@ -54,7 +46,7 @@
             </lightning-datatable>
         </div>
 
-    </lightning-card>
+    
     <template if:true={isModalOpen} >
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
