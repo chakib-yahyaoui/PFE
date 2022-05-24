@@ -1,20 +1,46 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <lightning-card title="Department List View" icon-name="custom:custom10">
-        <div slot="actions">
-            <lightning-button label="Create Department" 
-            variant="brand"
-            title="Open Modal"
-            onclick={openModal}
-            class="slds-m-left_x-small"></lightning-button>
-            <lightning-button label="Delete Selected Departments" variant="destructive" onclick={deleteSelectedDepartments}></lightning-button>
-
+    <div class="slds-tabs_card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-entity">
+                                 <lightning-icon icon-name="standard:entity"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Departments List</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Departments</span>
+                                    </h1>
+                                </div>
+                                <div slot="actions" style="margin-left:1200px ;">
+                                    <lightning-button label="Create Department" 
+                                    style="margin:5px;"
+                                    title="Open Modal"
+                                    onclick={openModal}
+                                    class="slds-m-left_x-small"></lightning-button>
+                                    <lightning-button label="Delete Selected Departments"  onclick={deleteSelectedDepartments}></lightning-button>
+                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <lightning-card>
+        
         <div class="slds-card__body_inner">
-            <p  style="color: green;margin-left: 40px">Selected Departments: {selectedDepartmentsLen}</p>
+            <p  style="margin-left: 35px">Selected Departments: {selectedDepartmentsLen}</p>
 
             <div class="slds-grid slds-gutters slds-p-bottom_x-small slds-p-left_x-small">
-                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px"></lightning-input>
+                <lightning-input type="search" onchange={handleSearch} style="margin-left: 30px" placeholder="Search department"></lightning-input>
             <!-- sldsValidatorIgnoreNextLine -->
             <!-- sldsValidatorIgnoreNextLine -->
             </div>
