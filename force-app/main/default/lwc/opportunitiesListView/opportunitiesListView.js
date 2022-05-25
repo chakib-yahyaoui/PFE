@@ -39,6 +39,9 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
             }
         });
     }
+    refresh() {
+        refreshApex(this.wiredOpportunities);
+      }
 
 	
 
