@@ -192,7 +192,9 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
             })
         }
     }
-
+    refresh() {
+        refreshApex(this.wiredContacts);
+      }
     handleRowAction(event) {
         const actionName = event.detail.action.name;
         const row = event.detail.row;
