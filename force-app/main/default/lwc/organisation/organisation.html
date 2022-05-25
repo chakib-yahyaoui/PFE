@@ -2,13 +2,13 @@
     <template if:true={hello}>
         
 
-    <lightning-card title="Orgs">
+    <lightning-card >
         <template if:true={loading}> <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
         </template>
         <div class="slds-m-around_medium">
             <lightning-button-group>
-                <lightning-button label="New org" onclick={openModal}></lightning-button>
-                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Search by org name">
+                <lightning-button label="Ajouter un org" onclick={openModal}></lightning-button>
+                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Chercher orgs par nom">
                 </lightning-input>
             </lightning-button-group>
         </div>
@@ -56,84 +56,105 @@
     </lightning-card>
 
 </template>
-      <!--***************Modal New***************-->
-      <template if:true={isModalOpen}>
+    
+    <!-- editttttttttttttttttttttttttttttttttttttttttttttttttttttttttt -->
+    <template if:true={isModalOpenEdit} >
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
-                        <lightning-icon icon-name="utility:close"
-                            alternative-text="close"
-                            variant="inverse"
-                            size="small" ></lightning-icon>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add a new Org </h2>
-                </header>
-                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <label for="Name">Name</label>
-                    <lightning-input  id="name" maxlength="40" name="name" size="40" type="text" onchange={handleNameChange} required></lightning-input>
-                    <label for="Login">Login</label>
-                    <lightning-input  id="Login" maxlength="40" name="Login" size="40" type="text" onchange={handleLoginChange} required></lightning-input>
-                  
-                  <template if:true={typeValues.data}>
-                    <label for="type">Type de l'organisation</label>
-                    <lightning-combobox  value={value} name="Type" 
-                        options={typeValues.data.values} onchange={handletypeChange} required>
-                    </lightning-combobox>
-                  </template>
-                  <label class="slds-form-element__label" for=" prop">
-                    <strong>propriétaire </strong></label>
-              <select name="prop" onchange={handlepropChange} id="Prop">
-                  <template for:each={User.data} for:item="acc">
-                  <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
-                  </template>
-                  </select>
-                </div>
-
-                <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
-                </footer>
-            </div>
-        </section>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-    </template>
-
-
-<!-- ***************************************  EDIT  MODAL  ***************************************** -->
-    <template if:true={isModalOpenEdit}>
-        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-            <div class="slds-modal__container">
-                <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
-                        <lightning-icon icon-name="utility:close"
-                            alternative-text="close"
-                            variant="inverse"
-                            size="small" ></lightning-icon>
-                        <span class="slds-assistive-text">Close</span>
-                    </button>
-                    <h2  class="slds-text-heading_medium slds-hyphenate"> Update Org </h2>
-                </header>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
+                    <lightning-icon icon-name="utility:close"
+                    alternative-text="close"
+                    variant="inverse"
+                    size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
                 <div class="slds-modal__content slds-p-around_medium">
-                    <label for="Name">Name</label>
-                    <lightning-input    maxlength="40" name="name" size="40" type="text" value={org.Name} onchange={handleNameEdit} required></lightning-input>
-                    <label for="Login">Login</label>
-                    <lightning-input   maxlength="40" name="Login" size="40" type="text"  value={org.Login__c} onchange={handleLoginEdit} required></lightning-input>
-      
-                    <template if:true={typeValues.data}>
-                        <label for="type">Type de l'organisation</label>
-                        <lightning-combobox name="Type"  value={value}
-                            options={typeValues.data.values} onchange={handletypeEdit} required>
+                    <header class="slds-modal__header">
+                        <h2 class="slds-text-heading_medium slds-hyphenate">Modifier org</h2>
+                    </header>
+                  
+                    <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                        <lightning-input  label="Nom"   name="name"  value={org.Name} onchange={handleNameEdit} >
+
+                        </lightning-input>
+
+                   </div>
+                   <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                    <lightning-input  name="Login"   value={org.Login__c} label="Login"
+                     onchange={handleLoginEdit} required></lightning-input>
+
+                    </div>
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    <template if:true={typeValues.data} >
+                        <lightning-combobox name="Type" label="Type d'org" value={org.Type__c} 
+                            options={typeValues.data.values} onchange={handletypeEdit} required >
                         </lightning-combobox>
                       </template>
-                      <label class="slds-form-element__label" >
-                        <strong>propriétaire </strong></label>
-                  <select name="Prop" for=" prop" onchange={handlepropEdit} >
-                      <template for:each={User.data} for:item="acc">
-                      <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
-                      </template>
-                      </select>
+                    </div>
+  
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                
+                   
+                        <label >Propriétaire</label>
+                    <select  class="slds-select" name="Prop" for=" prop" onchange={handlepropEdit} >
+                        <template for:each={User.data} for:item="acc">
+                        <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
+                        </template>
+                        </select>
+  
+                 </div>
+                
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                        <lightning-input  name="password"   value={org.Password__c} label="Password"
+                         onchange={handlepasswordEdit} ></lightning-input>
+    
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                
+                            <label for="type">Backup Manager</label>
+                        <select  class="slds-select" name="backup" for="backup" onchange={handlemanagerEdit} >
+                            <template for:each={User.data} for:item="acc">
+                            <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
+                            </template>
+                            </select>
+                     </div>
+                     <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                        <lightning-input  name="SecretWord"   value={org.Secret_Word__c} label="Secret Word"
+                         onchange={handlesecretEdit} ></lightning-input>
+    
+                        </div>
+                    <br>
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                        <lightning-input  name="SSOcont"   value={org.SSO_Contact__c} label="SSO Contact"
+                         onchange={handlecontactEdit} ></lightning-input>
+    
+                        </div>
+                        <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                            <lightning-input  name="SSOServer"   value={org.SSO_Server__c} label="SSO Server"
+                             onchange={handleServerEdit} ></lightning-input>
+        
+                            </div>
+                      
+                            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                                <lightning-input  name="domain"   value={org.Noms_de_domaine__c} label="Nom de domain"
+                                 onchange={handledomainEdit} ></lightning-input>
+            
+                                </div>           
+                            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                            <lightning-input  name="Email"   value={org.Email_a_prevenir__c} label=" Email à prevenir"
+                             onchange={handleemailEdit} ></lightning-input>
+        
+                            </div>
+
+                </div> 
                 </div>
                 <footer class="slds-modal__footer">
                     <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Cancel</button>
@@ -143,4 +164,101 @@
         </section>
         <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
+   <!-- -*************************modal New*********************** --> 
+   <template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Ajouter Org </h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="slds-grid slds-wrap">
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                <lightning-input label ="Nom" id="name" maxlength="40" name="name" size="40" type="text" onchange={handleNameChange} ></lightning-input>
+                </div>
+               <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <lightning-input label="Login"  id="Login" maxlength="40" name="Login" size="40" type="text" onchange={handleLoginChange} required></lightning-input></div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+              <template if:true={typeValues.data}>
+                <lightning-combobox  value={org.Type__c} name="Type" label="Type d'org"
+                    options={typeValues.data.values} onchange={handletypeChange} required>
+                </lightning-combobox>
+              </template></div>
+              <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <label for="type">Propriétaire</label>
+                <select  class="slds-select" name="Prop" for="Prop" onchange={handlepropChange} id="Prop">
+              <template for:each={User.data} for:item="acc">
+              <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+              </template>
+              </select>
+            </div>
+              <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <label for="type">Backup Manager</label>
+                <select  class="slds-select" name="backup" for="backup" onchange={handlemanagerChange} id="manager">
+              <template for:each={User.data} for:item="acc">
+              <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+              </template>
+              </select>
+            </div>
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                    
+                <lightning-input  name="password"   value={org.Password__c} label="Password"
+                 onchange={handlepasswordChange} ></lightning-input>
+
+                </div>
+   
+      
+             <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <lightning-input  name="SecretWord"   id="SecretWord" value={org.Secret_Word__c} label="Secret Word"
+                 onchange={handlesecretChange} ></lightning-input>
+
+               </div>
+            <br>
+              <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            
+                <lightning-input  name="SSOcont"  id="SSOcont" value={org.SSO_Contact__c} label="SSO Contact"
+                 onchange={handlecontactChange} ></lightning-input>
+
+                </div>
+                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            
+                    <lightning-input  name="SSOServer"   value={org.SSO_Server__c} label="SSO Server"
+                     onchange={handleServerChange} id="SSOServer"></lightning-input>
+
+                    </div>
+              
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            
+                        <lightning-input  name="domain"   value={org.Noms_de_domaine__c} label="Nom de domain"
+                         onchange={handledomainChange} id="domain" ></lightning-input>
+    
+                        </div>           
+                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+            
+                    <lightning-input  name="Email"   value={org.Email_a_prevenir__c} label=" Email à prevenir"
+                     onchange={handleemailChange} id="Email" ></lightning-input>
+
+                    </div>
+</div></div>
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
 </template>

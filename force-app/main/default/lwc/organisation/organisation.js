@@ -37,12 +37,18 @@ const columns = [
         type: 'picklist'
        
     },
-    
+    {
+        label: 'Password',
+        fieldName: 'Password__c',
+        type: 'text'
+       
+    },
  
     { 
-        label: 'Action',
+label: 'Action',
     type: 'button',
-    typeAttributes: { label: 'View details', name: 'view_details',value :'Org.Id'}},
+    typeAttributes: { label: 'Voir details', name: 'view_details',value :'Org.Id'}},
+
     { type:'button-icon',initialWidth: 10,hideLabel:true,class:'delete',typeAttributes: {iconName:'action:delete',label:'delete',name:'delete',title:'delete',disabled:false,value:'delete'}},
     { type:'button-icon',initialWidth: 50,hideLabel:true,class:'edit',typeAttributes: {iconName:'action:edit',label:'edit',name:'edit',title:'edit',disabled:false,value:'edit'}},
 
@@ -272,12 +278,24 @@ submitDetails() {
                  console.log('success' + result);
                  this.isModalOpen = false;
                  this.orgObject = {};
- 
+                 this.dispatchEvent(
+                     new ShowToastEvent({
+                         title: 'Success',
+                         message: 'Un nouveau enregistrement a été créer avec succès!',
+                         variant: 'success'
+                     }));
+                     console.log('success' + result);
+                   
+                 
               })
-               .catch(error => {
-                 this.error = error.message;
-                 console.log("errooorrr", error);
-                 this.errorAdd = true;
+              .catch(error => {
+                this.dispatchEvent(
+                  new ShowToastEvent({
+                      title: 'On n"a pas pu créer cet enregistrement , veuillez complèter les champs obligatoires !',
+                      message: error.body.message,
+                      variant: 'error'
+                  })
+              );
 
              });
          }
@@ -294,7 +312,23 @@ submitDetails() {
         handlepropChange(event) {
             this.orgObject.Prop = event.target.value;
         }
-  
+        handlepasswordChange(event) {
+            this.orgObject.password = event.target.value;
+        } handlemanagerChange(event) {
+            this.orgObject.backup = event.target.value;
+        } handlesecretChange(event) {
+            this.orgObject.SecretWord = event.target.value;
+        } handlecontactChange(event) {
+            this.orgObject.SSOcont = event.target.value;
+        }
+        handleServerChange(event) {
+            this.orgObject.SSOServer = event.target.value;
+        } handledomainChange(event) {
+            this.orgObject.domain = event.target.value;
+        }
+        handleemailChange(event) {
+            this.orgObject.Email = event.target.value;
+        }
   ///sort 
     sortBy(field, reverse, primer) {
         const key = primer
@@ -349,6 +383,28 @@ handleNameEdit(event) {
 handlepropEdit(event) {
     this.NewOrg.Propritaire__c= event.target.value;
 }
+handlepasswordEdit(event) {
+    this.NewOrg.Password__c= event.target.value;
+}
+handlemanagerEdit(event) {
+    this.NewOrg.Backup_Manager__c= event.target.value;
+}
+handlesecretEdit(event) {
+    this.NewOrg.Secret_Word__c= event.target.value;
+}
+handlecontactEdit(event) {
+    this.NewOrg.SSO_Contact__c= event.target.value;
+}
+handleServerEdit(event) {
+    this.NewOrg.SSO_Server__c= event.target.value;
+}
+handledomainEdit(event) {
+    this.NewOrg.Noms_de_domaine__c= event.target.value;
+}
+handleemailEdit(event) {
+    this.NewOrg.Email_a_prevenir__c= event.target.value;
+}
+
 openModalEdit() {
     console.log('hiiu')
     this.isModalOpenEdit = true; 
@@ -364,5 +420,20 @@ closeModalEdit() {
             this.NewOrg = {}
             console.log('teste',this.NewOrg);
             this.isModalOpenEdit = false;
-            refreshApex(this.wiredDataResult) });
+            refreshApex(this.wiredDataResult)
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Cet enregistrement a été mis à jour avec succés!',
+                    variant: 'success'
+                }));})
+              .catch(error => {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'On n"a pas pu mettre à jour cet enregistrement , veuillez complèter les champs obligatoires !',
+                        message: error.body.message,
+                        variant: 'error'
+                    })
+                );
+            }); 
 }}
