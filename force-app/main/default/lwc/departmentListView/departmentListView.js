@@ -141,6 +141,9 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
  
  
  }
+ refresh() {
+    refreshApex(this.wiredDepartments);
+  }
  
  
 
