@@ -7,5 +7,6 @@
                     variant="{!v.variant}"
                     hideUpdateButton="{!v.hideUpdateButton}"
                     />
+       
     
 </aura:component>

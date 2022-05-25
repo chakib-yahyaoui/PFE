@@ -1,7 +1,7 @@
 public class departmentListViewHelper {
     @AuraEnabled(cacheable=True)
     public static List<Department__c> getDepartments(){
-        return [SELECT Id, Name, Description__c,Member__c,	Manager__c,Project_Managers__c
+        return [SELECT Id, Name, Description__c,Member__c,	Manager__c,Project_Managers__c,Date_de_cr_ation__c,Date_de_modification__c
                 FROM Department__c
                 WITH SECURITY_ENFORCED];
     }

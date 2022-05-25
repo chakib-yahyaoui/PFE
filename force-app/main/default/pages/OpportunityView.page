@@ -13,12 +13,12 @@
 <br></br>
 
 <br></br>
-<table style="font-family:sans-serif;">
+<table style="font-family:sans-serif;margin-left:10px;">
 <tr style="color:#fff; background-color:#ff4500;">
     <th style="padding-left:5px; padding-right:100px;">Name</th>
     <th style="text-align:center; padding-left:5px; padding-right:50px;">Amount</th>
-    <th style="text-align:right; padding-left:15px; padding-right:80px;">Close Date</th>
-    <th style="text-align:right; padding-left:15px; padding-right:90px;">Status</th>
+    <th style="text-align:right; padding-left:15px; padding-right:80px;">Date de clôture</th>
+    <th style="text-align:right; padding-left:30px; padding-right:90px;">Status</th>
 </tr>
 
 
@@ -38,9 +38,9 @@
 
 
 
-<table style="margin-left:570px; padding-top:40px; z-index:1; color:#ff4500; font-family:sans-serif;">
+<table style="margin-left:570px; padding-top:40px; z-index:1; color:black; font-family:sans-serif;">
 <tr>
-    <td>Thank you !</td>
+    <td>Signature de directeur</td>
 </tr>
 </table>
 </apex:page>
