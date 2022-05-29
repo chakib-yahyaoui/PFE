@@ -17,6 +17,7 @@
         });
         $A.enqueueAction(action);
     },
+    
     piechart : function(component,event,helper) {
         var jsonData = component.get("v.data");
         var dataObj = JSON.parse(jsonData);
@@ -70,7 +71,6 @@
         });
         
     },
-    
     Linechart : function(component,event,helper) {
         var jsonData = component.get("v.data");
         var dataObj = JSON.parse(jsonData);
@@ -156,4 +156,5 @@
         });
         
     }
-})
+    
+});

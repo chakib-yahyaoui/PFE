@@ -1,25 +1,25 @@
-public class LinechartController {
+public class ColumnChart {
 @AuraEnabled
-    public static String getOpportunityJSON(){
+    public static String getOppJSON(){
         
-       List<opportunity> lstopp = [SELECT Id, stagename FROM opportunity ];
+        List<Opportunity> lstopp = [SELECT Id, StageName FROM Opportunity];
         Map<String,Integer> mapLeadSource = new Map<String,Integer>();
         
-        for(opportunity l : lstopp)
+        for(Opportunity l : lstopp)
         {
-            if(mapLeadSource.containsKey(l.stagename))
+            if(mapLeadSource.containsKey(l.StageName))
             {
-                mapLeadSource.put(l.stagename, mapLeadSource.get(l.stagename)+1) ;
+                mapLeadSource.put(l.StageName, mapLeadSource.get(l.StageName)+1) ;
             }else{
-                mapLeadSource.put(l.stagename, 1) ;        
+                mapLeadSource.put(l.StageName, 1) ;
             }
         }
         system.debug('map values--'+mapLeadSource);
         list<RadarDataWrapper> radarData = new list<RadarDataWrapper>();
         
         for(String key : mapLeadSource.keySet())
-        {            
-           RadarDataWrapper rdw = new RadarDataWrapper();
+        {
+            RadarDataWrapper rdw = new RadarDataWrapper();
             rdw.name=key;
             rdw.y=mapLeadSource.get(key);
             radarData.add(rdw);
@@ -28,8 +28,6 @@ public class LinechartController {
         return System.json.serialize(radarData);
         //return null;
     }
-    
-    
     
     /**
 * Wrapper class to serialize as JSON as return Value
@@ -42,5 +40,4 @@ public class LinechartController {
         public integer y;
         
     }
-
 }

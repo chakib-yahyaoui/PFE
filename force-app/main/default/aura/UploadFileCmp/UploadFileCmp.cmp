@@ -13,13 +13,6 @@
                 <div class="slds-page-header header" > <lightning:icon iconName="custom:custom51" /><strong class="slds-text-heading_medium">  Files ({!v.files.length})</strong></div>  
                 <div class="slds-grid">  
                     <div style="width:100%"> 
-                        <lightning:card>
-                        <center>
-                            <lightning:fileUpload label="" multiple="{!v.multiple}"   
-                                                  accept="{!v.accept}" recordId="{!v.recordId}"   
-                                                  onuploadfinished="{!c.UploadFinished}" />  
-                        </center>
-                        </lightning:card>
                     </div>  
                 </div><br/> 
                 <div class="slds-form--compound" style="position:relative">

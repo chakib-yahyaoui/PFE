@@ -1,0 +1,17 @@
+<aura:component controller="ColumnChart" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    <ltng:require scripts="{!join(',',$Resource.Highcharts,
+                           $Resource.highchart3d,
+                           $Resource.Highchartsexport
+                           )}" afterScriptsLoaded="{!c.afterScriptsLoaded}"/>
+    <aura:attribute name="chartType" type="string"/>
+    <aura:attribute name="chartTitle" type="string" default="Opportunity by Stages"/>
+    <aura:attribute name="yAxisParameter" type="string" default="Number Opportunity"/>
+    <aura:attribute name="data" type="string"/>
+    <div class="slds-card" style="size:150px">
+        <div class="slds-grid slds-wrap slds-grid--pull-padded">
+            <div class="slds-col--padded cusdiv">
+                <div aura:id="barchart" style="height: 150px"></div>
+            </div>
+        </div>
+    </div>
+</aura:component>

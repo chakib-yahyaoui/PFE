@@ -1,0 +1,13 @@
+<aura:component controller="LeadSourceChart" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+    <ltng:require scripts="{$Resource.ChartJS}" afterScriptsLoaded="{!c.afterScriptsLoaded}"/>
+
+<div class="heading">
+    	Radar Chart showing Lead count by Source
+    </div>
+
+
+<div>  
+        <canvas aura:id="radarChart" id="radarCHart123" width="400" height="400"/>
+    </div>
+
+</aura:component>
