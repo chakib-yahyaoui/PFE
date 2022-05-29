@@ -6,9 +6,6 @@ import deleteOpportunities from "@salesforce/apex/opportinitiesListViewHelper.de
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
-import {loadScript} from "lightning/platformResourceLoader";
-import JSPDF from '@salesforce/resourceUrl/jspdf';
-import getopportunities from '@salesforce/apex/PdfGenerator.getOpportunitiesController';
 
 const ACTIONS = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
@@ -196,7 +193,7 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
             );
         });
         this.template.querySelector('lightning-datatable').selectedRows = [];
-        this.selectedContacts = undefined;
+        this.selectedOpportunitiess = undefined;
         
     }
 }

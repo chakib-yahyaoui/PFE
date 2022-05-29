@@ -1,47 +1,55 @@
-<template>  
-       
-    <lightning-card title={Title} icon-name={ObjectIcon}>
-        <lightning-layout multiple-rows>
-            <lightning-layout-item size="6" padding="around-small"></lightning-layout-item>
-            <lightning-layout-item size="2" padding="around-small"></lightning-layout-item>
-            <lightning-layout-item size="3" padding="around-small">
-                <lightning-input type="search" onblur = {handleKeyChange} class="slds-m-bottom_small"
-                                variant="label-hidden" placeholder="Search.." label = "Search">
-                </lightning-input>
-            </lightning-layout-item>
-            <lightning-layout-item size="1" padding="around-small">    
-                <lightning-button-icon icon-name="utility:refresh"  variant="border-filled" alternative-text="Refresh" title="refresh" onclick={handleRefresh}></lightning-button-icon>
-            </lightning-layout-item>
-        </lightning-layout>
- 
-        <template if:true = {listRecs}>
-            <div style="height: 300px;"> 
-                <lightning-datatable key-field="Id" 
-                                        data={listRecs}  
-                                        columns={columns}  
-                                        hide-checkbox-column="true" 
-                                        show-row-number-column="true"
-                                        default-sort-direction={defaultSortDirection}
-                                        sorted-direction={sortDirection}
-                                        sorted-by={sortedBy}
-                                        onsort={onHandleSort}
-                                        onrowaction={handleRowAction}>  
-                </lightning-datatable>
-            </div> 
-            <div class="slds-align_absolute-center">
-                <lightning-button label="Previous" icon-name="utility:back" onclick={previousHandler} variant="brand" disabled={showButtonPrevious}>
-                </lightning-button>
-                <span class="slds-badge slds-badge_lightest"
-                      style="margin-right: 10px;margin-left: 10px;">
-                    Page {page} out of {totalPage}
-                </span>
-                <lightning-button label="Next" icon-name="utility:forward" icon-position="right"
-                        onclick={nextHandler} variant="brand" disabled={showButtonNext}>
-                </lightning-button>
+<template >
+    <div class="slds-card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-account">
+                                 <lightning-icon icon-name="standard:account"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Accounts List View</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Accounts</span><br>
+                                        <span>Selected Accounts: {selectedAccountsLen}</span>
+                                    </h1>
+                                </div>     
+                            </div>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-button-icon onclick={refresh}  icon-name="utility:refresh"  alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+                            <lightning-button  style="margin:2px;" label="Create Account" onclick={navigateToNewRecordPage}></lightning-button>
+                            <lightning-button  style="margin:2px;" label="Delete Selected Accounts" onclick={deleteSelectedAccounts}></lightning-button>
+                            <lightning-input style="margin-left:100px ;" class=" slds-size_small " type="search" onchange={handleSearch} placeholder="Search account"></lightning-input>
+                            
+                        </div> 
+                    </div>
+                </div>
             </div>
-        </template>
-        <template if:true = {error}> 
-            {error}
-        </template> 
-    </lightning-card> 
+            
+                
+             
+        </div>
+        
+    </div>
+    
+        
+        <div class="slds-card__body_inner" >
+            
+
+            <lightning-datatable
+            key-field="id"
+            data={accounts}
+            columns={cols}
+            onrowselection={handleRowSelection}
+            onrowaction={handleRowAction}
+            > 
+            </lightning-datatable>
+        </div>
+
+    
 </template>
