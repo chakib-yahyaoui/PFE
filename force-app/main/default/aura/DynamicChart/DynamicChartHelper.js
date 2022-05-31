@@ -13,11 +13,70 @@
                 helper.piechart(component,event,helper);
                 helper.Linechart(component,event,helper);
                 helper.donutchart(component,event,helper);
+                helper.barchart(component,event,helper);
             } 
         });
         $A.enqueueAction(action);
     },
     
+    barchart : function(component,event,helper) {
+        var jsonData = component.get("v.data");
+        var dataObj = JSON.parse(jsonData);
+        
+        new Highcharts.Chart({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                renderTo: component.find("barchart").getElement(),
+                type: 'column',
+                options3d: {
+                    enabled: true,
+                    alpha: 5,
+                    beta : 25,
+                    depth: 50,
+                    viewDistance: 25
+                }
+                
+            },
+            title: {
+                text: component.get("v.chartTitle")+' (Bar Chart)'
+            },
+            subtitle: {
+                text: component.get("v.chartSubTitle")
+            },
+            xAxis: {
+                type: 'category',
+            },
+            yAxis: {
+                min: 0,
+                title: 
+                {
+                    text: component.get("v.yAxisParameter")
+                }
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>'
+            },
+            plotOptions: {
+                column: {
+            depth: 25
+        },
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name:'Stage Name',
+                data:dataObj
+            }]
+            
+        });
+        
+    },
     piechart : function(component,event,helper) {
         var jsonData = component.get("v.data");
         var dataObj = JSON.parse(jsonData);
@@ -112,7 +171,7 @@
                 }
             },
             series: [{
-                name:'StageName',
+                name:'Stage Name',
                 data:dataObj
             }]
             
@@ -156,5 +215,6 @@
         });
         
     }
+    
     
 });

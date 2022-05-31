@@ -10,7 +10,7 @@
     <div class="slds-card" style="size:150px">
         <div class="slds-grid slds-wrap slds-grid--pull-padded">
             <div class="slds-col--padded cusdiv">
-                <div aura:id="barchart" style="height: 150px"></div>
+                <div aura:id="barchart" style="height: 500px"></div>
             </div>
         </div>
     </div>
