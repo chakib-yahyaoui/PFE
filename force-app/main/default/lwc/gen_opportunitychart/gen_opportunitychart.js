@@ -1,5 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import getOpportunities from '@salesforce/apex/GEN_ChartController.getOpportunities';
+
  
 export default class Gen_opportunitychart extends LightningElement {
     chartConfiguration;
