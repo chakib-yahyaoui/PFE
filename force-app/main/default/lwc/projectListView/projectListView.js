@@ -76,11 +76,7 @@ export default class ProjectListView extends  NavigationMixin (LightningElement)
   handleDepartmentChange(event) {
     this.projectObject.Department = event.target.value;
    }
-   getFirstDateOfMonth(dt){
-    const regex = /(\-\d\d)$/;          
-    var givenDateConvertedToFirst = dt.replace(regex,'-01');          
-    return givenDateConvertedToFirst ;
-  }
+   
   submitDetails() {
      console.log('member',this.projectObject.Members)
      console.log('manager',this.projectObject.Department)
