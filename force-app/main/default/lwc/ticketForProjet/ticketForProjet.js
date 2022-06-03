@@ -3,6 +3,7 @@ import getTickets from "@salesforce/apex/ProjectController.getTickets";
 import { refreshApex } from "@salesforce/apex";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import updateTickets from "@salesforce/apex/ProjectController.updateTickets";
+import getNumberTickets from "@salesforce/apex/ProjectController.getNumberTickets";
 import { getRecordNotifyChange } from "lightning/uiRecordApi";
 const COLS = [
     { label: "Name", fieldName: "Name", editable: true },
@@ -16,7 +17,8 @@ export default class TicketForProject extends LightningElement {
     @api recordId;
     columns = COLS;
     draftValues = [];
-  
+    @wire(getNumberTickets, { prjId: "$recordId" })
+    number;
     @wire(getTickets, { prjId: "$recordId" })
     ticket;
   

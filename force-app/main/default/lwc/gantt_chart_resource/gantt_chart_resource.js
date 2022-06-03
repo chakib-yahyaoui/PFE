@@ -1,9 +1,9 @@
 import { LightningElement, api, track } from "lwc";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
-import getProjects from "@salesforce/apex/ganttChart.getProjects";
-import saveAllocation from "@salesforce/apex/ganttChart.saveAllocation";
-import deleteAllocation from "@salesforce/apex/ganttChart.deleteAllocation";
+import getProjects from "@salesforce/apex/gantt.getProjects";
+import saveAllocation from "@salesforce/apex/gantt.saveAllocation";
+import deleteAllocation from "@salesforce/apex/gantt.deleteAllocation";
 
 export default class GanttChartResource extends LightningElement {
   @api isResourceView; // resource page has different layout

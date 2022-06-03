@@ -5,9 +5,9 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import momentJS from "@salesforce/resourceUrl/momentJS";
 import { loadScript } from "lightning/platformResourceLoader";
 
-import getChartData from "@salesforce/apex/ganttChart.getChartData";
-import getProjects from "@salesforce/apex/ganttChart.getProjects";
-import getResources from "@salesforce/apex/ganttChart.getResources";
+import getChartData from "@salesforce/apex/gantt.getChartData";
+import getProjects from "@salesforce/apex/gantt.getProjects";
+import getResources from "@salesforce/apex/gantt.getResources";
 
 export default class GanttChart extends LightningElement {
   @api recordId = "";
