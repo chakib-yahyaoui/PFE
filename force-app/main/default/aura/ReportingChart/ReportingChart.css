@@ -1,0 +1,11 @@
+.THIS .select{
+    width:100%;
+    height:35px;
+}
+.THIS .d1{
+    margin-left:1%;
+}
+.THIS .slds-page-header {
+    border-radius:0px;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.10);
+}

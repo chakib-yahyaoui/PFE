@@ -1,0 +1,56 @@
+<aura:component controller="ReportingChartCntrl" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <!-- load chart js library from static resource-->
+    <ltng:require scripts="/resource/Chart_Js/Chart.js-2.1.6/dist/Chart.bundle.js" />
+    <aura:attribute name="reports" type="list"/>
+    <aura:attribute name="chartObj" type="object" access="public"/>
+    <aura:attribute name="isChartReady" type="Boolean" default="false"/>
+    <aura:attribute name="chartType" type="list"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:attribute name="property1" type="string"/>
+    <aura:attribute name="selectedReport" type="string"/>
+    <aura:attribute name="selectedChartType" type="string"/>
+    <div class="slds">
+        <div id="bodypart" style="background-color:white;">
+            <aura:if isTrue="{!v.Spinner}">
+                <div aura:id="spinnerId" class="slds-spinner_container">
+                    <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+                </div>
+            </aura:if>
+            <div class="slds-page-header">
+                <lightning:icon iconName="utility:chart" alternativeText="Chart" size="small"/>
+                &nbsp;&nbsp;<b>MY CHART.JS</b>
+            </div>
+            <div class="slds-grid">
+                <div class="slds-col slds-size--4-of-12 d1">
+                    <lightning:select aura:id="report" onchange="{!c.onSelectReportChange}" class="select" label="Select Report">
+                        <aura:iteration items="{!v.reports}" var="level">
+                            <option text="{!level.label}" value="{!level.value}" selected="{!level.selected}"/>
+                        </aura:iteration>
+                    </lightning:select>
+                    
+                </div>&nbsp;&nbsp;
+                <div class="slds-col slds-size--4-of-12">
+                    <lightning:select aura:id="type" onchange="{!c.onSelectChartTypeChange}" class="select" label="Select Chart Type">
+                        <aura:iteration items="{!v.chartType}" var="type">
+                            <option text="{!type.label}" value="{!type.value}" selected="{!type.selected}"/>
+                        </aura:iteration>
+                    </lightning:select>
+                </div>
+                <div class="slds-col slds-size--4-of-12">
+                    
+                </div>
+            </div><br/>
+            <div aura:id="chartContainer" style=" ">
+                <canvas aura:id="myChart" id="{!v.property1}" /><!--reportChart-->
+            </div>
+        </div>
+        
+    </div>
+</aura:component>

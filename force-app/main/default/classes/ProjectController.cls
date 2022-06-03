@@ -11,7 +11,7 @@ public class ProjectController {
     @AuraEnabled(cacheable=true)
     public static List<Ticket__c> getTickets(String prjId) {
         return [
-            SELECT Project__c, Id, Name,N_Ticket__c,Priority__c, Description__c, date_debut__c, 	End_Date__c
+            SELECT Project__c, Id, Name,N_Ticket__c,Priority__c, Description__c, date_debut__c,End_Date__c
             FROM Ticket__c
             WHERE Project__c = :prjId
             WITH SECURITY_ENFORCED
@@ -91,6 +91,15 @@ public class ProjectController {
             SELECT COUNT()   
             FROM Project__c
             WHERE Department__c = :depId];
+   
+
+            }
+    @AuraEnabled( cacheable = true )
+    public static Integer getNumberTickets(String prjId) {
+        return [
+            SELECT COUNT()   
+            FROM Ticket__c
+            WHERE Project__c = :prjId];
    
 
             }

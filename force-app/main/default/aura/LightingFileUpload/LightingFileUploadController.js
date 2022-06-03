@@ -15,8 +15,8 @@
         //var documentId = uploadedFiles[0].documentId;  
         //var fileName = uploadedFiles[0].name; 
         helper.getuploadedFiles(component);         
-        component.find('notifLib').showNotice({
-            "variant": "info",
+        component.find('notifLib').showToast({
+            "variant": "success",
             "header": "Success",
             "message": "File Uploaded successfully!!",
             closeCallback: function() {}
