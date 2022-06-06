@@ -1,20 +1,10 @@
 <template>
-    <lightning-tab>
-        <th>
-            <lightning-card style="margin:5px ;">
-                1
-            </lightning-card>
-        </th>
-        <th>
-            <lightning-card style="margin:5px ;">
-                1
-            </lightning-card>
-        </th>
-        <th>
-            <lightning-card style="margin:5px ;">
-                1
-            </lightning-card>
-        </th>
-</lightning-tab>
-
+    <div class="container">
+        <lightning-layout vertical-align="center">
+            <lightning-layout-item> {percentage}% </lightning-layout-item>
+            <lightning-layout-item flexibility="grow">
+                <div class="bar" style={style}></div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
 </template>

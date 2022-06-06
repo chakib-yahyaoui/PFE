@@ -36,6 +36,7 @@ export default class Gen_opportunitychart extends LightningElement {
                     ],
                     labels: chartLabel,
                 },
+                
                 options: {},
             };
             console.log('data => ', data);
