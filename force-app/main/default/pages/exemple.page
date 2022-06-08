@@ -1,0 +1,72 @@
+<apex:page standardController="Opportunity" action="{!doSomething}" recordSetVar="opportunities" tabStyle="Opportunity" extensions="ListEmaillOppController">
+    <apex:includeLightning />
+    <apex:slds />
+    <style>
+        .close-btn{text-align: right;color: white;font-size: 20px;padding: 0.5%;cursor: pointer;}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <script>
+    var myUserContext = "{!$User.UITheme}";
+    var accIds = "{!accIdStr}";
+    var oppIds = "{!oppIdStr}";
+    
+    var visualForceFunction = function(){
+        if (myUserContext == 'Theme4t' || myUserContext == 'Theme4d') {
+        // The Visualforce page is in S1 or Lightning Experience
+        sforce.one.navigateToURL("/006/o");
+       
+        } else if (myUserContext == 'Theme3') {
+        // The Visualforce page is  running in Classic
+        
+        
+        } else {
+        console.log("Unsupported theme");   
+        }
+    };
+        
+        
+        
+        $Lightning.use("c:SendListEmailOnOpp", function() 
+        {
+            console.log('lead Id', '{!$CurrentPage.parameters.Id}');
+            
+            $Lightning.createComponent("c:ListEmailOpp",{"accIds" : accIds, "oppIds" : oppIds},"lightning",function(cmp) 
+            {
+                $('.close-btn').click(function(){
+                
+                    visualForceFunction();
+                    
+                    
+                });
+                
+
+                $A.eventService.addHandler({
+                    event: 'force:navigateToURL', 
+                    handler: function(event) {
+                        visualForceFunction();
+                    }
+                });
+                
+                
+            });
+        });
+
+        
+ 
+        
+        
+    </script>
+    <input type="hidden" id="leadHiddenId" value="{!$CurrentPage.parameters.Id}"/>
+    <div class="demo-only" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <span class="close-btn">X</span>
+                <div class="slds-modal__content slds-p-around_medium" id="lightning">
+                    
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+</apex:page>

@@ -1,3 +1,3 @@
 <aura:application extends="force:slds" access="GLOBAL">
-    <c:ChartContact />
+    <c:Note />
 </aura:application>

@@ -1,15 +1,15 @@
 public class ReportingChartCntrl {
 	 @AuraEnabled 
     public static User fetchReportChartSettings(){
-        User u = [select id,RPTChart__Report_Name__c,RPTChart__Chart_Type__c from User where id=:system.UserInfo.getUserId()];
+        User u = [select id,Report__c,Chart__c from User where id=:system.UserInfo.getUserId()];
         return u;
     }
     @AuraEnabled
     public static void updateSettings(String chartType, String reportName){
-        User u = [select id,RPTChart__Report_Name__c,RPTChart__Chart_Type__c from User where id=:system.UserInfo.getUserId()];
+        User u = [select id,Report__c,Chart__c from User where id=:system.UserInfo.getUserId()];
         if(chartType !='' && reportName !=''){
-            u.RPTChart__Chart_Type__c = chartType;
-            u.RPTChart__Report_Name__c = reportName;
+            u.Chart__c = chartType;
+            u.Report__c = reportName;
             //update 
             update u;
         }
@@ -28,7 +28,7 @@ public class ReportingChartCntrl {
     @AuraEnabled
     public static String getReportData(string reportName){
         //Using report id for example purpose
-        Report stdReport = [SELECT Id FROM Report WHERE Name =:reportName];
+        Report stdReport = [SELECT Name FROM Report WHERE Name =:reportName];
         // Get the Report data
         Reports.ReportResults reportReturned =Reports.ReportManager.runReport(stdReport.Id, true);
         system.debug('Report Data: '+JSON.serialize(reportReturned));
