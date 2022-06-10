@@ -2,7 +2,7 @@ public class GEN_ChartController {
     @AuraEnabled(cacheable=true)
     public static List<AggregateResult> getOpportunities(){
         return [SELECT SUM(ExpectedRevenue) expectRevenue, SUM(Amount) amount, StageName stage 
-               FROM Opportunity WHERE StageName NOT IN ('Closed Won') GROUP BY StageName LIMIT 200000];
+               FROM Opportunity WHERE IsClosed=false GROUP BY StageName LIMIT 200000];
     }
     @AuraEnabled(cacheable=true)
     public static List<AggregateResult> getOpportunitiees(){
