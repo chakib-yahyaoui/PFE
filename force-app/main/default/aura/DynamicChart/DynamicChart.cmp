@@ -7,7 +7,7 @@
   
     <aura:attribute name="chartType" type="string"/>
     <aura:attribute name="chartTitle" type="string" default="Opportunity by Stages"/>
-    <aura:attribute name="xAxisCategories" type="string[]" default="['Lead detection qualification','Value proposition','Defense','Negotiation','Closed Won','Business proposition']"/>
+    <aura:attribute name="xAxisCategories" type="string[]" default="['Closed Won','Value proposition','Defense','Closed Lost','Lead detection qualification','Negotiation','Business proposition']"/>
     <aura:attribute name="yAxisParameter" type="string" default="Number of Opportunity"/>
     <aura:attribute name="data" type="string"/>
     

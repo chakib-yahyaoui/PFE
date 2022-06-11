@@ -16,11 +16,6 @@
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>
-        <minorNumber>0</minorNumber>
-        <namespace>SF_GanttChart</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
         <minorNumber>158</minorNumber>
         <namespace>agf</namespace>
     </packageVersions>
@@ -33,11 +28,6 @@
         <majorNumber>1</majorNumber>
         <minorNumber>6</minorNumber>
         <namespace>lwcc</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>7</minorNumber>
-        <namespace>org_chart</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>

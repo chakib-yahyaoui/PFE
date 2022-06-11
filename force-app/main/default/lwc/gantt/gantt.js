@@ -27,7 +27,6 @@ function unwrap(fromSF){
         type: a.Type__c
     }));
     return { data, links };
-    
 }
 
 export default class GanttView extends LightningElement {

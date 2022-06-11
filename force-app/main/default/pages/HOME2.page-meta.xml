@@ -5,11 +5,6 @@
     <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>HOME2</label>
     <packageVersions>
-        <majorNumber>12</majorNumber>
-        <minorNumber>7</minorNumber>
-        <namespace>MPM4_BASE</namespace>
-    </packageVersions>
-    <packageVersions>
         <majorNumber>1</majorNumber>
         <minorNumber>3</minorNumber>
         <namespace>Narola_PMA</namespace>
@@ -18,11 +13,6 @@
         <majorNumber>1</majorNumber>
         <minorNumber>0</minorNumber>
         <namespace>RPTChart</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>0</minorNumber>
-        <namespace>SF_GanttChart</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>
@@ -38,11 +28,6 @@
         <majorNumber>1</majorNumber>
         <minorNumber>6</minorNumber>
         <namespace>lwcc</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
-        <minorNumber>7</minorNumber>
-        <namespace>org_chart</namespace>
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>

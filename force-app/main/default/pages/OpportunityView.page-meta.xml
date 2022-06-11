@@ -6,11 +6,6 @@
     <label>OpportunityView</label>
     <packageVersions>
         <majorNumber>1</majorNumber>
-        <minorNumber>0</minorNumber>
-        <namespace>SF_GanttChart</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
         <minorNumber>6</minorNumber>
         <namespace>lwcc</namespace>
     </packageVersions>
