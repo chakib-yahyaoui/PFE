@@ -107,6 +107,9 @@ export default class Organisation extends NavigationMixin(LightningElement) {
       this.loading = false;
     }, timeoutValue);
   } 
+  refresh() {
+    refreshApex(this.wiredDataResult);
+  }
   
     @wire(getOrgsByName, {searchKey: '$searchKey'})
     getOrgsByName(result) {
