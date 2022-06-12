@@ -23,10 +23,10 @@
                             </div>
                         </div>
                         <div class="slds-no-flex">
-                            <lightning-button-icon onclick={refresh}  icon-name="utility:refresh"  alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+                            <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
                             <lightning-button style="margin:5px;" label="Create new account" title="Open Modal" onclick={customShowModalPopup} class="slds-m-left_x-small"></lightning-button>
                             <lightning-button    label="Delete Selected Contacts" onclick={deleteSelectedContacts}></lightning-button>
-                            <lightning-input class=" slds-size_small " type="search" onchange={handleSearch} style="margin-left: 125px" placeholder="Search by contact name"></lightning-input>
+                            <lightning-input class=" slds-size_small " type="search" onchange={handleSearch} style="margin-left: 198px" placeholder="Search by contact name"></lightning-input>
                             
                         </div> 
                     </div>
