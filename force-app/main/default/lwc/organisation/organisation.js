@@ -94,6 +94,14 @@ export default class Organisation extends NavigationMixin(LightningElement) {
     loading;
     defaultSortDirection = 'asc';
     @api OrgIdDet;
+    selectedOrgs;
+    handleRowSelection(event){
+        this.selectedOrgs = event.detail.selectedRows;
+    }
+    get selectedOrgsLen() {
+        if(this.selectedOrgs == undefined) return 0;
+        return this.selectedOrgs.length
+    }
     
   connectedCallback() 
   {
@@ -439,4 +447,29 @@ closeModalEdit() {
                     })
                 );
             }); 
-}}
+}
+deleteSelectedOrgs(){
+    const idList = this.selectedOrgs.map( row => { return row.Id })
+    deleteRecord(row.Id)
+                  .then(() => {
+                    this.loading = true;
+                    this.stopLoading(500);
+                    
+                      this.dispatchEvent(
+                          new ShowToastEvent({
+                              title: 'Success',
+                              message: 'Record deleted',
+                              variant: 'success'
+                          })
+                      );
+                  })
+                  .catch(error => {
+                      this.dispatchEvent(
+                          new ShowToastEvent({
+                              title: 'Error deleting record',
+                              message: error.body.message,
+                              variant: 'error'
+                          })
+                      );
+                  });}
+}
