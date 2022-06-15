@@ -52,6 +52,21 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
      @api departmentObject={};
   
    @track isModalOpen = false;
+   sortBy(field, reverse, primer) {
+    const key = primer
+        ? function (x) {
+              return primer(x[field]);
+          }
+        : function (x) {
+              return x[field];
+          };
+
+    return function (a, b) {
+        a = key(a);
+        b = key(b);
+        return reverse * ((a > b) - (b > a));
+    };
+}
    onHandleSort(event) {
     const { fieldName: sortedBy, sortDirection } = event.detail;
     const cloneData = [...this.departments];
