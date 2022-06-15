@@ -1,20 +1,5 @@
-/*************************************************
-* Name: PMT_TaskandPhaseManagementCtrl
-* Description: Helper for Task Management related components:
-            - PMT_TaskTableEditor.cmp
-            - PMT_CreateMultiPhases
-            - PMT_CreateMultiTasks.cmp
-* Test class: PMT_TaskandPhaseManagementCtrlTest (84%)
-* ***********************************************/
-
-public with Sharing class PMT_TaskandPhaseManagementCtrl{
-    
-    /*************************************************
-* Name: CreateTasksWrapper
-* Used by : PMT_CreateMultiTasks.cmp
-* ***********************************************/
-    
-    public class CreateTasksWrapper
+public class TaskandPhaseManagementCtrl {
+	public class CreateTasksWrapper
     {
         @AuraEnabled public List<Map<String, String>> phasesList;
         @AuraEnabled public List<Map<String, String>> memberList;      
@@ -101,7 +86,7 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
         List<String> lstUserFields = new List<String>{'Name'};
         
         List<String> lstPhaseFields = new List<String>{'Name', 'Id'};
-        
+		
             //Calling util method to check CRUD
         if(PMT_Utility.validateCRUD('PMT_Task__c', lstTaskFields, 'isAccessible') && PMT_Utility.validateCRUD('User', lstUserFields, 'isAccessible') && PMT_Utility.validateCRUD('PMT_Phase__c', lstPhaseFields, 'isAccessible')){
             
@@ -137,8 +122,8 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
             } catch(Exception e) {
                 //Calling util method to check CRUD
                 List<String> lstOfLogFields = new List<String>{'Apex_Class__c', 'Error_Message__c','Method_Name__c'};
-                if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
-                    INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'updateTasks');
+            	if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
+                	INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'updateTasks');
                 }
                 AuraHandledException ae = new AuraHandledException('Error occurred while updating task:');
                 ae.setMessage(e.getMessage());
@@ -165,8 +150,8 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
                 return true;
             } catch(Exception e) {
                 List<String> lstOfLogFields = new List<String>{'Apex_Class__c', 'Error_Message__c','Method_Name__c'};
-                if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
-                    INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'deleteRecord');
+            	if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
+                	INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'deleteRecord');
                 }
                 return false;
             }
@@ -208,7 +193,7 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
             //Calling util method to check CRUD
             List<String> lstOfLogFields = new List<String>{'Apex_Class__c', 'Error_Message__c','Method_Name__c'};
             if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
-                INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'submitTaskForApproval');
+            	INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'submitTaskForApproval');
             }
             return false;
         }        
@@ -231,8 +216,8 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
             }catch(Exception e) {   
                 //Calling util method to check CRUD
                 List<String> lstOfLogFields = new List<String>{'Apex_Class__c', 'Error_Message__c','Method_Name__c'};
-                if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
-                    INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'savePhases');
+            	if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
+                	INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'savePhases');
                 }
                 AuraHandledException ae = new AuraHandledException('Error occurred while creating phase:');
                 ae.setMessage(e.getMessage());
@@ -285,8 +270,8 @@ public with Sharing class PMT_TaskandPhaseManagementCtrl{
             }catch(Exception e) {
                 //Calling util method to check CRUD
                 List<String> lstOfLogFields = new List<String>{'Apex_Class__c', 'Error_Message__c','Method_Name__c'};
-                if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
-                    INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'saveTasks');
+            	if(PMT_Utility.validateCRUD('PMT_Error_Log__c', lstOfLogFields, 'isCreatable')){
+	                INSERT new PMT_Error_Log__c(Apex_Class__c='PMT_TaskandPhaseManagementCtrl', Error_Message__c = e.getMessage() , Method_Name__c = 'saveTasks');
                 }
                 AuraHandledException ae = new AuraHandledException('Error occurred while creating task:');
                 ae.setMessage(e.getMessage());

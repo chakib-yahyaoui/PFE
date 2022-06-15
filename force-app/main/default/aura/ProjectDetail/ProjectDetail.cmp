@@ -55,7 +55,7 @@
                 </lightning:tile>
             </aura:if>
             
-            <c:PMT_ProjectSummaryPhaseTable aura:id="SummaryTable"
+            <c:ProjectSummaryPhaseTable aura:id="SummaryTable"
                                                 recordId="{!v.recordId}" 
                                                 selectedSpan="{!v.selectedSpan}"
                                             />
@@ -226,7 +226,7 @@
                 </lightning:card>
                 <!--END Project Health-->
                 <!--START Phase Summary-->
-                <c:PMT_ProjectSummaryPhaseTable aura:id="SummaryTable"
+                <c:ProjectSummaryPhaseTable aura:id="SummaryTable"
                                                 recordId="{!v.recordId}" 
                                                 selectedSpan="{!v.selectedSpan}"/>
             </Lightning:card>
