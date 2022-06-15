@@ -193,7 +193,7 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
             );
         });
         this.template.querySelector('lightning-datatable').selectedRows = [];
-        this.selectedOpportunitiess = undefined;
+        this.selectedOpportunities = undefined;
         
     }
 }
