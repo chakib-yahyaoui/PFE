@@ -18,7 +18,7 @@ const actions = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
 {label: 'Edit', name: 'edit'}]
 
-const COLS = [{label: 'Department Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
+const COLS = [{label: 'Department Name', fieldName: 'link', type: 'url', sortable: true,typeAttributes: {label: {fieldName: 'Name'}}},
             {label: 'Description', fieldName: 'Description'},
             {label: 'Date de création', fieldName: 'Date_de_création' },
             {label: 'Date de modification', fieldName: 'Date_de_modification'},
@@ -41,6 +41,8 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
      
      @track isModalOpenEdit= false;
      @api objectApiName; 
+     defaultSortDirection = 'asc';
+     @api sortedBy ;
      
      @track error; 
      @api NewDepartment ={};
@@ -50,6 +52,16 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
      @api departmentObject={};
   
    @track isModalOpen = false;
+   onHandleSort(event) {
+    const { fieldName: sortedBy, sortDirection } = event.detail;
+    const cloneData = [...this.departments];
+
+    cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
+    this.departments = cloneData;
+    console.log('sort',this.departments)
+    this.sortDirection = sortDirection;
+    this.sortedBy = sortedBy;
+}
   openModal() {
      this.isModalOpen = true; 
   }
