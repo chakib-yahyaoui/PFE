@@ -28,12 +28,7 @@ const columns = [
         sortable: true
       
     },
-    {
-        label: 'N° Ticket',
-        fieldName: 'N_Ticket__c',
-        type:'int'
-      
-    },
+    
     {
         label: 'Type',
         fieldName: 'Type__c',
