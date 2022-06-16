@@ -21,12 +21,12 @@ export default class DeleteDep extends LightningElement {
                 );
                 // Navigate to a record home page after
                 // the record is deleted, such as to the
-                // contact home page
+                // department home page
                 this[NavigationMixin.Navigate]({
-                    type: "standard__webPage",
+                    type: 'standard__navItemPage',
                     attributes: {
-                        url: "https://resilient-moose-khyr7z-dev-ed.lightning.force.com/lightning/n/Department_List_View"
-                    }
+                        apiName: this.c/departmentListView
+                 },
              });
             })
             .catch(error => {
