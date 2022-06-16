@@ -124,7 +124,9 @@ export default class Ticket
     defaultSortDirection = 'asc';
     @api TicketIdDet;
    
-
+    refresh() {
+        refreshApex(this.wiredDataResult);
+      }
   connectedCallback() 
   {
     this.stopLoading(500);

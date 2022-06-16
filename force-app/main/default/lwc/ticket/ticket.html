@@ -5,24 +5,26 @@
                 <div class="slds-page-header__col-title">
                     <div class="slds-media">
                         <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-entity">
-                                 <lightning-icon icon-name="standard:entity"></lightning-icon>
+                            <span >
+                                 <lightning-icon icon-name="doctype:gdoc"></lightning-icon>
                             </span>
                         </div>
                         <div class="slds-media__body">
                             <div class="slds-page-header__name">
                                 <div class="slds-page-header__name-title">
                                     <h1>
-                                        <span>Departments List</span>
-                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Departments</span><br>
-                                        <span>Selected Departments: {selectedDepartmentsLen}</span>
+                                        <span>Tickets List</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Tickets</span><br>
+                                        
                                     </h1>
                                 </div>
                             </div>
                         </div>
                         <div class="slds-no-flex">
+                            <lightning-button variant="neutral" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
+                            <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
                             <lightning-button label="New ticket" onclick={openModal}></lightning-button>
-                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Search by ticket name">
+                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange}  value={searchkey} placeholder="Search by ticket name">
                             </lightning-input>
                 
                         </div>
