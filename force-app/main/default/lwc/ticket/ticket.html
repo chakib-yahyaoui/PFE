@@ -1,22 +1,47 @@
 <template>
-    <template if:true={hello}>
+    <div class="slds-card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-entity">
+                                 <lightning-icon icon-name="standard:entity"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Departments List</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Departments</span><br>
+                                        <span>Selected Departments: {selectedDepartmentsLen}</span>
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-button label="New ticket" onclick={openModal}></lightning-button>
+                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Search by ticket name">
+                            </lightning-input>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
         
    
-    <lightning-card title="Tickets">
-        <template if:true={loading}> <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-        </template>
-        <div class="slds-m-around_medium">
-            <lightning-button-group>
-                <lightning-button label="New ticket" onclick={openModal}></lightning-button>
-                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Search" value={searchkey} placeholder="Search by ticket name">
-                </lightning-input>
-            </lightning-button-group>
-        </div>
+    
         
-        <template if:true={allticketsData}>  
-            <lightning-card>
-                <div class="slds-m-around_medium">
-            <lightning-datatable 
+        
+        
+        
+            
+            
+                <lightning-datatable 
               
                 key-field="Id" 
                 data={allticketsData} 
@@ -27,35 +52,37 @@
                 sorted-by={sortedBy}
                 onsort={onHandleSort}>
 
-           </lightning-datatable>
-           </div>
+                </lightning-datatable>
+           
+           <lightning-layout horizontal-align="space">
+            <lightning-layout-item flexibility="auto">
+                <lightning-button 
+                    label="Previous" 
+                    icon-name="utility:chevronleft" 
+                    onclick={previousHandler}>
+                </lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                Page {page} of {totalPage}
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                <lightning-button 
+                    label="Next" 
+                    icon-name="utility:chevronright" 
+                    icon-position="right"
+                    onclick={nextHandler}>
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+           
            </br>
 
-            <lightning-layout horizontal-align="space">
-                <lightning-layout-item flexibility="auto">
-                    <lightning-button 
-                        label="Previous" 
-                        icon-name="utility:chevronleft" 
-                        onclick={previousHandler}>
-                    </lightning-button>
-                </lightning-layout-item>
-                <lightning-layout-item flexibility="auto">
-                    Page {page} of {totalPage}
-                </lightning-layout-item>
-                <lightning-layout-item flexibility="auto">
-                    <lightning-button 
-                        label="Next" 
-                        icon-name="utility:chevronright" 
-                        icon-position="right"
-                        onclick={nextHandler}>
-                    </lightning-button>
-                </lightning-layout-item>
-            </lightning-layout>
-     </lightning-card>
-    </template>
-    </lightning-card>
+            
+     
+    
+    
 
-</template>
+
       <!--***************Modal New***************-->
       <template if:true={isModalOpen}>
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
