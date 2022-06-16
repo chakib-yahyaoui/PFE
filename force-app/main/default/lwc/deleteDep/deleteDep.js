@@ -25,7 +25,7 @@ export default class DeleteDep extends LightningElement {
                 this[NavigationMixin.Navigate]({
                     type: 'standard__navItemPage',
                     attributes: {
-                        apiName: this.c/departmentListView
+                        apiName: this.departmentListView
                  },
              });
             })
