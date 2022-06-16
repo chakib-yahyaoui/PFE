@@ -17,9 +17,9 @@ const actions = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
 {label: 'Edit', name: 'edit'}]
 
-const COLS = [{label: 'Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'FullName'}}},
+const COLS = [{label: 'Name', fieldName: 'link', type: 'url',sortable: true, typeAttributes: {label: {fieldName: 'FullName'}}},
             {label: 'Email', fieldName: 'Email'},
-            {label: 'Account', fieldName: "accountLink", type: 'url', typeAttributes: {label: {fieldName: 'AccountName'}}},
+            {label: 'Account', fieldName: "accountLink", type: 'url', sortable: true,typeAttributes: {label: {fieldName: 'AccountName'}}},
             {label: "Mailing Address", fieldName: 'MailingAddress'},
             { fieldName: "actions", type: 'action', typeAttributes: {rowActions: actions}}
 ]
@@ -30,6 +30,8 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
     wiredContacts;
     selectedContacts;
     baseData;
+    defaultSortDirection = 'asc';
+    @api sortedBy ;
     @track selectedAccountId;
     @track contactId;    
     @track error; 
@@ -37,6 +39,31 @@ export default class ContactListView extends NavigationMixin(LightningElement) {
     lastname = '';  
     phoneNo = '';
     emailId = '';
+    sortBy(field, reverse, primer) {
+        const key = primer
+            ? function (x) {
+                  return primer(x[field]);
+              }
+            : function (x) {
+                  return x[field];
+              };
+    
+        return function (a, b) {
+            a = key(a);
+            b = key(b);
+            return reverse * ((a > b) - (b > a));
+        };
+    }
+    onHandleSort(event) {
+        const { fieldName: sortedBy, sortDirection } = event.detail;
+        const cloneData = [...this.contacts];
+    
+        cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
+        this.contacts = cloneData;
+        console.log('sort',this.contacts)
+        this.sortDirection = sortDirection;
+        this.sortedBy = sortedBy;
+    }
     @api show() {
         this.showModal = true;
       }

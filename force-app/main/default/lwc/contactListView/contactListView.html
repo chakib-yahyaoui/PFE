@@ -49,7 +49,11 @@
             data={contacts}
             columns={cols}
             onrowselection={handleRowSelection}
-            onrowaction={handleRowAction}> 
+            onrowaction={handleRowAction}
+            sorted-direction={sortDirection}
+            sorted-by={sortedBy}
+            onsort={onHandleSort}
+            default-sort-direction={defaultSortDirection}> 
             <lightning-button   label="Delete Selected Contacts" ></lightning-button>
             </lightning-datatable>
         </div>
