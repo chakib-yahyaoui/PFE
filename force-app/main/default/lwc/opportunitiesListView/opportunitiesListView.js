@@ -1,4 +1,4 @@
-import { LightningElement, wire } from 'lwc';
+import { LightningElement, wire,api } from 'lwc';
 
 import getOpportunities from "@salesforce/apex/opportinitiesListViewHelper.getOpportunities"
 import searchOpportunity from "@salesforce/apex/opportinitiesListViewHelper.searchOpportunity"
@@ -11,9 +11,9 @@ const ACTIONS = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
 {label: 'Edit', name: 'edit'}]
 
-const COLS = [{label: 'Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
+const COLS = [{label: 'Name', fieldName: 'link', type: 'url',sortable: true, typeAttributes: {label: {fieldName: 'Name'}}},
             {label: 'Amount', fieldName: 'Amount'},
-            {label: 'Account', fieldName: "accountLink", type: 'url', typeAttributes: {label: {fieldName: 'AccountName'}}},
+            {label: 'Account', fieldName: "accountLink", type: 'url',sortable: true, typeAttributes: {label: {fieldName: 'AccountName'}}},
             {label: "Close Date", fieldName: 'CloseDate'},
             {label: "Stage Name", fieldName: 'StageName'},
             {label: "Type", fieldName: 'Type'},
@@ -27,6 +27,8 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
     selectedOpportunities;
     baseData;
     opportunityList = [];
+    defaultSortDirection = 'asc';
+    @api sortedBy ;
 
 	navigateToVisualForcePage(event){
         this[NavigationMixin.Navigate]({
@@ -35,6 +37,31 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
                 url: "https://resilient-moose-khyr7z-dev-ed.lightning.force.com/one/one.app#eyJjb21wb25lbnREZWYiOiJvbmU6YWxvaGFQYWdlIiwiYXR0cmlidXRlcyI6eyJhZGRyZXNzIjoiaHR0cHM6Ly9yZXNpbGllbnQtbW9vc2Uta2h5cjd6LWRldi1lZC0tYy52aXN1YWxmb3JjZS5jb20vYXBleC9PcHBvcnR1bml0eVZpZXc%2FaWQ9MDA2OGQwMDAwMDRtSjBHQUFVIn0sInN0YXRlIjp7fX0%3D"
             }
         });
+    }
+    sortBy(field, reverse, primer) {
+        const key = primer
+            ? function (x) {
+                  return primer(x[field]);
+              }
+            : function (x) {
+                  return x[field];
+              };
+    
+        return function (a, b) {
+            a = key(a);
+            b = key(b);
+            return reverse * ((a > b) - (b > a));
+        };
+    }
+    onHandleSort(event) {
+        const { fieldName: sortedBy, sortDirection } = event.detail;
+        const cloneData = [...this.opportunities];
+    
+        cloneData.sort(this.sortBy(sortedBy, sortDirection === 'asc' ? 1 : -1));
+        this.opportunities = cloneData;
+        console.log('sort',this.opportunities)
+        this.sortDirection = sortDirection;
+        this.sortedBy = sortedBy;
     }
     refresh() {
         refreshApex(this.wiredOpportunities);
