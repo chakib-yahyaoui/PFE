@@ -76,15 +76,7 @@
                     type="text" onchange={handleDescriptionChange} required>Description</lightning-input>
                     </div>
                   
-                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
-                  <label class="slds-form-element__label" for=" member">
-                    <strong>Member </strong></label>
-              <select  class="slds-select" name="member" onchange={handleMemberChange} id="Member">
-                  <template for:each={User.data} for:item="acc">
-                  <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
-                  </template>
-                  </select>
-                  </div>
+                    
                   <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
                   <label class="slds-form-element__label" for=" member">
                     <strong>Manager </strong></label>
@@ -94,15 +86,7 @@
                   </template>
                   </select>
                   </div>
-                  <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
-                  <label class="slds-form-element__label" for=" member">
-                    <strong>Project Manager </strong></label>
-              <select  class="slds-select" name="project manager" onchange={handleProjectManagerChange} id="Project_Manager">
-                  <template for:each={User.data} for:item="acc">
-                  <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
-                  </template>
-                  </select>
-                  </div>
+                  
                 </div>
                 </div>
     
@@ -143,17 +127,7 @@
 
                     </div>
                   
-                    <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
-                  <label class="slds-form-element__label" for=" member">
-                    <strong>Member </strong></label>
-              
-                    <select  class="slds-select" name="Prop" for=" prop" onchange={handleMemberEdit} >
-                        <template for:each={User.data} for:item="acc">
-                        <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
-                        </template>
-                        </select>
-  
-                  </div>
+                   
                   <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
                   <label class="slds-form-element__label" for=" member">
                     <strong>Manager </strong></label>
@@ -165,16 +139,7 @@
                         </select>
 
                   </div>
-                  <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
-                  <label class="slds-form-element__label" for=" member">
-                    <strong>Project Manager </strong></label>
-                    <select class="slds-select" name="Prop" for=" prop" onchange={handleProjectManagerEdit} >
-                        <template for:each={User.data} for:item="acc">
-                        <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
-                        </template>
-                        </select>
-
-                  </div>
+                  
                 </div>
                 </div>
     

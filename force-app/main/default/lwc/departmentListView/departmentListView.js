@@ -90,19 +90,14 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
   handleDescriptionChange(event) {
     this.departmentObject.Description = event.target.value;
   }
-  handleMemberChange(event) {
-   this.departmentObject.Member = event.target.value;
-  }
+  
   handleManagerChange(event) {
    this.departmentObject.Manager = event.target.value;
   }
-  handleProjectManagerChange(event) {
-   this.departmentObject.Project_Manager = event.target.value;
-  }
+  
   submitDetails() {
-     console.log('member',this.departmentObject.Member)
      console.log('manager',this.departmentObject.Manager)
-     console.log('project manager',this.departmentObject.Project_Manager)
+     
      createDepartment({ DepartmentRecObj: this.departmentObject })
               .then(result => {
                 this.departmentRecoredId = result.Id;
@@ -287,20 +282,16 @@ export default class DepartmentListView extends  NavigationMixin (LightningEleme
     handleDescriptionEdit(event) {
     this.NewDepartment.Description__c = event.target.value;
     }
-    handleMemberEdit(event) {
-    this.NewDepartment.Member__c = event.target.value;
-    }
+    
     handleManagerEdit(event) {
       this.NewDepartment.Manager__c = event.target.value;
       }
-      handleProjectManagerEdit(event) {
-        this.NewDepartment.Project_Managers__c = event.target.value;
-        }
+      
         
       submitDetailsEdit() {
-     console.log('hi', this.NewDepartment.Member__c)
+     
      console.log('hi', this.NewDepartment.Manager__c)
-     console.log('hi', this.NewDepartment.Project_Managers__c)
+     
         updateDepartment({ dep: this.NewDepartment })
             .then(result  => {
                 this.departmentRecoredId = result.Id;
