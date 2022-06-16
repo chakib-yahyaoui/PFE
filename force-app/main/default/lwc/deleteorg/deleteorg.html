@@ -1,10 +1,14 @@
 <template>
-    <p><strong>you are sure about  deleting this record?</strong> </p>
-    <lightning-button variant="destructive" 
+    <header class="slds-modal__header">
+        <h2 class="slds-text-heading_medium slds-hyphenate">Are you sure to delete this record?</h2>
+    </header><br>
+    <lightning-button variant="destructive-text" 
+    style="text-align: center;"
         label="Delete"
         icon-name="utility:delete"
         icon-position="right"
         onclick={deleteRecord} 
-        class=" submit">
+        class="slds-align_absolute-center">
     </lightning-button>
+    <br>
 </template>
