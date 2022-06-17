@@ -9,7 +9,6 @@ import reception  from '@salesforce/schema/Ticket__c.Date_et_heure_de_r_ception_
 import equipe  from '@salesforce/schema/Ticket__c.Equipe_de_traitement__c';
 import module  from '@salesforce/schema/Ticket__c.Module_concern__c';
 import Suivipar  from '@salesforce/schema/Ticket__c.Suivi_par__c';
-import demande  from '@salesforce/schema/Ticket__c.Type_de_la_demande__c';
 import transmis from '@salesforce/schema/Ticket__c.transmis__c';
 import reproduction from '@salesforce/schema/Ticket__c.Etape_de_reproduction__c';
 import resolution  from '@salesforce/schema/Ticket__c.Description_de_la_m_thode_de_r_solution__c';
@@ -28,10 +27,10 @@ import LastModifiedBy from '@salesforce/schema/Org__c.LastModifiedById';
 export default class Left extends LightningElement {
     @track wiredDataResult;
     @api objectApiName;
-    caractérisation = [Criticité,module,demande,support ];
+    caractérisation = [Criticité,module,support ];
     prise=[reception,prisecharge,delai];
     traitement=[datedebint,datefin];
-    charge=[chargeprevsupp,chargerellsupp,chargeprevtot,chargeprevdev,chargerelldev,chargerelltot];
+    charge=[chargeprevsupp,chargerellsupp,chargeprevdev,chargerelldev,chargerelltot,chargeprevtot];
     attribution=[Suivipar,equipe,Affected_to];
     suivi=[reproduction,commentaire];
     system=[CreatedById,LastModifiedBy,Type, transmis];

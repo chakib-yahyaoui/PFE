@@ -15,6 +15,7 @@ import getUser from '@salesforce/apex/ticketController.getUserList';
 import Type_de_la_demande__c from '@salesforce/schema/Ticket__c.Type_de_la_demande__c';
 import Type__c from '@salesforce/schema/Ticket__c.Type__c';
 import Priority__c from '@salesforce/schema/Ticket__c.Priority__c';
+import getNumberTickets from "@salesforce/apex/TicketController.getNumberTickets";
 
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 const DELAY = 300;
@@ -55,6 +56,8 @@ export default class Ticket
  extends NavigationMixin(LightningElement) {
     @wire(getObjectInfo, { objectApiName: ticketObject })
     ticketInfo;
+    @wire(getNumberTickets)
+    number;
     @wire(getPicklistValues,
         {
             recordTypeId: '$ticketInfo.data.defaultRecordTypeId',
