@@ -11,7 +11,7 @@ public class OppController {
         
         this.OppList = [SELECT Name, Amount, CloseDate,StageName
                         FROM Opportunity
-                        WHERE CloseDate = LAST_MONTH 
+                        WHERE CloseDate < NEXT_MONTH AND CloseDate>LAST_MONTH 
                           ];
         
         

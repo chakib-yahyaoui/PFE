@@ -11,6 +11,14 @@ public class GEN_ChartController {
             
             
     }
+    @AuraEnabled( cacheable = true )
+    public static Integer getOpportunitiesNumber() {
+        return [
+            SELECT COUNT()   
+            FROM Opportunity];
+   
+
+            }
      @AuraEnabled(cacheable=true)
     public static List<Opportunity> getOpportunity(){
         return [SELECT Name,ExpectedRevenue, Amount, CloseDate

@@ -1,7 +1,7 @@
 public class departmentListViewHelper {
     @AuraEnabled(cacheable=True)
     public static List<Department__c> getDepartments(){
-        return [SELECT Id, Name, Description__c,Member__c,	Manager__c,Project_Managers__c,Date_de_cr_ation__c,Date_de_modification__c
+        return [SELECT Id, Name, Description__c,	Manager__c,Date_de_cr_ation__c,Date_de_modification__c
                 FROM Department__c
                 WITH SECURITY_ENFORCED];
     }
@@ -43,8 +43,6 @@ public class departmentListViewHelper {
         department.Name = String.valueOf(departmentinfo.get('Name'));
         department.Description__c = String.valueOf(departmentinfo.get('Description'));
         department.Manager__c = String.valueOf(departmentinfo.get('Manager')) ; 
-        department.Member__c = String.valueOf(departmentinfo.get('Member')) ; 
-        department.Project_Managers__c = String.valueOf(departmentinfo.get('Project_Manager')) ; 
 
 
             insert department;
@@ -53,7 +51,7 @@ public class departmentListViewHelper {
     @AuraEnabled(cacheable=true)
     public static list <Department__c> getDepartment(Id DepartmentId){
         return [ 
-            SELECT Name, Description__c,Member__c,	Manager__c,Project_Managers__c
+            SELECT Name, Description__c,	Manager__c
             FROM Department__c
             WHERE Id=:DepartmentId 
             WITH SECURITY_ENFORCED

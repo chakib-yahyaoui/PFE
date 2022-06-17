@@ -93,7 +93,7 @@
                     <span style="border-right:1px solid rgb(22, 50, 92)" > Approved </span>
                     
                     <lightning:icon iconName="utility:warning" size="xx-small" alternativeText="Late Task" title="Late" class="slds-m-left--xx-small"/>
-                    <span style="border-right:1px solid rgb(22, 50, 92)" > Late </span>
+                    <span  > Late </span>
                     
                 </aura:set>
                 <!--START Project Summary information-->
@@ -123,7 +123,7 @@
                                     <dl>
                                         <dt class="slds-text-heading_label">Start</dt>
                                         <dd >
-                                            <lightning:formattedDateTime value="{!v.record.Kickoff_formula__c}" year="2-digit" month="short"/>
+                                            <lightning:formattedDateTime value="{!v.record.Kickoff_formula__c}" />
                                         </dd>
                                     </dl>
                                 </Lightning:LayoutItem>
@@ -131,7 +131,7 @@
                                     <dl>
                                         <dt class="slds-text-heading_label">End</dt>
                                         <dd >
-                                            <lightning:formattedDateTime value="{!v.record.Deadline_formula__c}" year="2-digit" month="short"/>
+                                            <lightning:formattedDateTime value="{!v.record.Deadline_formula__c}" />
                                         </dd>
                                     </dl>
                                 </Lightning:LayoutItem>
@@ -147,24 +147,7 @@
                                         <dd >{!v.record.Project_Status__c}</dd>
                                     </dl>
                                 </Lightning:LayoutItem>
-                                <Lightning:LayoutItem size="3" flexibility="auto">
-                                    <dl class="slds-var-p-top_x-small">
-                                        <dt class="slds-text-heading_label">Category</dt>
-                                        <dd>{!v.record.Project_Category__c}</dd>
-                                    </dl>
-                                </Lightning:LayoutItem>
-                                <Lightning:LayoutItem size="3" flexibility="auto">
-                                    <dl class="slds-var-p-top_x-small">
-                                        <dt class="slds-text-heading_label">Roadmap Status</dt>
-                                        <dd>{!v.record.Roadmap_Status__c}</dd>
-                                    </dl>
-                                </Lightning:LayoutItem>
-                                <Lightning:LayoutItem size="3" flexibility="auto">
-                                    <dl class="slds-var-p-top_x-small">
-                                        <dt class="slds-text-heading_label">Program</dt>
-                                        <c:PMT_GenRecordRedirectionLink label="{!v.record.Program_Text__c}" recordId="{!v.record.Program__c}"/>
-                                    </dl>
-                                </Lightning:LayoutItem>
+                                
                             </Lightning:Layout>
                         </Lightning:LayoutItem>
                     </Lightning:Layout>

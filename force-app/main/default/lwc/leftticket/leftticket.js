@@ -18,7 +18,7 @@ import Criticité from '@salesforce/schema/Ticket__c.Criticit__c';
 import CreatedById from '@salesforce/schema/Org__c.CreatedById';
 import chargeprevtot from '@salesforce/schema/Ticket__c.Charge_pr_visonnelle_totale__c';
 import datedebint from '@salesforce/schema/Ticket__c.Date_debut_intervention__c';
-import datefin from '@salesforce/schema/Ticket__c.date_fin_intervention__c';
+import datefin from '@salesforce/schema/Ticket__c.Date_fin_intervention__c';
 import support from '@salesforce/schema/Ticket__c.Qualification_du_support__c';
 import delai from '@salesforce/schema/Ticket__c.D_lai_depuis_r_c_ption_h_ouvr_es__c';
 import { LightningElement, api ,track} from 'lwc';
