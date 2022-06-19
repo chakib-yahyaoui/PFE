@@ -89,7 +89,7 @@ export default class AccountListView extends LightningElement {
         this[NavigationMixin.Navigate]({
             type: 'standard__objectPage',
             attributes: {
-                objectApiName:'Account',
+                objectApiName:'account',
                 actionName: 'new'
             }
         });
