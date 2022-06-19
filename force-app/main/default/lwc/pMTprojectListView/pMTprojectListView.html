@@ -5,8 +5,8 @@
                 <div class="slds-page-header__col-title">
                     <div class="slds-media">
                         <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-opportunity">
-                                 <lightning-icon icon-name="standard:opportunity"></lightning-icon>
+                            <span >
+                                 <lightning-icon icon-name="standard:cms"></lightning-icon>
                             </span>
                         </div>
                         <div class="slds-media__body">
@@ -14,7 +14,7 @@
                                 <div class="slds-page-header__name-title">
                                     <h1>
                                         <span>Project List View</span>
-                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Project Portfolio Management</span><br>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Projects</span><br>
                                         <span>Selected Projects: {selectedProjectsLen}</span>
                                     </h1>
                                 </div>     
@@ -26,7 +26,7 @@
                             <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
                             <lightning-button  style="margin:2px;" label="Create Project" onclick={navigateToNewRecordPage}></lightning-button>
                             <lightning-button  style="margin:2px;" label="Delete Selected Projects" onclick={deleteSelectedProjects}></lightning-button>
-                            <lightning-input style="margin-left:400px ;" class=" slds-size_small " type="search" onchange={handleSearch} placeholder="Search project by name"></lightning-input>
+                            <lightning-input style="margin-left:210px ;" class=" slds-size_small " type="search" onchange={handleSearch} placeholder="Search project by name"></lightning-input>
                             
                         </div> 
                     </div>
@@ -40,7 +40,7 @@
     </div>
     
         
-        <div class="slds-card__body_inner" >
+        
             
 
             <lightning-datatable
@@ -51,7 +51,7 @@
             onrowaction={handleRowAction}
             > 
             </lightning-datatable>
-        </div>
+        
 
     
 </template>

@@ -84,6 +84,14 @@ export default class PMTprojectListView extends NavigationMixin(LightningElement
             })
         }
     }
+    navigateToDashboardPagePage(event){
+        this[NavigationMixin.Navigate]({
+            type: 'standard__navItemPage',
+            attributes: {
+                apiName: 'Project_Management_Home1'
+         },
+     });
+    }
 
     navigateToNewRecordPage() {
 
