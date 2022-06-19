@@ -21,7 +21,7 @@
                             </div>
                         </div>
                         <div class="slds-no-flex">
-                            <lightning-button-icon onclick={refresh}  icon-name="utility:refresh"  alternative-text="Refresh" title="Refresh"></lightning-button-icon>
+                            <lightning-button variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
                             <lightning-button  style="margin:2px;" label="Create Account" onclick={navigateToNewRecordPage}></lightning-button>
                             <lightning-button  style="margin:2px;" label="Delete Selected Accounts" onclick={deleteSelectedAccounts}></lightning-button>
                             <lightning-input style="margin-left:100px ;" class=" slds-size_small " type="search" onchange={handleSearch} placeholder="Search account"></lightning-input>

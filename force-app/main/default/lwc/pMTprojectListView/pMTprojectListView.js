@@ -59,12 +59,12 @@ export default class PMTprojectListView extends NavigationMixin(LightningElement
         return {...row,
             Name: `${row.Name}`,
             link: `/${row.Id}`,
-            Project_Current_Stage: `${row.inov8__Project_Status__c}`,
-            Project_Health: `${row.inov8__Health_Icon__c}`,
-            Description: `${row.inov8__Description__c}`,
-            Percentage_Completion: `${row.inov8__Percentage_Completion__c}`,
-            Start_Date: `${row.inov8__Kickoff_formula__c}`,
-            End_Date: `${row.inov8__Deadline_formula__c}`,
+            Project_Current_Stage: `${row.Project_Status__c}`,
+            Project_Health: `${row.Health_Icon__c}`,
+            Description: `${row.Description__c}`,
+            Percentage_Completion: `${row.Percentage_Completion__c}`,
+            Start_Date: `${row.Kickoff_formula__c}`,
+            End_Date: `${row.Deadline_formula__c}`,
             
         };
     }
