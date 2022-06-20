@@ -1,8 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 
-import getPMTprojects from "@salesforce/apex/PmtProjectListView.getPMTprojects"
-import searchPMTproject from "@salesforce/apex/PmtProjectListView.searchPMTproject"
-import deletePMTprojects from "@salesforce/apex/PmtProjectListView.deletePMTprojects"
+import getTasks from "@salesforce/apex/TaskListView.getTasks"
+import searchTask from "@salesforce/apex/TaskListView.searchTask"
+import deleteTasks from "@salesforce/apex/TaskListView.deleteTasks"
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
@@ -11,94 +11,84 @@ const ACTIONS = [{label: 'Delete', name: 'delete'},
 {label: 'View', name: 'view'},
 {label: 'Edit', name: 'edit'}]
 
-const COLS = [{label: 'Project Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
-            {label: 'Project Current Stage', fieldName: 'Project_Current_Stage'},
-            {label: "Description", fieldName: 'Description'},
-            {label: "Percentage Completion %", fieldName: 'Percentage_Completion'},
-            {label: "Start Date", fieldName: 'Start_Date'},
-            {label: "End Date", fieldName: 'End_Date'},
+const COLS = [{label: 'Task Name', fieldName: 'link', type: 'url', typeAttributes: {label: {fieldName: 'Name'}}},
+            {label: 'Start Date', fieldName: 'Start_Date'},
+            {label: "End Date", fieldName: 'Due_Date'},
+            {label: "Task Status", fieldName: 'Status'},
             { fieldName: "actions", type: 'action', typeAttributes: {rowActions: ACTIONS}}
 ]
 
-export default class PMTprojectListView extends NavigationMixin(LightningElement) {
+
+export default class TaskListView extends LightningElement {
     cols = COLS;
-    projects;
-    wiredProjects;
-    selectedProjects;
+    tasks;
+    wiredTasks;
+    selectedTasks;
     baseData;
-    projectList = [];
+    taskList = [];
 
 	
     refresh() {
-        refreshApex(this.wiredProjects);
+        refreshApex(this.wiredTasks);
       }
 
 	
 
-    get selectedProjectsLen() {
-        if(this.selectedProjects == undefined) return 0;
-        return this.selectedProjects.length
+    get selectedTasksLen() {
+        if(this.selectedTasks == undefined) return 0;
+        return this.selectedTasks.length
     }
 
-    @wire(getPMTprojects)
-    projectsWire(result){
-        this.wiredProjects = result;
+    @wire(getTasks)
+    tasksWire(result){
+        this.wiredTasks = result;
         if(result.data){
-            this.projects = result.data.map((row) => {
-                return this.mapProjects(row);
+            this.tasks = result.data.map((row) => {
+                return this.mapTasks(row);
             })
-            this.baseData = this.projects;
+            this.baseData = this.tasks;
         }
         if(result.error){
             console.error(result.error);
         }
     }
 
-    mapProjects(row){
+    mapTasks(row){
         
         return {...row,
             Name: `${row.Name}`,
             link: `/${row.Id}`,
-            Project_Current_Stage: `${row.Project_Status__c}`,
-            Project_Health: `${row.Health_Icon__c}`,
-            Description: `${row.Description__c}`,
-            Percentage_Completion: `${row.Percentage_Completion__c}`,
-            Start_Date: `${row.Kickoff_formula__c}`,
-            End_Date: `${row.Deadline_formula__c}`,
+            Start_Date: `${row.Start_Date__c}`,
+            Due_Date: `${row.Due_Date__c}`,
+            Status: `${row.Status__c}`,
+            
             
         };
     }
 
     handleRowSelection(event){
-        this.selectedProjects = event.detail.selectedRows;
+        this.selectedTasks = event.detail.selectedRows;
     }
 
     async handleSearch(event){
         if(event.target.value == ""){
-            this.projects = this.baseData
+            this.tasks = this.baseData
         }else if(event.target.value.length > 1){
-            const searchProjects = await searchPMTproject({searchString: event.target.value})
+            const searchTasks = await searchTask({searchString: event.target.value})
 
-            this.projects = searchProjects.map(row => {
-                return this.mapProjects(row);
+            this.tasks = searchTasks.map(row => {
+                return this.mapTasks(row);
             })
         }
     }
-    navigateToDashboardPagePage(event){
-        this[NavigationMixin.Navigate]({
-            type: 'standard__navItemPage',
-            attributes: {
-                apiName: 'Project_Management_Home1'
-         },
-     });
-    }
+    
 
     navigateToNewRecordPage() {
 
         this[NavigationMixin.Navigate]({
             type: 'standard__objectPage',
             attributes: {
-                objectApiName: 'PMT_Project__c',
+                objectApiName: 'PMT_Task__c',
                 actionName: 'new'
             }
         });
@@ -124,14 +114,14 @@ export default class PMTprojectListView extends NavigationMixin(LightningElement
                     type: 'standard__recordPage',
                     attributes:{
                         recordId: row.Id,
-                        objectApiName: 'PMT_Project__c',
+                        objectApiName: 'PMT_Task__c',
                         actionName: 'edit'
                     }
                 });
                 break;
             case 'delete' :
-                deletePMTprojects({projectIds : [event.detail.row.Id]}).then(() => {
-                    refreshApex(this.wiredProjects);
+                deleteTasks({taskIds : [event.detail.row.Id]}).then(() => {
+                    refreshApex(this.wiredTasks);
                     this.dispatchEvent(
                         new ShowToastEvent({
                             title: 'Success',
@@ -154,10 +144,10 @@ export default class PMTprojectListView extends NavigationMixin(LightningElement
         }
     }
 
-    deleteSelectedProjects(){
-        const idList = this.selectedProjects.map( row => { return row.Id })
-        deletePMTprojects({projectIds : idList}).then( () => {
-            refreshApex(this.wiredProjects);
+    deleteSelectedTasks(){
+        const idList = this.selectedTasks.map( row => { return row.Id })
+        deleteTasks({taskIds : idList}).then( () => {
+            refreshApex(this.wiredTasks);
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
@@ -178,7 +168,7 @@ export default class PMTprojectListView extends NavigationMixin(LightningElement
             );
         });
         this.template.querySelector('lightning-datatable').selectedRows = [];
-        this.selectedProjects = undefined;
+        this.selectedTasks = undefined;
         
     }
 }
