@@ -58,6 +58,16 @@ export default class Ticket
     ticketInfo;
     @wire(getNumberTickets)
     number;
+    navigateToNewRecordPage() {
+
+        this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Ticket__c',
+                actionName: 'new'
+            }
+        });
+    }
     @wire(getPicklistValues,
         {
             recordTypeId: '$ticketInfo.data.defaultRecordTypeId',

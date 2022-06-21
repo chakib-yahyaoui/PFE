@@ -1,22 +1,50 @@
 <template>
+    <div class="slds-card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span class="slds-icon_container slds-icon-standard-contact">
+                                 <lightning-icon icon-name="standard:contact"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Contacts List View</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Contacts</span><br>
+                                        <span>Selected Contacts: {selectedContactsLen}</span>
+                                    </h1>
+                                </div>     
+                            </div>
+                        </div>
+                        <div class="slds-no-flex">
+                            <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
+                            <lightning-button label="Ajouter un org" onclick={openModal}></lightning-button>
+                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Chercher" value={searchkey} placeholder="Chercher orgs par nom"></lightning-input>
+                            
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            
+                
+             
+        </div>
+        
+    </div>
     <template if:true={hello}>
         
 
-    <lightning-card >
-        <template if:true={loading}> <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-        </template>
-        <div class="slds-m-around_medium">
-            <lightning-button-group>
-                <lightning-button label="Ajouter un org" onclick={openModal}></lightning-button>
-                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Chercher" value={searchkey} placeholder="Chercher orgs par nom">
-                    
-                </lightning-input>
-            </lightning-button-group>
-        </div>
+    
+        
+        
         
         <template if:true={allorgsData}>  
-            <lightning-card>
-                <div class="slds-m-around_medium">
+            
+            <div class="slds-card__body_inner" >
             <lightning-datatable 
               
                 key-field="Id" 
@@ -31,7 +59,7 @@
            </lightning-datatable>
            </div>
          
-
+           
             <lightning-layout horizontal-align="space">
                 <lightning-layout-item flexibility="auto">
                     <lightning-button 
@@ -52,9 +80,11 @@
                     </lightning-button>
                 </lightning-layout-item>
             </lightning-layout>
-     </lightning-card>
+            
+        
+     
     </template>
-    </lightning-card>
+    
 
 </template>
     

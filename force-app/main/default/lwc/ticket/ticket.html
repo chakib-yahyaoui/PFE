@@ -22,9 +22,9 @@
                             </div>
                         </div>
                         <div class="slds-no-flex">
-                            <lightning-button variant="neutral" icon-name="utility:chart" onclick={navigateToDashboardPagePage}></lightning-button>
+                           
                             <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
-                            <lightning-button label="New ticket" onclick={openModal}></lightning-button>
+                            <lightning-button label="New ticket" onclick={navigateToNewRecordPage}></lightning-button>
                             <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange}  value={searchkey} placeholder="Search by ticket name">
                             </lightning-input>
                 
@@ -42,7 +42,7 @@
         
         
         
-            
+    <div class="slds-card__body_inner" > 
             
                 <lightning-datatable 
               
@@ -56,6 +56,7 @@
                 onsort={onHandleSort}>
 
                 </lightning-datatable>
+                </div>
            
            <lightning-layout horizontal-align="space">
             <lightning-layout-item flexibility="auto">

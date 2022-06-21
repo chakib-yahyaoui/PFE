@@ -42,7 +42,7 @@
         
             
             
-            
+    <div class="slds-card__body_inner" > 
             <lightning-datatable
             key-field="id"
             data={contacts}
@@ -55,6 +55,7 @@
             default-sort-direction={defaultSortDirection}> 
             <lightning-button   label="Delete Selected Contacts" ></lightning-button>
             </lightning-datatable>
+            </div>
         
 
     <template if:true={customFormModal}>
