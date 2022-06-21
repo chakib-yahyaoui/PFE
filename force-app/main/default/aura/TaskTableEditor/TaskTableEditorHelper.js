@@ -258,7 +258,7 @@
             }
         ];
         // In that component, start your flow. Reference the flow's API Name.
-        flow.startFlow("PMT_Mass_update_Task_Status", inputVariables);
+        flow.startFlow("Update_Task_Status", inputVariables);
     },
     
     changeAssignee: function(component, tasksSelected) {
