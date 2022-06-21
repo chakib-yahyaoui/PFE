@@ -1,41 +1,22 @@
-<template >
+<template>
+    <template if:true={hello}>
         
-    
-        <div class="slds-card">
-            <div class="slds-page-header">
-                <div class="slds-page-header__row">
-                    <div class="slds-page-header__col-title">
-                        <div class="slds-media">
-                            <div class="slds-media__figure">
-                                <span >
-                                     <lightning-icon icon-name="standard:asset_action_source"></lightning-icon>
-                                </span>
-                            </div>
-                            <div class="slds-media__body">
-                                <div class="slds-page-header__name">
-                                    <div class="slds-page-header__name-title">
-                                        <h1>
-                                            <span>Orgs List</span>
-                                            <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Orgs</span><br>
-                                            
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="slds-no-flex">
-                                <lightning-button variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
-                                <lightning-button style="margin:5px;" label="New org" onclick={openModal}></lightning-button>
-                                <lightning-input  class="slds-m-bottom_small"  type="search" onchange={handleKeyChange}  value={searchkey} placeholder="Search org by name"></lightning-input>
-                    
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+    <lightning-card >
+        <template if:true={loading}> <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+        <div class="slds-m-around_medium">
+            <lightning-button-group>
+                <lightning-button label="Ajouter un org" onclick={openModal}></lightning-button>
+                <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Chercher" value={searchkey} placeholder="Chercher orgs par nom">
+                    
+                </lightning-input>
+            </lightning-button-group>
+        </div>
         
-                
+        <template if:true={allorgsData}>  
+            <lightning-card>
+                <div class="slds-m-around_medium">
             <lightning-datatable 
               
                 key-field="Id" 
@@ -43,16 +24,14 @@
                 columns={columns} 
                 onrowaction={handleclick} hide-checkbox-column
                 default-sort-direction={defaultSortDirection}
-                onrowselection={handleRowSelection}
                 sorted-direction={sortDirection}
                 sorted-by={sortedBy}
                 onsort={onHandleSort}>
 
            </lightning-datatable>
-           
-           
-           </br>
-          
+           </div>
+         
+
             <lightning-layout horizontal-align="space">
                 <lightning-layout-item flexibility="auto">
                     <lightning-button 
@@ -62,7 +41,7 @@
                     </lightning-button>
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="auto">
-                    Page {page} of {totalPage}
+                    Page {page} de {totalPage}
                 </lightning-layout-item>
                 <lightning-layout-item flexibility="auto">
                     <lightning-button 
@@ -73,20 +52,17 @@
                     </lightning-button>
                 </lightning-layout-item>
             </lightning-layout>
-        
-        
-        
-     
-    
-    
+     </lightning-card>
+    </template>
+    </lightning-card>
 
-
+</template>
     
     <!-- editttttttttttttttttttttttttttttttttttttttttttttttttttttttttt -->
     <template if:true={isModalOpenEdit} >
         <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
-                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModalEdit}>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Fermer" onclick={closeModalEdit}>
                     <lightning-icon icon-name="utility:close"
                     alternative-text="close"
                     variant="inverse"
@@ -100,7 +76,7 @@
                   
                     <div class="slds-grid slds-wrap">
                     <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
-                        <lightning-input  label="Nom"   name="name"  value={org.Name} onchange={handleNameEdit} >
+                        <lightning-input  label="Nom"   name="name"  value={org.Name} onchange={handleNameEdit} required>
 
                         </lightning-input>
 
@@ -147,6 +123,15 @@
                             </select>
                      </div>
                      <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+                
+                        <label for="type">Project</label>
+                    <select  class="slds-select" name="projet" for="projet" onchange={handleprojetEdit} >
+                        <template for:each={projet.data} for:item="acc">
+                        <option key={acc.Id} value={acc.Id} >{acc.Name}</option>
+                        </template>
+                        </select>
+                 </div>
+                     <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
                     
                         <lightning-input  name="SecretWord"   value={org.Secret_Word__c} label="Secret Word"
                          onchange={handlesecretEdit} ></lightning-input>
@@ -182,8 +167,8 @@
                 </div> 
                 </div>
                 <footer class="slds-modal__footer">
-                    <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Cancel</button>
-                    <button class="slds-button slds-button_brand" onclick={submitDetailsEdit} title="OK">OK</button>
+                    <button class="slds-button slds-button_neutral" onclick={closeModalEdit} title="Cancel">Annuler</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetailsEdit} title="OK">Enregister</button>
                 </footer>
             </div>
         </section>
@@ -194,12 +179,12 @@
     <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
         <div class="slds-modal__container">
             <header class="slds-modal__header">
-                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Femer" onclick={closeModal}>
                     <lightning-icon icon-name="utility:close"
                         alternative-text="close"
                         variant="inverse"
                         size="small" ></lightning-icon>
-                    <span class="slds-assistive-text">Close</span>
+                    <span class="slds-assistive-text">Fermer</span>
                 </button>
                 <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Ajouter Org </h2>
             </header>
@@ -207,7 +192,7 @@
                 <div class="slds-grid slds-wrap">
                 <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
                     
-                <lightning-input label ="Nom" id="name" maxlength="40" name="name" size="40" type="text" onchange={handleNameChange} ></lightning-input>
+                <lightning-input label ="Nom" id="name" maxlength="40" name="name" size="40" type="text" onchange={handleNameChange} required ></lightning-input>
                 </div>
                <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
 
@@ -233,6 +218,15 @@
                 <label for="type">Backup Manager</label>
                 <select  class="slds-select" name="backup" for="backup" onchange={handlemanagerChange} id="manager">
               <template for:each={User.data} for:item="acc">
+              <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
+              </template>
+              </select>
+            </div>
+            <div class="slds-col slds-size_6-of-12 slds-p-horizontal--medium slds-m-bottom_medium">
+
+                <label for="type">Project</label>
+                <select  class="slds-select" name="projet" for="projet" onchange={handlprojetChange} id="projet">
+              <template for:each={projet.data} for:item="acc">
               <option key={acc.Id}  value={acc.Id} >{acc.Name}</option>
               </template>
               </select>
@@ -279,8 +273,8 @@
                     </div>
 </div></div>
             <footer class="slds-modal__footer">
-                <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Cancel</button>
-                <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">OK</button>
+                <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancel">Annuler</button>
+                <button class="slds-button slds-button_brand" onclick={submitDetails} title="OK">Enregister</button>
             </footer>
         </div>
     </section>

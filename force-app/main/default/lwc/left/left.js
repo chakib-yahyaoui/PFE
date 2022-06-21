@@ -15,13 +15,14 @@ import Type from '@salesforce/schema/Org__c.Type__c';
 import Version from '@salesforce/schema/Org__c.Version__c';
 import OrgName from '@salesforce/schema/Org__c.Name';
 import archive from '@salesforce/schema/Org__c.archive__c';
+import projet from '@salesforce/schema/Org__c.Project__c';
 import { LightningElement, api ,track} from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import LastModifiedBy from '@salesforce/schema/Org__c.LastModifiedById';
 export default class Left extends LightningElement {
     @track wiredDataResult;
     @api objectApiName;
-    info = [OrgName,Login,Password ,Secret_Word,Type,Url,archive,Domain_Custom ,Backup_Manager,Propritaire];
+    info = [OrgName,Login,Password ,Secret_Word,Type,Url,archive,Domain_Custom ,Backup_Manager,Propritaire,projet];
         sso=[SSO_Server,SSO_Contact,Noms_de_domaine,Email_a_prevenir,Version,Token,CreatedById,LastModifiedBy];
     
     @api org ={};

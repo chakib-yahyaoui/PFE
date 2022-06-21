@@ -11,6 +11,7 @@ import orgObject from '@salesforce/schema/Org__c';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import Type__c from '@salesforce/schema/Org__c.Type__c';
 import getUserList from '@salesforce/apex/orgController.getUserList';
+import getprojetList from '@salesforce/apex/orgController.getprojetList';
 
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 const DELAY = 300;
@@ -56,6 +57,7 @@ label: 'Action',
 
 export default class Organisation extends NavigationMixin(LightningElement) { 
    @wire(getUserList) User;
+   @wire(getprojetList) projet;
    @track wiredgetUser;
     @wire(getObjectInfo, { objectApiName: orgObject })
     orgInfo;
@@ -94,14 +96,6 @@ export default class Organisation extends NavigationMixin(LightningElement) {
     loading;
     defaultSortDirection = 'asc';
     @api OrgIdDet;
-    selectedOrgs;
-    handleRowSelection(event){
-        this.selectedOrgs = event.detail.selectedRows;
-    }
-    get selectedOrgsLen() {
-        if(this.selectedOrgs == undefined) return 0;
-        return this.selectedOrgs.length
-    }
     
   connectedCallback() 
   {
@@ -115,9 +109,6 @@ export default class Organisation extends NavigationMixin(LightningElement) {
       this.loading = false;
     }, timeoutValue);
   } 
-  refresh() {
-    refreshApex(this.wiredDataResult);
-  }
   
     @wire(getOrgsByName, {searchKey: '$searchKey'})
     getOrgsByName(result) {
@@ -313,6 +304,9 @@ submitDetails() {
     handleNameChange(event) {
             this.orgObject.Name = event.target.value;
         }
+        handleprojetChange(event) {
+            this.orgObject.projet = event.target.value;
+        }
     
     handletypeChange(event) {
             this.orgObject.type = event.target.value;
@@ -384,7 +378,9 @@ handleNameEdit(event) {
         this.NewOrg.Name = event.target.value;
   }
     
- 
+  handleprojetEdit(event) {
+    this.NewOrg.Project__c = event.target.value;
+}
   handleLoginEdit(event) {
       this.NewOrg.Login__c = event.target.value;
   }
@@ -447,29 +443,4 @@ closeModalEdit() {
                     })
                 );
             }); 
-}
-deleteSelectedOrgs(){
-    const idList = this.selectedOrgs.map( row => { return row.Id })
-    deleteRecord(row.Id)
-                  .then(() => {
-                    this.loading = true;
-                    this.stopLoading(500);
-                    
-                      this.dispatchEvent(
-                          new ShowToastEvent({
-                              title: 'Success',
-                              message: 'Record deleted',
-                              variant: 'success'
-                          })
-                      );
-                  })
-                  .catch(error => {
-                      this.dispatchEvent(
-                          new ShowToastEvent({
-                              title: 'Error deleting record',
-                              message: error.body.message,
-                              variant: 'error'
-                          })
-                      );
-                  });}
-}
+}}
