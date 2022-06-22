@@ -5,24 +5,24 @@
                 <div class="slds-page-header__col-title">
                     <div class="slds-media">
                         <div class="slds-media__figure">
-                            <span class="slds-icon_container slds-icon-standard-contact">
-                                 <lightning-icon icon-name="standard:contact"></lightning-icon>
+                            <span >
+                                 <lightning-icon icon-name="standard:household"></lightning-icon>
                             </span>
                         </div>
                         <div class="slds-media__body">
                             <div class="slds-page-header__name">
                                 <div class="slds-page-header__name-title">
                                     <h1>
-                                        <span>Contacts List View</span>
-                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Contacts</span><br>
-                                        <span>Selected Contacts: {selectedContactsLen}</span>
+                                        <span>Orgs List View</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Orgs</span><br>
+                                        <span>Number of Orgs: {number.data}</span>
                                     </h1>
                                 </div>     
                             </div>
                         </div>
                         <div class="slds-no-flex">
                             <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
-                            <lightning-button label="Ajouter un org" onclick={openModal}></lightning-button>
+                            <lightning-button label="Ajouter un org" onclick={navigateToNewRecordPage}></lightning-button>
                             <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Chercher" value={searchkey} placeholder="Chercher orgs par nom"></lightning-input>
                             
                         </div> 

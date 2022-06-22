@@ -12,6 +12,7 @@ import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 import Type__c from '@salesforce/schema/Org__c.Type__c';
 import getUserList from '@salesforce/apex/orgController.getUserList';
 import getprojetList from '@salesforce/apex/orgController.getprojetList';
+import getNumberOrg from '@salesforce/apex/orgController.getNumberOrg';
 
 import { getObjectInfo } from 'lightning/uiObjectInfoApi';
 const DELAY = 300;
@@ -61,7 +62,18 @@ export default class Organisation extends NavigationMixin(LightningElement) {
    @track wiredgetUser;
     @wire(getObjectInfo, { objectApiName: orgObject })
     orgInfo;
+    @wire(getNumberOrg)
+    number;
+    navigateToNewRecordPage() {
 
+        this[NavigationMixin.Navigate]({
+            type: 'standard__objectPage',
+            attributes: {
+                objectApiName: 'Org__c',
+                actionName: 'new'
+            }
+        });
+    }
     @wire(getPicklistValues,
         {
             recordTypeId: '$orgInfo.data.defaultRecordTypeId',
