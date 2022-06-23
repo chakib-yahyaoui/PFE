@@ -22,8 +22,9 @@
                         </div>
                         <div class="slds-no-flex">
                             <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
-                            <lightning-button label="Ajouter un org" onclick={navigateToNewRecordPage}></lightning-button>
-                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange} variant="label-hidden" label="Chercher" value={searchkey} placeholder="Chercher orgs par nom"></lightning-input>
+                            <lightning-button label="New ticket" onclick={navigateToNewRecordPage}></lightning-button>
+                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange}  value={searchkey} placeholder="Search by ticket name">
+                            </lightning-input>
                             
                         </div> 
                     </div>
