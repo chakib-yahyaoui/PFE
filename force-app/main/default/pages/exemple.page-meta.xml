@@ -11,11 +11,6 @@
     </packageVersions>
     <packageVersions>
         <majorNumber>1</majorNumber>
-        <minorNumber>311</minorNumber>
-        <namespace>inspire1</namespace>
-    </packageVersions>
-    <packageVersions>
-        <majorNumber>1</majorNumber>
         <minorNumber>6</minorNumber>
         <namespace>lwcc</namespace>
     </packageVersions>

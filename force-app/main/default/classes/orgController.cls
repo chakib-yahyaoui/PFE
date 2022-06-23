@@ -92,5 +92,11 @@ public with sharing class orgController {
         String key = '%' + searchKey + '%';
         return [select Name, Login__c,Type__c , Password__c from Org__c where Name LIKE :key  ORDER BY Name];
     }
+    @AuraEnabled(cacheable=true)
+    public static Integer getNumberOrg(){
+        return[
+           SELECT COUNT()  FROM Org__c
+        ];
+    }
 
 }

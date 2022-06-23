@@ -5,7 +5,7 @@
     <td><apex:image id="logo2" value="{!$Resource.logo2}" width="60" height="60"/></td>
     <td style="test-align:right; padding-right:550px;"></td> 
     <td style="text-align:right;"><apex:outputText value="{!DAY(TODAY())}-{!MONTH(TODAY())}-{!YEAR(TODAY())}"/></td> 
-    <h1 style="text-align:center;">Liste des opportunités</h1>
+    <h1 style="text-align:center;">List of opportunities this month</h1>
     
 </tr>
 </table>

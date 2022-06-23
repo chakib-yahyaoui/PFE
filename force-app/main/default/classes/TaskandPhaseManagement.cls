@@ -12,7 +12,6 @@ public class TaskandPhaseManagement {
 * Parameters : project id
 * Return Values:  CreateTasksWrapper instance
 * ***********************************************/    
-    
     @AuraEnabled
     public static CreateTasksWrapper getTaskWrapper(Id projectId)
     {
@@ -24,7 +23,6 @@ public class TaskandPhaseManagement {
         }else{
             throw new AuraHandledException('You don\'t have access to PMT phases. Please contact system administartor.');
         }
-        
         
         //Calling util method to check CRUD
         List<String> lstAllocationFields = new List<String>{'Allocated_Resource_Id__c', 'Resource_Name__c'};
@@ -60,15 +58,6 @@ public class TaskandPhaseManagement {
 * Parameters : projectId
 * Return Values: items
 * ***********************************************/    
-    @AuraEnabled(cacheable=true)
-    public static List<User> getUserList() {
-        return [
-            SELECT Name
-            FROM User
-           where User.IsActive = true
-            WITH SECURITY_ENFORCED
-        ];
-    }
     private static List<Map<String, String>> getMemberList(ID projectId) {    
         List<Map<String, String>> items = new List<Map<String, String>>();  
         Set<Id> uniqueUserIds = new Set<Id>();
@@ -289,7 +278,7 @@ public class TaskandPhaseManagement {
                 throw ae;
             }
         }else{
-            throw new AuraHandledException('Please contact system administrator.');
+            throw new AuraHandledException('You don\'t have access to create PMT Task. Please contact system administrator.');
         } 
     }
     

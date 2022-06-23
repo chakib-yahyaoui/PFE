@@ -1,4 +1,4 @@
-<aura:component controller="LinechartController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
+<aura:component controller="LeadChart" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global">
     <ltng:require scripts="{!join(',',$Resource.Highcharts,
                            $Resource.highchart3d,
                            $Resource.Highchartsexport
@@ -6,8 +6,8 @@
     
   
     <aura:attribute name="chartType" type="string"/>
-    <aura:attribute name="chartTitle" type="string" default="Opportunity by Stages"/>
-    <aura:attribute name="yAxisParameter" type="string" default="Number of Opportunity"/>
+    <aura:attribute name="chartTitle" type="string" default="Lead by Status"/>
+    <aura:attribute name="yAxisParameter" type="string" default="Number of Lead"/>
     <aura:attribute name="data" type="string"/>
     
     
@@ -15,17 +15,17 @@
     <div class="slds-card">
         <br/>
         <center><b><h1 class="slds-page-header__title slds-truncate slds-align-middle">
-            Graphical Representaion of Opportunity With Stage</h1></b></center>
+            Graphical Representaion of Lead With Stage</h1></b></center>
         <br/><br/>
         <div class="slds-grid slds-wrap slds-grid--pull-padded">
             
+            <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--3-of-6 slds-large-size--6-of-12 cusdiv">
+                <div aura:id="chart" style="height: 750px"></div>
+            </div>
+            <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--3-of-6 slds-large-size--6-of-12 cusdiv">
+                <div aura:id="linechart" style="height: 750px"></div>
+            </div>
             
-            <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--3-of-6 slds-large-size--6-of-12 cusdiv">
-                <div aura:id="donutchart" style="height: 750px"></div>
-            </div>
-            <div class="slds-col--padded slds-size--1-of-2 slds-medium-size--3-of-6 slds-large-size--6-of-12 cusdiv">
-                <div aura:id="barchart" style="height: 750px"></div>
-            </div>
             
             
         </div>

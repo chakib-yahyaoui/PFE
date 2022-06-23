@@ -78,13 +78,15 @@
                         <lightning:layoutItem size="12">
                             <lightning:select aura:id="taAssigned" label="Assigned To" name="taAssigned" required="false" value="{!ta.Assigned_To1__c}">
                                 <option value="">--None--</option>
-                                <aura:iteration items="{!v.UserList}" var="item">
+                                <aura:iteration items="{!v.MemberList}" var="item">
                                     <option text="{!item.label}" value="{!item.value}"/>
                                 </aura:iteration>
                             </lightning:select>
                         </lightning:layoutItem>
                         
-                        
+                        <lightning:layoutItem size="12">
+                            <lightning:input name="taMilestone" type="toggle" label="is Milestone?" messageToggleActive="" messageToggleInactive="" required="false" checked="{!ta.Is_Milestone__c}"/>
+                        </lightning:layoutItem>
                     </lightning:layout>
                 </div>
             </lightning:card>
@@ -137,7 +139,9 @@
                                     <th scope="col" width="16%">
                                         <div class="slds-truncate" title="Assigned">Assigned To</div>
                                     </th>
-                                    
+                                    <th scope="col" width="10%">
+                                        <div class="slds-truncate" title="Milestone">Milestone</div>
+                                    </th>
                                     <th scope="col" width="2%">
                                         <div class="slds-truncate" title="Action"></div>
                                     </th>
@@ -169,12 +173,14 @@
                                         <td>
                                             <lightning:select aura:id="taAssigned" name="taAssigned" required="false" value="{!ta.Assigned_To1__c}" class="NoLabel">
                                                 <option value="">--None--</option>
-                                                <aura:iteration items="{!v.UserList}" var="item">
+                                                <aura:iteration items="{!v.MemberList}" var="item">
                                                     <option text="{!item.label}" value="{!item.value}"/>
                                                 </aura:iteration>
                                             </lightning:select>
                                         </td>
-                                        
+                                        <td>
+                                            <lightning:input name="taMilestone" type="toggle" messageToggleActive="" messageToggleInactive="" required="false" label="" checked="{!ta.Is_Milestone__c}" class="NoLabel"/>
+                                        </td>
                                         <td>
                                             <a onclick="{!c.removeRow}" data-record="{!index}">
                                                 <lightning:icon iconName="utility:delete" size="small" alternativeText="Delete"/>

@@ -5,8 +5,8 @@ public with sharing class UpdateContractStatus {
                 contrat = [SELECT Id, Status FROM Contract
                             WHERE Id=: PDF.LinkedEntityId];
                 for (Contract con : contrat){
-                    if (con.Status=='Waiting for signature' || con.Status=='Expired'){
-                    con.Status= 'Signed';
+                    if (con.Status=='waiting for sign' || con.Status=='Expired'){
+                    con.Status= 'signed';
                     update(con);
                 }}
     

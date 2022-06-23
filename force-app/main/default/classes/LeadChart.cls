@@ -1,34 +1,5 @@
-public class LinechartController {
-@AuraEnabled
-    public static String getOpportunityJSON(){
-        
-       List<opportunity> lstopp = [SELECT Id, stagename FROM opportunity ];
-        Map<String,Integer> mapLeadSource = new Map<String,Integer>();
-        
-        for(opportunity l : lstopp)
-        {
-            if(mapLeadSource.containsKey(l.stagename))
-            {
-                mapLeadSource.put(l.stagename, mapLeadSource.get(l.stagename)+1) ;
-            }else{
-                mapLeadSource.put(l.stagename, 1) ;        
-            }
-        }
-        system.debug('map values--'+mapLeadSource);
-        list<RadarDataWrapper> radarData = new list<RadarDataWrapper>();
-        
-        for(String key : mapLeadSource.keySet())
-        {            
-           RadarDataWrapper rdw = new RadarDataWrapper();
-            rdw.name=key;
-            rdw.y=mapLeadSource.get(key);
-            radarData.add(rdw);
-        }
-        system.debug('rdw---'+radarData);
-        return System.json.serialize(radarData);
-        //return null;
-    }
-    @AuraEnabled
+public class LeadChart {
+	@AuraEnabled
     public static String getLeadJSON(){
         
        List<lead> lstopp = [SELECT Id, 	Status FROM lead ];
@@ -71,5 +42,4 @@ public class LinechartController {
         public integer y;
         
     }
-
 }

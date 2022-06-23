@@ -23,7 +23,7 @@
                 if(state === "SUCCESS"){
                     //if successful stores query results in ActiveCampaigns
                     var data = response.getReturnValue();               
-                    component.set('v.UserList', data.memberList);
+                    component.set('v.MemberList', data.memberList);
                     component.set('v.PhaseList', data.phasesList);
                 }else if(state ==='ERROR'){            
                     var errors = response.getError();

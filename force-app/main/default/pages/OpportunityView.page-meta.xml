@@ -6,6 +6,26 @@
     <label>OpportunityView</label>
     <packageVersions>
         <majorNumber>1</majorNumber>
+        <minorNumber>3</minorNumber>
+        <namespace>Narola_PMA</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>RPTChart</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>160</minorNumber>
+        <namespace>agf</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>4</majorNumber>
+        <minorNumber>2</minorNumber>
+        <namespace>dfsle</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
         <minorNumber>6</minorNumber>
         <namespace>lwcc</namespace>
     </packageVersions>
