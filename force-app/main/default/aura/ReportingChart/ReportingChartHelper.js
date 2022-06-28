@@ -75,7 +75,7 @@
         
     },
     getReports:function(component,event,helper){
-        var chartTypeOption = ['Pie','Bar','Doughnut','Radar','Polar Area'];
+        var chartTypeOption = ['Pie','Bar','Doughnut','Polar Area'];
         var action=component.get("c.fetchReports");
         action.setCallback(this,function(response){
             var state=response.getState();

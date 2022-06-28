@@ -1,7 +1,9 @@
 <aura:component controller="ReportingChartCntrl" implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" >
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <!-- load chart js library from static resource-->
-    <ltng:require scripts="/resource/Chart_Js/Chart.js-2.1.6/dist/Chart.bundle.js" />
+    <ltng:require scripts="/resource/c3/c3-0.7.20/c3.min.js" />
+    <ltng:require scripts="/resource/c3/c3-0.7.20/c3.min.css" />
+    <ltng:require scripts="/resource/d3/d3.min.js" />
     <aura:attribute name="reports" type="list"/>
     <aura:attribute name="chartObj" type="object" access="public"/>
     <aura:attribute name="isChartReady" type="Boolean" default="false"/>
@@ -25,7 +27,7 @@
             </aura:if>
             <div class="slds-page-header">
                 <lightning:icon iconName="utility:chart" alternativeText="Chart" size="small"/>
-                &nbsp;&nbsp;<b>MY CHART.JS</b>
+                &nbsp;&nbsp;<b>Report</b>
             </div>
             <div class="slds-grid">
                 <div class="slds-col slds-size--4-of-12 d1">
@@ -34,9 +36,9 @@
                             <option text="{!level.label}" value="{!level.value}" selected="{!level.selected}"/>
                         </aura:iteration>
                     </lightning:select>
-                    
+                   
                 </div>&nbsp;&nbsp;
-                <div class="slds-col slds-size--4-of-12">
+                <div class="slds-col slds-size--4-of-12" style='margin: auto,width: 50%;'>
                     <lightning:select aura:id="type" onchange="{!c.onSelectChartTypeChange}" class="select" label="Select Chart Type">
                         <aura:iteration items="{!v.chartType}" var="type">
                             <option text="{!type.label}" value="{!type.value}" selected="{!type.selected}"/>

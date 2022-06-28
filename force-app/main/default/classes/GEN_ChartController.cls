@@ -11,6 +11,41 @@ public class GEN_ChartController {
             
             
     }
+    @AuraEnabled(cacheable=true)
+    public static List<AggregateResult> getOpportunities1(){
+        return [SELECT COUNT(StageName) stage FROM Opportunity WHERE StageName='Lead detection & qualification'];
+        
+            
+            
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<AggregateResult> getOpportunities2(){
+        return [SELECT COUNT(StageName) stage FROM Opportunity WHERE StageName='Value proposition'];
+        
+            
+            
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<AggregateResult> getOpportunities3(){
+        return [SELECT COUNT(StageName) stage FROM Opportunity WHERE StageName='Business proposition'];
+        
+            
+            
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<AggregateResult> getOpportunities4(){
+        return [SELECT COUNT(StageName) stage FROM Opportunity WHERE StageName='Negotiation'];
+        
+            
+            
+    }
+    @AuraEnabled(cacheable=true)
+    public static List<AggregateResult> getOpportunities5(){
+        return [SELECT COUNT(StageName) stage FROM Opportunity WHERE StageName='Contract Signature'];
+        
+            
+            
+    }
     @AuraEnabled( cacheable = true )
     public static Integer getOpportunitiesNumber() {
         return [
