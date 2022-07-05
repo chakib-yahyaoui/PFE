@@ -57,6 +57,12 @@ public class departmentListViewHelper {
             WITH SECURITY_ENFORCED
             ] ;
     }
+    @AuraEnabled(cacheable=true)
+    public static List<Department__c> getDepartmentsByName(String searchKey){
+        String key = '%' + searchKey + '%';
+        return [SELECT  Name, Description__c,	Manager__c,Date_de_cr_ation__c,Date_de_modification__c
+                FROM Department__c  where Name LIKE :key  WITH SECURITY_ENFORCED   ORDER BY Name];
+    }
     
 
 }

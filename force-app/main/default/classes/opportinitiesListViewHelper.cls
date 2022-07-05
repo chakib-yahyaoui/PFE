@@ -21,4 +21,11 @@ public class opportinitiesListViewHelper {
             delete [SELECT Id FROM Opportunity WHERE Id in: opportunityIds];
         }
     }
+    @AuraEnabled(cacheable=true)
+    public static List<Opportunity> getOpportunitiesByName(String searchKey){
+        String key = '%' + searchKey + '%';
+        return [SELECT  Name, accountId,
+                account.name, Amount,CloseDate,StageName,Type
+                FROM Opportunity  where Name LIKE :key  WITH SECURITY_ENFORCED   ORDER BY Name];
+    }
 }

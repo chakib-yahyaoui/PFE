@@ -89,8 +89,7 @@
                     <lightning:icon iconName="utility:success" size="xx-small" alternativeText="Complete Task" title="Complete" class="slds-m-left--xx-small"/>
                     <span style="border-right:1px solid rgb(22, 50, 92)" > Completed </span>
                     
-                    <lightning:icon iconName="utility:approval" size="xx-small" alternativeText="Approved Task" title="Approved" class="slds-m-left--xx-small"/>
-                    <span style="border-right:1px solid rgb(22, 50, 92)" > Approved </span>
+                    
                     
                     <lightning:icon iconName="utility:warning" size="xx-small" alternativeText="Late Task" title="Late" class="slds-m-left--xx-small"/>
                     <span  > Late </span>

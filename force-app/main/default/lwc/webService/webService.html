@@ -1,0 +1,95 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-page-header">
+            <div class="slds-page-header__row">
+                <div class="slds-page-header__col-title">
+                    <div class="slds-media">
+                        <div class="slds-media__figure">
+                            <span >
+                                 <lightning-icon icon-name="doctype:gdoc"></lightning-icon>
+                            </span>
+                        </div>
+                        <div class="slds-media__body">
+                            <div class="slds-page-header__name">
+                                <div class="slds-page-header__name-title">
+                                    <h1>
+                                        <span>Web Service List</span>
+                                        <span class="slds-page-header__title slds-truncate" title="Recently Viewed">Web Service</span><br>
+                                        
+                                        
+                                    </h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-no-flex">
+                           
+                            <lightning-button style="margin:2px;" variant="neutral" label="Refresh" icon-name="utility:refresh" onclick={refresh}></lightning-button>
+                            <lightning-input class="slds-m-bottom_small"  type="search" onchange={handleKeyChange}  value={searchkey} placeholder="Search by web service name">
+                            </lightning-input>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        
+   
+    
+        
+        
+        
+        
+    <div class="slds-card__body_inner" > 
+            
+                <lightning-datatable 
+              
+                key-field="Id" 
+                data={allwebServiceData} 
+                columns={columns} 
+                onrowaction={handleclick} hide-checkbox-column
+                default-sort-direction={defaultSortDirection}
+                sorted-direction={sortDirection}
+                sorted-by={sortedBy}
+                onsort={onHandleSort}>
+
+                </lightning-datatable>
+                </div>
+           
+           <lightning-layout horizontal-align="space">
+            <lightning-layout-item flexibility="auto">
+                <lightning-button 
+                    label="Previous" 
+                    icon-name="utility:chevronleft" 
+                    onclick={previousHandler}>
+                </lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                Page {page} of {totalPage}
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto">
+                <lightning-button 
+                    label="Next" 
+                    icon-name="utility:chevronright" 
+                    icon-position="right"
+                    onclick={nextHandler}>
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+           
+           </br>
+
+            
+     
+    
+    
+
+
+      <!--***************Modal New***************-->
+      
+
+
+
+<!--/////test-->
+</template>
