@@ -1,4 +1,4 @@
-import { LightningElement, wire,api } from 'lwc';
+import { LightningElement, wire,api,track } from 'lwc';
 
 import getOpportunities from "@salesforce/apex/opportinitiesListViewHelper.getOpportunities"
 import searchOpportunity from "@salesforce/apex/opportinitiesListViewHelper.searchOpportunity"
@@ -21,6 +21,7 @@ const COLS = [{label: 'Name', fieldName: 'link', type: 'url',sortable: true, typ
 ]
 
 export default class OpportunitiesListView extends NavigationMixin(LightningElement) {
+    
     cols = COLS;
     opportunities;
     wiredOpportunities;
@@ -29,6 +30,31 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
     opportunityList = [];
     defaultSortDirection = 'asc';
     @api sortedBy ;
+    webServiceInfo;
+    @api objectApiName; 
+    @track page = 1;
+    @track error; 
+    @track startingRecord = 1;
+    @track endingRecord = 0; 
+    @track pageSize = 15; 
+    @track totalRecountCount = 0;
+    @track items = []; 
+    
+    @track value;
+    @track wiredDataResult;
+    @api sortedDirection = 'asc';
+    @api searchKey = '';
+    @api recordId;
+    @track recordId ; 
+    @track data;
+    @track COLS = COLS;
+    @track opportunities;
+    @track totalPage = 0;
+    hello= true;
+    result;
+    loading;
+    defaultSortDirection = 'asc';
+    @api WebServiceIdDet;
 
 	navigateToVisualForcePage(event){
         this[NavigationMixin.Navigate]({
@@ -67,7 +93,47 @@ export default class OpportunitiesListView extends NavigationMixin(LightningElem
         refreshApex(this.wiredOpportunities);
       }
 
-	
+      previousHandler() {
+        this.isPageChanged = true;
+        if (this.page > 1) {
+            this.page = this.page - 1; //decrease page by 1
+            this.displayRecordPerPage(this.page);
+        }
+          var selectedIds = [];
+          for(var i=0; i<this.allSelectedRows.length;i++){
+            selectedIds.push(this.allSelectedRows[i].Id);
+          }
+        this.template.querySelector(
+            '[data-id="table"]'
+          ).selectedRows = selectedIds;
+    }
+    //clicking on next button this method will be called
+    nextHandler() {
+        this.isPageChanged = true;
+        if((this.page<this.totalPage) && this.page !== this.totalPage){
+            this.page = this.page + 1; //increase page by 1
+            this.displayRecordPerPage(this.page);            
+        }
+          var selectedIds = [];
+          for(var i=0; i<this.allSelectedRows.length;i++){
+            selectedIds.push(this.allSelectedRows[i].Id);
+          }
+        this.template.querySelector(
+            '[data-id="table"]'
+          ).selectedRows = selectedIds;
+    }
+        //this method displays records page by page
+displayRecordPerPage(page){
+
+    this.startingRecord = ((page -1) * this.pageSize) ;
+    this.endingRecord = (this.pageSize * page);
+
+    this.endingRecord = (this.endingRecord > this.totalRecountCount) 
+                        ? this.totalRecountCount : this.endingRecord; 
+
+    this.opportunities = this.items.slice(this.startingRecord, this.endingRecord);
+    this.startingRecord = this.startingRecord + 1;
+}
 
     get selectedOpportunitiesLen() {
         if(this.selectedOpportunities == undefined) return 0;
