@@ -157,17 +157,7 @@ export default class ProjectListView extends  NavigationMixin (LightningElement)
         this.selectedProjects = event.detail.selectedRows;
     }
 
-    async handleSearch(event){
-        if(event.target.value == ""){
-            this.projects = this.baseData
-        }else if(event.target.value.length > 1){
-            const searchProjects = await searchProject({searchString: event.target.value})
-
-            this.projects = searchProjects.map(row => {
-                return this.mapProjects(row);
-            })
-        }
-    }
+    
     navigateToNewRecordPage() {
 
         this[NavigationMixin.Navigate]({
