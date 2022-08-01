@@ -4,6 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import fetchPhases from '@salesforce/apex/PhaseController.fetchPhases';
 import dmlOnPhases from '@salesforce/apex/PhaseController.dmlOnPhases';
 import { refreshApex } from '@salesforce/apex';
+import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 
 export default class ProjectPhaseTable extends LightningElement {
     @api recordId;
@@ -12,6 +13,15 @@ export default class ProjectPhaseTable extends LightningElement {
     wiredRecords;
     error;
     @track deletePhaseIds = '';
+    @wire(getObjectInfo, { objectApiName: phaseObject })
+    phaseInfo;
+    @wire(getPicklistValues,
+        {
+            recordTypeId: '$phaseInfo.data.defaultRecordTypeId',
+            fieldApiName: Phase_Health__c
+        }
+    )
+    typeValues;
  
     //to close quick action
     closeAction(){
