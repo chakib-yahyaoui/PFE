@@ -1,17 +1,17 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CloseActionScreenEvent } from 'lightning/actions';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
-import fetchProjects from '@salesforce/apex/DepartmentController.fetchProjects';
-import dmlOnProjects from '@salesforce/apex/DepartmentController.dmlOnProjects';
+import fetchPhases from '@salesforce/apex/PhaseController.fetchPhases';
+import dmlOnPhases from '@salesforce/apex/PhaseController.dmlOnPhases';
 import { refreshApex } from '@salesforce/apex';
 
-export default class DepartmentProjectTable extends LightningElement {
+export default class ProjectPhaseTable extends LightningElement {
     @api recordId;
     @track isLoading = true;
     @track records;
     wiredRecords;
     error;
-    @track deleteProjectIds = '';
+    @track deletePhaseIds = '';
  
     //to close quick action
     closeAction(){
@@ -21,7 +21,7 @@ export default class DepartmentProjectTable extends LightningElement {
     //to add row
     addRow() {
         let randomId = Math.random() * 16;
-        let myNewElement = {Name: "",Specifications__c: "",Date_begin__c:"",Date_end__c:"", Department__c: this.recordId};
+        let myNewElement = {Name: "",Phase_Health__c: "",Phase_Description__c:"", Project__c: this.recordId};
         this.records = [...this.records, myNewElement];
     }
  
@@ -39,15 +39,13 @@ export default class DepartmentProjectTable extends LightningElement {
         var foundelement = this.records.find(ele => ele.Id == event.target.dataset.id);
         if(event.target.name === 'Name'){
             foundelement.Name = event.target.value;
-        } else if(event.target.name === 'Specifications__c'){
-            foundelement.Specifications__c = event.target.value;
+        } else if(event.target.name === 'Phase_Health__c'){
+            foundelement.Phase_Health__c = event.target.value;
         } 
-        else if(event.target.name === 'Date_begin__c'){
-            foundelement.Date_begin__c = event.target.value;
+        else if(event.target.name === 'Phase_Description__c'){
+            foundelement.Phase_Description__c = event.target.value;
         }
-        else if(event.target.name === 'Date_end__c'){
-            foundelement.Date_end__c = event.target.value;
-        }
+        
          
     }
  
@@ -55,8 +53,8 @@ export default class DepartmentProjectTable extends LightningElement {
     handleSaveAction(){
         this.handleIsLoading(true);
  
-        if(this.deleteProjectIds !== ''){
-            this.deleteProjectIds = this.deleteProjectIds.substring(1);
+        if(this.deletePhaseIds !== ''){
+            this.deletePhaseIds = this.deletePhaseIds.substring(1);
         }
  
         this.records.forEach(res =>{
@@ -65,7 +63,7 @@ export default class DepartmentProjectTable extends LightningElement {
             }
         });
          
-        dmlOnProjects({data: this.records, removeProjectIds : this.deleteProjectIds})
+        dmlOnPhases({data: this.records, removePhaseIds : this.deletePhaseIds})
         .then( result => {
             this.handleIsLoading(false);
             refreshApex(this.wiredRecords);
@@ -82,14 +80,14 @@ export default class DepartmentProjectTable extends LightningElement {
     //remove records from table
     handleDeleteAction(event){
         if(isNaN(event.target.dataset.id)){
-            this.deleteProjectIds = this.deleteProjectIds + ',' + event.target.dataset.id;
+            this.deletePhaseIds = this.deletePhaseIds + ',' + event.target.dataset.id;
         }
         this.records.splice(this.records.findIndex(row => row.Id === event.target.dataset.id), 1);
     }
  
     //fetch account contact records
-    @wire(fetchProjects, {recordId : '$recordId'})  
-    wiredProject(result) {
+    @wire(fetchPhases, {recordId : '$recordId'})  
+    wiredPhase(result) {
         this.wiredRecords = result; // track the provisioned value
         const { data, error } = result;
  
