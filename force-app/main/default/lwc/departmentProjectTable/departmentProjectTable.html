@@ -38,6 +38,9 @@
                                      <td data-label="Close Date">
                                         <lightning-input type="text" class="fields" variant="label-hidden" label="Description" name="Phase_Description__c" value={obj.Phase_Description__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                      </td>
+                                     <td data-label="Prospecting">
+                                        <lightning-button-icon icon-name="action:delete"  alternative-text="Delete" title="Delete" data-id={obj.Id} onclick={handleDeleteAction}></lightning-button-icon>
+                                    </td>
                                      
                                 </tr>
                             </template>
