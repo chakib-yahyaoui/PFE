@@ -6,6 +6,7 @@ import dmlOnPhases from '@salesforce/apex/PhaseController.dmlOnPhases';
 import { refreshApex } from '@salesforce/apex';
 import { getPicklistValues } from 'lightning/uiObjectInfoApi';
 
+
 export default class ProjectPhaseTable extends LightningElement {
     @api recordId;
     @track isLoading = true;
@@ -13,8 +14,7 @@ export default class ProjectPhaseTable extends LightningElement {
     wiredRecords;
     error;
     @track deletePhaseIds = '';
-    @wire(getObjectInfo, { objectApiName: phaseObject })
-    phaseInfo;
+    
     @wire(getPicklistValues,
         {
             recordTypeId: '$phaseInfo.data.defaultRecordTypeId',

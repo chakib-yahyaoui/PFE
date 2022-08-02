@@ -32,7 +32,7 @@
                                         <lightning-input type="text" class="fields" variant="label-hidden" label="Name" name="Name" value={obj.Name} data-id={obj.Id} onchange={updateValues}></lightning-input>
                                     </th>
                                     <td data-label="Account Name">
-                                        <lightning-input  class="fields" variant="label-hidden" label="Phase Health" name="Phase_Health__c" value={obj.Phase_Health__c} data-id={obj.Id} onchange={updateValues}></lightning-input>
+                                        <lightning-combobox  class="fields" variant="label-hidden" label="Phase Health" name="Phase_Health__c" value={obj.Phase_Health__c} options={typeValues.data.values}  data-id={obj.Id} onchange={updateValues}></lightning-combobox>
                                     </td>
                                 
                                      <td data-label="Close Date">

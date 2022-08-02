@@ -26,7 +26,7 @@ const columns = [
     {
         label: 'Event Date',
         fieldName: 'EventDate__c',
-        type: 'date'
+        type: 'datetime'
         
     },
     {
@@ -153,7 +153,7 @@ export default class WebService extends NavigationMixin(LightningElement) {
         this.allwebServiceData = this.items.slice(this.startingRecord, this.endingRecord);
         this.startingRecord = this.startingRecord + 1;
     } 
-    @track recordId ; 
+   
 
      // ************************* CLICKS ON ACTION ICONS ************************************
 
